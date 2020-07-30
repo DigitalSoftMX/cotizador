@@ -1,0 +1,2 @@
+[18-Apr-2020 15:17:04 UTC] PHP Fatal error:  Interface 'Illuminate\Contracts\Validation\Rule' not found in /home/lealtaddigitalso/public_html/cotizadorimpulsa/app/Rules/CurrentPasswordCheckRule.php on line 8
+[20-Apr-2020 19:00:29 UTC] PHP Fatal error:  Interface 'Illuminate\Contracts\Validation\Rule' not found in /home/lealtaddigitalso/public_html/cotizadorimpulsa/app/Rules/CurrentPasswordCheckRule.php on line 8

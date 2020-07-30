@@ -1,0 +1,10 @@
+[19-Apr-2020 00:43:13 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Console\Presets\Preset' not found in /home/lealtaddigitalso/public_html/cotizadorimpulsa/presets/material/src/MaterialPreset.php on line 8
+[19-Apr-2020 00:43:14 UTC] PHP Fatal error:  Class 'Illuminate\Support\ServiceProvider' not found in /home/lealtaddigitalso/public_html/cotizadorimpulsa/presets/material/src/MaterialPresetServiceProvider.php on line 8
+[20-Apr-2020 22:41:18 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Console\Presets\Preset' not found in /home/lealtaddigitalso/public_html/cotizadorimpulsa/presets/material/src/MaterialPreset.php on line 8
+[20-Apr-2020 22:41:26 UTC] PHP Fatal error:  Class 'Illuminate\Support\ServiceProvider' not found in /home/lealtaddigitalso/public_html/cotizadorimpulsa/presets/material/src/MaterialPresetServiceProvider.php on line 8
+[21-Apr-2020 02:08:01 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Console\Presets\Preset' not found in /home/lealtaddigitalso/public_html/cotizadorimpulsa/presets/material/src/MaterialPreset.php on line 8
+[21-Apr-2020 02:08:11 UTC] PHP Fatal error:  Class 'Illuminate\Support\ServiceProvider' not found in /home/lealtaddigitalso/public_html/cotizadorimpulsa/presets/material/src/MaterialPresetServiceProvider.php on line 8
+[21-Apr-2020 02:47:13 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Console\Presets\Preset' not found in /home/lealtaddigitalso/public_html/cotizadorimpulsa/presets/material/src/MaterialPreset.php on line 8
+[21-Apr-2020 02:47:32 UTC] PHP Fatal error:  Class 'Illuminate\Support\ServiceProvider' not found in /home/lealtaddigitalso/public_html/cotizadorimpulsa/presets/material/src/MaterialPresetServiceProvider.php on line 8
+[21-Apr-2020 03:54:09 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Console\Presets\Preset' not found in /home/lealtaddigitalso/public_html/cotizadorimpulsa/presets/material/src/MaterialPreset.php on line 8
+[21-Apr-2020 03:54:22 UTC] PHP Fatal error:  Class 'Illuminate\Support\ServiceProvider' not found in /home/lealtaddigitalso/public_html/cotizadorimpulsa/presets/material/src/MaterialPresetServiceProvider.php on line 8

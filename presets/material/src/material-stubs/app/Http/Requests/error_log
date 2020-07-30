@@ -1,0 +1,4 @@
+[21-Apr-2020 11:27:50 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Http\FormRequest' not found in /home/lealtaddigitalso/public_html/cotizadorimpulsa/presets/material/src/material-stubs/app/Http/Requests/PasswordRequest.php on line 8
+[21-Apr-2020 13:47:44 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Http\FormRequest' not found in /home/lealtaddigitalso/public_html/cotizadorimpulsa/presets/material/src/material-stubs/app/Http/Requests/PasswordRequest.php on line 8
+[21-Apr-2020 13:48:57 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Http\FormRequest' not found in /home/lealtaddigitalso/public_html/cotizadorimpulsa/presets/material/src/material-stubs/app/Http/Requests/ProfileRequest.php on line 9
+[21-Apr-2020 13:50:42 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Http\FormRequest' not found in /home/lealtaddigitalso/public_html/cotizadorimpulsa/presets/material/src/material-stubs/app/Http/Requests/UserRequest.php on line 9

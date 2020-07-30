@@ -1,0 +1,5 @@
+[18-Apr-2020 13:54:56 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Testing\TestCase' not found in /home/lealtaddigitalso/public_html/cotizadorimpulsa/tests/TestCase.php on line 7
+[19-Apr-2020 02:24:07 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Testing\TestCase' not found in /home/lealtaddigitalso/public_html/cotizadorimpulsa/tests/TestCase.php on line 7
+[19-Apr-2020 05:28:53 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Testing\TestCase' not found in /home/lealtaddigitalso/public_html/cotizadorimpulsa/tests/TestCase.php on line 7
+[19-Apr-2020 05:32:02 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Testing\TestCase' not found in /home/lealtaddigitalso/public_html/cotizadorimpulsa/tests/TestCase.php on line 7
+[19-Apr-2020 05:32:36 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Testing\TestCase' not found in /home/lealtaddigitalso/public_html/cotizadorimpulsa/tests/TestCase.php on line 7

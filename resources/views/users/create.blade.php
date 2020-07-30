@@ -1,0 +1,106 @@
+@extends('layouts.app', ['activePage' => 'Usuarios', 'titlePage' => __('Gestión de usuarios')])
+
+@section('content')
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <form method="post" action="{{ route('user.store') }}" autocomplete="off" class="form-horizontal">
+            @csrf
+            @method('post')
+
+            <div class="card ">
+              <div class="card-header card-header-primary">
+                <h4 class="card-title">{{ __('Agregar usuario') }}</h4>
+                <p class="card-category"></p>
+              </div>
+              <div class="card-body ">
+                <div class="row">
+                  <div class="col-md-12 text-right">
+                      <a href="{{ route('user.index') }}" class="btn btn-sm btn-primary">{{ __('Volver a la lista') }}</a>
+                  </div>
+                </div>
+                <div class="row">
+                  <label class="col-sm-2 col-form-label">{{ __('Nombre') }}</label>
+                  <div class="col-sm-7">
+                    <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
+                      <input class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" id="input-name" type="text" placeholder="{{ __('Nombre') }}" value="{{ old('name') }}" required="true" aria-required="true"/>
+                      @if ($errors->has('name'))
+                        <span id="name-error" class="error text-danger" for="input-name">{{ $errors->first('name') }}</span>
+                      @endif
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <label class="col-sm-2 col-form-label">{{ __('Apellido Paterno') }}</label>
+                  <div class="col-sm-7">
+                    <div class="form-group{{ $errors->has('app_name') ? ' has-danger' : '' }}">
+                      <input class="form-control{{ $errors->has('app_name') ? ' is-invalid' : '' }}" name="app_name" id="input-app_name" type="text" placeholder="{{ __('Apellido Paterno') }}" value="{{ old('app_name') }}" required="true" aria-required="true"/>
+                      @if ($errors->has('name'))
+                        <span id="name-error" class="error text-danger" for="input-app_name">{{ $errors->first('app_name') }}</span>
+                      @endif
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <label class="col-sm-2 col-form-label">{{ __('Apellido Materno') }}</label>
+                  <div class="col-sm-7">
+                    <div class="form-group{{ $errors->has('apm_name') ? ' has-danger' : '' }}">
+                      <input class="form-control{{ $errors->has('apm_name') ? ' is-invalid' : '' }}" name="apm_name" id="input-apm_name" type="text" placeholder="{{ __('Apellido Materno') }}" value="{{ old('apm_name') }}" required="true" aria-required="true"/>
+                      @if ($errors->has('apm_name'))
+                        <span id="name-error" class="error text-danger" for="input-apm_name">{{ $errors->first('apm_name') }}</span>
+                      @endif
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <label class="col-sm-2 col-form-label">{{ __('Email') }}</label>
+                  <div class="col-sm-7">
+                    <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
+                      <input class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" id="input-email" type="email" placeholder="{{ __('Email') }}" value="{{ old('email') }}" required />
+                      @if ($errors->has('email'))
+                        <span id="email-error" class="error text-danger" for="input-email">{{ $errors->first('email') }}</span>
+                      @endif
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <label class="col-sm-2 col-form-label" for="input-password">{{ __(' Contraseña') }}</label>
+                  <div class="col-sm-7">
+                    <div class="form-group{{ $errors->has('password') ? ' has-danger' : '' }}">
+                      <input class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" input type="password" name="password" id="input-password" placeholder="{{ __('Contraseña') }}" value="" required />
+                      @if ($errors->has('password'))
+                        <span id="name-error" class="error text-danger" for="input-name">{{ $errors->first('password') }}</span>
+                      @endif
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <label class="col-sm-2 col-form-label" for="input-password-confirmation">{{ __('Confirmar Contraseña') }}</label>
+                  <div class="col-sm-7">
+                    <div class="form-group">
+                      <input class="form-control" name="password_confirmation" id="input-password-confirmation" type="password" placeholder="{{ __('Confirmar Contraseña') }}" value="" required />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <label class="col-sm-2 col-form-label" for="input-password-confirmation">{{ __('Rol de usuario') }}</label>
+                  <div class="form-group{{ $errors->has('rol') ? ' has-danger' : '' }} col-md-2">
+                      <select id="input-rol" name="rol" class="custom-select custom-select-sm{{ $errors->has('rol') ? ' is-invalid' : '' }}">
+                       @foreach($roles as $rol)
+                        <option value="{{ $rol->id }}">{{ $rol->name }}</option>
+                       @endforeach
+                      </select>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer ml-auto mr-auto">
+                <button type="submit" class="btn btn-primary">{{ __('Agregar usuario') }}</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+@endsection

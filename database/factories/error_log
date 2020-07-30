@@ -1,0 +1,8 @@
+[19-Apr-2020 01:04:48 UTC] PHP Fatal error:  Uncaught Error: Call to a member function define() on null in /home/lealtaddigitalso/public_html/cotizadorimpulsa/database/factories/UserFactory.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/lealtaddigitalso/public_html/cotizadorimpulsa/database/factories/UserFactory.php on line 19
+[20-Apr-2020 19:06:14 UTC] PHP Fatal error:  Uncaught Error: Call to a member function define() on null in /home/lealtaddigitalso/public_html/cotizadorimpulsa/database/factories/UserFactory.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/lealtaddigitalso/public_html/cotizadorimpulsa/database/factories/UserFactory.php on line 19

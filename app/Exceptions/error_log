@@ -1,0 +1,2 @@
+[18-Apr-2020 23:53:02 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Exceptions\Handler' not found in /home/lealtaddigitalso/public_html/cotizadorimpulsa/app/Exceptions/Handler.php on line 8
+[20-Apr-2020 18:41:16 UTC] PHP Fatal error:  Class 'Illuminate\Foundation\Exceptions\Handler' not found in /home/lealtaddigitalso/public_html/cotizadorimpulsa/app/Exceptions/Handler.php on line 8

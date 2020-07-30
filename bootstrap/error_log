@@ -1,0 +1,20 @@
+[18-Apr-2020 16:45:51 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/lealtaddigitalso/public_html/cotizadorimpulsa/bootstrap/app.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/lealtaddigitalso/public_html/cotizadorimpulsa/bootstrap/app.php on line 14
+[19-Apr-2020 02:09:05 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/lealtaddigitalso/public_html/cotizadorimpulsa/bootstrap/app.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/lealtaddigitalso/public_html/cotizadorimpulsa/bootstrap/app.php on line 14
+[19-Apr-2020 03:20:07 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/lealtaddigitalso/public_html/cotizadorimpulsa/bootstrap/app.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/lealtaddigitalso/public_html/cotizadorimpulsa/bootstrap/app.php on line 14
+[19-Apr-2020 04:53:12 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/lealtaddigitalso/public_html/cotizadorimpulsa/bootstrap/app.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/lealtaddigitalso/public_html/cotizadorimpulsa/bootstrap/app.php on line 14
+[19-Apr-2020 06:35:27 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/lealtaddigitalso/public_html/cotizadorimpulsa/bootstrap/app.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/lealtaddigitalso/public_html/cotizadorimpulsa/bootstrap/app.php on line 14

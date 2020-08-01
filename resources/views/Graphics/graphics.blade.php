@@ -34,13 +34,13 @@
 
         ?>
         <div class="row text-center">
-         
-            @foreach($precios as $key => $value)  
+
+            @foreach($precios as $key => $value)
             <div class="col-3 mx-auto d-block">
                 <div class="card">
                   <div class="card-body">
                     <h6 class="card-title">Precio del día {{ $fechas[count($vector_precio_valero)-1] }} para {{ $key }}:</h6>
-                    <h5 class="card-title">$ 
+                    <h5 class="card-title">$
                         {{ $value }}
                     </h5>
                   </div>
@@ -48,7 +48,7 @@
             </div>
             @endforeach
         </div>
-        
+
     </div>
 </div>
 @push('js')
@@ -102,7 +102,7 @@
                         backgroundColor: ['rgb(255, 255, 255, 0)'],
                         borderColor: ['rgb(255, 207, 1)'],
                         borderWidth: 3
-                    } 
+                    }
                 ]
             },
             options: {
@@ -118,10 +118,10 @@
         };
 
         var myLineChart = new Chart(ctx, config);
-     
+
 
         $("#fecha").change(function() {
-            
+
             myLineChart.destroy();
             $.ajax({
                 url: 'fechas',
@@ -133,8 +133,8 @@
                   'combustible' : '{{ $gasolina }}',
                   'id_terminal' : '{{ $id_terminal }}',
                 },
-                headers:{ 
-                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') 
+                headers:{
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(response){
                     var datos =  response;
@@ -176,7 +176,7 @@
                                     backgroundColor: ['rgb(255, 255, 255, 0)'],
                                     borderColor: ['rgb(255, 207, 1)'],
                                     borderWidth: 3
-                                } 
+                                }
                             ]
                         },
                         options: {
@@ -193,7 +193,7 @@
 
                     console.log(datos.precios_pemex);
                     myLineChart = new Chart(ctx, config_fechas);
-                    
+
                 },
                 error: function(xhr){
                     alert("An error occured: " + xhr.status + " " + xhr.statusText);

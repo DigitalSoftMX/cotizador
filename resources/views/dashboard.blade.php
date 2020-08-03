@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <div class="container-fluid mt-3">
             <div class="row">
-                
+
                 <div class="card card-nav-tabs">
                     <div class="card-header card-header-primary">
                         <div class="row">
@@ -26,7 +26,7 @@
                     </div>
                     <div class="card-body">
                         <div class="row justify-content-center" id="content">
-                            
+
                             <div class="col col-lg-9 col-md-9 col-sm-12">
 
                                 <ul class="nav nav-pills nav-pills-primary mt-3 justify-content-center" role="tablist">
@@ -57,13 +57,13 @@
                                     <li class="nav-item">
                                         <a aria-expanded="false" class="nav-link" data-toggle="tab" href="#link5"
                                             role="tablist">
-                                            {{$terminales[4][0]}} 
+                                            {{$terminales[4][0]}}
                                         </a>
                                     </li>
                                      <li class="nav-item">
                                         <a aria-expanded="false" class="nav-link" data-toggle="tab" href="#link6"
                                             role="tablist">
-                                            {{$terminales[5][0]}} 
+                                            {{$terminales[5][0]}}
                                         </a>
                                     </li>
 
@@ -139,7 +139,7 @@
                                                     <span class="text-dark" aria-hidden="true">
                                                         <i class="material-icons" style="font-size: 50px;">keyboard_arrow_right</i>
                                                     </span>
-                                                    
+
                                                 </a>
                                             </div>
                                         </div>
@@ -165,14 +165,14 @@
                                                     <span class="text-dark" aria-hidden="true">
                                                         <i class="material-icons" style="font-size: 50px;">keyboard_arrow_right</i>
                                                     </span>
-                                                    
+
                                                 </a>
                                             </div>
                                         </div>
                                     </div>
                                     <div aria-expanded="false" class="tab-pane mt-3" id="link5">
                                         <div class="card">
-                                            
+
                                           <img class="card-img-bottom" src="{{ asset('material') }}/img/proximamente.png" rel="nofollow" alt="Card image cap">
                                         </div>
                                         {{-- @include('Graphics.graphics',['color'=>'bg-dark','terminal'=>$terminales[4][0],'gasolina'=>'Diésel','gasolinaP'=>'Diesel','fechas'=>$terminales[4][1],'vector_precio_valero'=>$terminales[4][10],'precio_pemex'=>$terminales[4][11],'precio_policon'=>$terminales[4][12], 'precio_impulsa'=>$terminales[4][13]])--}}

@@ -22,7 +22,7 @@ class HomeController extends Controller
     }
 
 
- 
+
     /** Actual month first day **/
     public function _data_first_month_day() {
       $month = date('m');
@@ -42,7 +42,7 @@ class HomeController extends Controller
         $month = date('m');
         $year = date('Y');
         $day = date("d", mktime(0,0,0, $month+1, 0, $year));
- 
+
         $ultimo_dia = date('Y-m-d', mktime(0,0,0, $month, $day, $year));
 
         $month1 = date('m');
@@ -51,11 +51,11 @@ class HomeController extends Controller
 
         $terminals = $terminal::all();
         $terminales = array();
-        
+
         foreach ($terminals as $terminal) {
             $datos = array();
             array_push($datos, $terminal->razon_social);
-            $fechas = array(); 
+            $fechas = array();
             $precios_valero_regular = array();
             $precios_valero_premium = array();
             $precios_valero_diesel = array();
@@ -80,7 +80,7 @@ class HomeController extends Controller
                     array_push($precios_valero_premium, ($valero->precio_premium - $terminal->fits[count($terminal->fits)-1]->premium_fit));
                     array_push($precios_valero_diesel, ($valero->precio_disel - $terminal->fits[count($terminal->fits)-1]->disel_fit));
                 }
-                
+
             }
 
 
@@ -120,8 +120,8 @@ class HomeController extends Controller
                 }
 
             }
-            
-            
+
+
             array_push($datos, $fechas, $precios_valero_regular, $precios_pemex_regular, $precios_policon_regular,$precios_impulsa_regular, $precios_valero_premium, $precios_pemex_premium,$precios_policon_premium, $precios_impulsa_premium,$precios_valero_diesel, $precios_pemex_diesel, $precios_policon_diesel,$precios_impulsa_diesel);
 
             array_push($terminales, $datos);
@@ -146,7 +146,7 @@ class HomeController extends Controller
         $precios_pemex = array();
         $precios_policon = array();
         $precios_impulsa = array();
-        
+
 
         $combustible = "";
 
@@ -164,7 +164,7 @@ class HomeController extends Controller
             } else  {
                 array_push($precios_valero, $valero->precio_disel - $terminal_uni->fits[count($terminal_uni->fits)-1]->regular_fit);
             }
-  
+
         }
 
         foreach ($terminal_uni->competitions as $competition) {
@@ -209,7 +209,7 @@ class HomeController extends Controller
             }
         }
 
-        
+
 
         $selecion = array(
             'fechas' => $fechas,
@@ -221,5 +221,5 @@ class HomeController extends Controller
         return json_encode($selecion);
     }
 
-    
+
 }

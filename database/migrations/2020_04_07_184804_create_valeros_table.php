@@ -19,6 +19,7 @@ class CreateValerosTable extends Migration
             $table->double('precio_regular', 12, 3)->nullable();
             $table->double('precio_premium', 12, 3)->nullable();
             $table->double('precio_disel', 12, 3)->nullable();
+            $table->double('costo_envio', 12, 3)->nullable();
             $table->timestamps();
 
              $table->foreign('terminal_id')->references('id')->on('terminals');

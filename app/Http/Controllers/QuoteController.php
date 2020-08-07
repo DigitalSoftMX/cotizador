@@ -10,7 +10,6 @@ use App\Discount;
 use App\Competition;
 use App\Price;
 use App\Valero;
-use App\PreciosEnvio;
 use DB;
 use Mail;
 
@@ -116,7 +115,7 @@ class QuoteController extends Controller
         return json_encode($selecion);
     }
 
-    public function flete(Request $request, PreciosEnvio $precios_envio)
+    public function flete(Request $request)
     {
         $request->user()->authorizeRoles(['Administrador','Invitado']);
         $rol_user = $request->user()->roles[0]->name;
@@ -125,8 +124,7 @@ class QuoteController extends Controller
             $display = "none";
         }
 
-        $costos_envio = $precios_envio::all();
-        return view('flete.index',['costos_envio' => $costos_envio, 'display' => $display]);
+        return view('flete.index',['display' => $display]);
     }
 
     /**

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-08-2020 a las 17:50:10
+-- Tiempo de generación: 08-08-2020 a las 01:25:27
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.2.32
 
@@ -644,7 +644,10 @@ INSERT INTO `login_acts` (`id`, `nombre`, `email`, `inicio`, `created_at`, `upda
 (345, 'Alejandro', 'alex.hdez@impulsaenergia.mx', '2020-08-05 05:32:30', NULL, NULL),
 (346, 'Alejandro', 'alex.hdez@impulsaenergia.mx', '2020-08-05 15:21:07', NULL, NULL),
 (347, 'Alejandro', 'alex.hdez@impulsaenergia.mx', '2020-08-05 21:30:51', NULL, NULL),
-(348, 'Andres', 'andrees0801@gmail.com', '2020-08-05 21:49:24', NULL, NULL);
+(348, 'Andres', 'andrees0801@gmail.com', '2020-08-05 21:49:24', NULL, NULL),
+(349, 'Alejandro', 'alex.hdez@impulsaenergia.mx', '2020-08-07 22:52:06', NULL, NULL),
+(350, 'Andres', 'andrees0801@gmail.com', '2020-08-07 22:56:45', NULL, NULL),
+(351, 'Alejandro', 'alex.hdez@impulsaenergia.mx', '2020-08-07 23:21:25', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -753,8 +756,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (516, '2020_06_01_015249_create_price_policons_table', 1),
 (517, '2020_06_01_025402_create_impulsas_table', 1),
 (518, '2020_06_01_030022_create_price_impulsas_table', 1),
-(519, '2020_06_09_163525_create_login_acts_table', 1),
-(521, '2020_08_03_142132_precios_envio', 2);
+(519, '2020_06_09_163525_create_login_acts_table', 1);
 
 -- --------------------------------------------------------
 
@@ -793,27 +795,6 @@ INSERT INTO `policons` (`id`, `nombre`, `terminal_id`, `created_at`, `updated_at
 (4, 'Policon', 4, '2020-06-01 13:05:49', '2020-06-01 13:05:49'),
 (5, 'Policon', 5, '2020-06-01 13:05:49', '2020-06-01 13:05:49'),
 (6, 'Policon', 6, '2020-06-17 19:28:10', '2020-06-17 19:28:10');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `precios_envios`
---
-
-CREATE TABLE `precios_envios` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `desgaste_unidad` double(12,3) DEFAULT NULL,
-  `costo_operador` double(12,3) DEFAULT NULL,
-  `consumo_diesel` double(12,3) DEFAULT NULL,
-  `seguro_unidad` double(12,3) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Volcado de datos para la tabla `precios_envios`
---
-
-INSERT INTO `precios_envios` (`id`, `desgaste_unidad`, `costo_operador`, `consumo_diesel`, `seguro_unidad`) VALUES
-(1, 1.980, 2.220, 11.690, 0.700);
 
 -- --------------------------------------------------------
 
@@ -1856,7 +1837,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `app_name`, `apm_name`, `username`, `password`, `sex`, `phone`, `direccion`, `email`, `active`, `remember_token`, `email_verified_at`, `created_at`, `updated_at`) VALUES
-(1, 'Alejandro', 'Hernandez', 'Lopez', 'Alex', '$2y$10$C9WGhr8euvRN/44P7USczeP5h1IOyD3WPPBC5ZFGGw.180rN8kWAq', 0, '2228130063', 'soledad #8', 'alex.hdez@impulsaenergia.mx', 1, 'k9pSoPIbjtEQXTrPwG8XNQEXT9aEYKISBZhKubDb9JTzGnMPxJlf6lXf5Ekk', '2020-06-01 13:05:45', '2020-06-01 13:05:45', '2020-06-25 04:30:39'),
+(1, 'Alejandro', 'Hernandez', 'Lopez', 'Alex', '$2y$10$C9WGhr8euvRN/44P7USczeP5h1IOyD3WPPBC5ZFGGw.180rN8kWAq', 0, '2228130063', 'soledad #8', 'alex.hdez@impulsaenergia.mx', 1, 'MBl4U4hp0TKr8k3obGHRxaxDbmV57aALkXyBLbnmqs7ZNlZRlOIKz4PdNT6t', '2020-06-01 13:05:45', '2020-06-01 13:05:45', '2020-06-25 04:30:39'),
 (3, 'Edurado', 'Coyotl', 'Vazquez', 'Lalo', '$2y$10$2EX95JD85KUF1mjchxv18.SOojjxVFnpV813S7jN9HWlAKklhDwjq', 0, '', 'soledad #8', 'l4l0_love@hotmail.com', 1, 's1PbeVaSQq5wkqSn1sYshpRRfQ9k3ZMbDUQphFWhUoBp03cgvr2vm9Muroml', '2020-06-01 13:05:46', '2020-06-01 13:05:46', '2020-06-25 05:23:46'),
 (5, 'Alex', 'Hdez', 'Lopez', NULL, '$2y$10$EEoGSx95cZM7xi335EZGq.OeFRTzNgFsxrCtI0g5AAYWF1/8V.ESW', NULL, NULL, NULL, 'alex.hdez@digitalsoft.mx', NULL, 'oD0fWiPV20Jk06vVHJ4UG7JxDE6lSqucyTIDmHpgoSC1iIjA1YQlBBtbECVp', NULL, '2020-04-30 13:00:19', '2020-06-19 01:45:49'),
 (6, 'Zuri', 'Contreras', 'Pérez', NULL, '$2y$10$FC2G7gUhyHXB0t1iWyPU9eJlby.lPQFtKzejIP6op.sZz9R1NrlzC', NULL, NULL, NULL, 'zuri@digitalsoft.mx', NULL, 'tYNf3rEsjjHLomwb9ykv9pS7e3XMIvCO0YXMsxjp70VyaFRtIg32YzkmvjEs', NULL, '2020-05-14 02:24:25', '2020-06-24 18:39:40'),
@@ -2340,12 +2321,6 @@ ALTER TABLE `policons`
   ADD KEY `policons_terminal_id_foreign` (`terminal_id`);
 
 --
--- Indices de la tabla `precios_envios`
---
-ALTER TABLE `precios_envios`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indices de la tabla `prices`
 --
 ALTER TABLE `prices`
@@ -2462,7 +2437,7 @@ ALTER TABLE `lives`
 -- AUTO_INCREMENT de la tabla `login_acts`
 --
 ALTER TABLE `login_acts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=349;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=352;
 
 --
 -- AUTO_INCREMENT de la tabla `menus`
@@ -2487,12 +2462,6 @@ ALTER TABLE `migrations`
 --
 ALTER TABLE `policons`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT de la tabla `precios_envios`
---
-ALTER TABLE `precios_envios`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `prices`

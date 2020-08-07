@@ -62,7 +62,7 @@
                                 <input class="form-control" type="text" id="distancia-recorrer" readonly>
                             </div>
                             <div class="form-group col-sm-8 pl-0">
-                                <label for="monto-total">{{ __('Monto total de traslado') }}</label>
+                                <label for="monto-total">{{ __('Monto total de traslado ($)') }}</label>
                                 <input class="form-control" type="text" id="monto-total" readonly>
                             </div>
                         </div>

@@ -168,6 +168,11 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('table_descount/store','DiscountController@store');
 });
 
+//rutas cotizador
+Route::group(['middleware' => 'auth'], function () {
+	Route::any('flete', 'QuoteController@flete');
+});
+
 
 //Route::get('estaciones', ['as' => 'estaciones.index', 'uses' => 'EstacionController@index']);
 //Route::group(['middleware' => 'auth'], function () {

@@ -16,6 +16,6 @@ class Valero extends Model
         return $this->hasManyThrough('App\Terminal');
     }
     protected $fillable = [
-        'id','terminal_id','precio_regular','precio_premium','precio_disel','costo_envio','created_at','updated_at',
+        'id','terminal_id','precio_regular','precio_premium','precio_disel','created_at','updated_at',
     ];
 }

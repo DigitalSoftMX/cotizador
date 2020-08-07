@@ -21,21 +21,15 @@ class QuoteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Discount $discount_model, Terminal $model, Fit $fit_model, Request $request, PreciosEnvio $precios_envio)
+    public function index(Discount $discount_model, Terminal $model, Fit $fit_model, Request $request)
     {
 
-        $request->user()->authorizeRoles(['Administrador','Invitado']);
+        $request->user()->authorizeRoles(['Administrador']);
         /*$terminal_seleciona = $request['terminal'];
         if ($terminal_seleciona == "") {
             $terminal_seleciona = "1";
         }*/
-        $rol_user = $request->user()->roles[0]->name;
-        if($rol_user != "Invitado")
-        {
-            $display = "block";
-        }else{
-            $display = "none";
-        }
+
         $competicions = Competition::where('terminal_id', '3')->get()->last();
         $precios_estaticos = $competicions->prices[count($competicions->prices) - 1];
 
@@ -81,10 +75,7 @@ class QuoteController extends Controller
 
         $fits = $fit_model::where('id', '3')->get()->last();
 
-        $costos_envio = $precios_envio::all();
-
-        return view('cotizador.index', ['terminals' => $terminals, 'fits' => $fits, 'regular' => $regular, 'premium' => $premium, 'disel' => $disel, 'regular_pemex' => $regular_p, 'premium_pemex' => $premium_p, 'diesel_pemex' => $disel_p, 'precios_puebla' => $precios_estaticos, 'costos_envio' => $costos_envio, "rol_user" => $rol_user,
-                    "display" => $display]);
+        return view('cotizador.index', ['terminals' => $terminals, 'fits' => $fits, 'regular' => $regular, 'premium' => $premium, 'disel' => $disel, 'regular_pemex' => $regular_p, 'premium_pemex' => $premium_p, 'diesel_pemex' => $disel_p, 'precios_puebla' => $precios_estaticos]);
     }
 
 
@@ -123,6 +114,19 @@ class QuoteController extends Controller
 
         $selecion = array('mensaje' => $mensaje,'color' => $color);
         return json_encode($selecion);
+    }
+
+    public function flete(Request $request, PreciosEnvio $precios_envio)
+    {
+        $request->user()->authorizeRoles(['Administrador','Invitado']);
+        $rol_user = $request->user()->roles[0]->name;
+        $display = "block";
+        if($rol_user == 'Invitado'){
+            $display = "none";
+        }
+
+        $costos_envio = $precios_envio::all();
+        return view('flete.index',['costos_envio' => $costos_envio, 'display' => $display]);
     }
 
     /**

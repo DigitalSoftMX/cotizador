@@ -23,8 +23,8 @@
                                         Cantidad
                                     </label>
                                     <select class="custom-select custom-select-sm" id="litros">
-                                        <option value="5000" selected>
-                                            {{ __('5,000 Lts') }}
+                                        <option value="4000" selected>
+                                            {{ __('4,000 Lts') }}
                                         </option>
                                         <option value="21000">
                                             {{ __('21,000 Lts') }}
@@ -53,15 +53,15 @@
                             <div id="map" style="margin-top: 0px; max-height: 310px;"></div>
                         </div>
                         <div class="col-lg-5">
-                            <div class="form-group col-sm-8 pl-0">
+                            <div class="form-group col-10 pl-0">
                                 <label for="costo-envio">{{ __('Costo por envio por litro ($) aproximado*') }}</label>
                                 <input class="form-control" type="text" id="costo-envio" readonly required>
                             </div>
-                            <div class="form-group col-sm-8 pl-0">
+                            <div class="form-group col-10 pl-0">
                                 <label for="distancia-recorrer">{{ __('Distancia total (km)') }}</label>
                                 <input class="form-control" type="text" id="distancia-recorrer" readonly>
                             </div>
-                            <div class="form-group col-sm-8 pl-0">
+                            <div class="form-group col-10 pl-0">
                                 <label for="monto-total">{{ __('Monto total de traslado ($)') }}</label>
                                 <input class="form-control" type="text" id="monto-total" readonly>
                             </div>
@@ -270,7 +270,6 @@
         document.getElementById("costo-envio").value = total_envio.toFixed(3);
         document.getElementById("monto-total").value = total_envio.toFixed(3) * litros;
     }
-
 
 
 </script>

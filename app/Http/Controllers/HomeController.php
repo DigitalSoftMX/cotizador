@@ -56,6 +56,11 @@ class HomeController extends Controller
             $datos = array();
             array_push($datos, $terminal->razon_social);
             $fechas = array();
+            $fechas1 = array();
+            $fechas2 = array();
+            $fechas3 = array();
+            $fechas4 = array();
+
             $precios_valero_regular = array();
             $precios_valero_premium = array();
             $precios_valero_diesel = array();
@@ -75,7 +80,7 @@ class HomeController extends Controller
             foreach ($terminal->valeros()->orderBy('created_at')->get() as $valero) {
                 if($valero->created_at >= $primer_dia)
                 {
-                    array_push($fechas, $valero->created_at->format('j - m'));
+                    array_push($fechas1, $valero->created_at->format('j - m'));
                     array_push($precios_valero_regular, ($valero->precio_regular - $terminal->fits[count($terminal->fits)-1]->regular_fit));
                     array_push($precios_valero_premium, ($valero->precio_premium - $terminal->fits[count($terminal->fits)-1]->premium_fit));
                     array_push($precios_valero_diesel, ($valero->precio_disel - $terminal->fits[count($terminal->fits)-1]->disel_fit));
@@ -88,7 +93,7 @@ class HomeController extends Controller
                 foreach ($competition->prices as $price) {
                     if($price->created_at >= $primer_dia)
                     {
-                        //echo($price->created_at).'<br>';
+                        array_push($fechas2, $price->created_at->format('j - m'));
                         array_push($precios_pemex_regular, $price->precio_regular);
                         array_push($precios_pemex_premium, $price->precio_premium);
                         array_push($precios_pemex_diesel, $price->precio_disel);
@@ -100,6 +105,7 @@ class HomeController extends Controller
                 foreach ($policons->price_policon()->orderBy('created_at')->get() as $price1) {
                     if($price1->created_at >= $primer_dia)
                     {
+                        array_push($fechas3, $price1->created_at->format('j - m'));
                         array_push($precios_policon_regular, $price1->precio_regular);
                         array_push($precios_policon_premium, $price1->precio_premium);
                         array_push($precios_policon_diesel, $price1->precio_disel);
@@ -113,6 +119,7 @@ class HomeController extends Controller
                 foreach ($impulsas->price_impulsa()->orderBy('created_at')->get() as $price2) {
                     if($price2->created_at >= $primer_dia)
                     {
+                        array_push($fechas4, $price2->created_at->format('j - m'));
                         array_push($precios_impulsa_regular, $price2->precio_regular);
                         array_push($precios_impulsa_premium, $price2->precio_premium);
                         array_push($precios_impulsa_diesel, $price2->precio_disel);
@@ -121,6 +128,57 @@ class HomeController extends Controller
 
             }
 
+            $contador1 = count($fechas1);
+            $contador2 = count($fechas2);
+            $contador3 = count($fechas3);
+            $contador4 = count($fechas4);
+
+            if ($contador1 >= $contador2 & $contador1 >= $contador3 & $contador1 >= $contador4) {
+                foreach ($terminal->valeros()->orderBy('created_at')->get() as $valero) {
+                    if($valero->created_at >= $primer_dia)
+                    {
+                        array_push($fechas, $valero->created_at->format('j - m'));
+                    }
+
+                }
+            }elseif ($contador2 >= $contador1 & $contador2 >= $contador3 & $contador2 >= $contador4) {
+                
+                foreach ($terminal->competitions()->orderBy('created_at')->get() as $competition) {
+                    foreach ($competition->prices as $price) {
+                        if($price->created_at >= $primer_dia)
+                        {
+                            array_push($fechas, $price->created_at->format('j - m'));
+                        }
+                    }
+                }
+
+            }elseif ($contador3 >= $contador1 & $contador3 >= $contador2 & $contador3 >= $contador4) {
+                
+                foreach ($terminal->policons()->orderBy('created_at')->get() as $policons) {
+                    foreach ($policons->price_policon()->orderBy('created_at')->get() as $price1) {
+                        if($price1->created_at >= $primer_dia)
+                        {
+                            array_push($fechas, $price1->created_at->format('j - m'));
+                        }
+
+                    }
+                }
+
+            }elseif ($contador4 >= $contador1 & $contador4 >= $contador2 & $contador4 >= $contador3) {
+                
+                foreach ($terminal->impulsas()->orderBy('created_at')->get() as $impulsas) {
+                    foreach ($impulsas->price_impulsa()->orderBy('created_at')->get() as $price2) {
+                        if($price2->created_at >= $primer_dia)
+                        {
+                            array_push($fechas, $price2->created_at->format('j - m'));
+                        }
+                    }
+
+                }
+
+            }else{
+                echo "Error no hay valores";
+            }
 
             array_push($datos, $fechas, $precios_valero_regular, $precios_pemex_regular, $precios_policon_regular,$precios_impulsa_regular, $precios_valero_premium, $precios_pemex_premium,$precios_policon_premium, $precios_impulsa_premium,$precios_valero_diesel, $precios_pemex_diesel, $precios_policon_diesel,$precios_impulsa_diesel);
 

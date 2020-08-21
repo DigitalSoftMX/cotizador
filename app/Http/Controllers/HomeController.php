@@ -7,7 +7,9 @@ use App\Competition;
 use App\Price;
 use App\Terminal;
 use App\Valero;
+use App\Hamse;
 use App\Menu;
+
 
 class HomeController extends Controller
 {
@@ -60,6 +62,9 @@ class HomeController extends Controller
             $fechas2 = array();
             $fechas3 = array();
             $fechas4 = array();
+            $fechas5 = array();
+            $fechas6 = array();
+            $fechas7 = array();
 
             $precios_valero_regular = array();
             $precios_valero_premium = array();
@@ -76,6 +81,22 @@ class HomeController extends Controller
             $precios_impulsa_regular = array();
             $precios_impulsa_premium = array();
             $precios_impulsa_diesel = array();
+
+            $precios_hamse_regular = array();
+            $precios_hamse_premium = array();
+            $precios_hamse_diesel = array();
+
+            $precios_hamse_regular = array();
+            $precios_hamse_premium = array();
+            $precios_hamse_diesel = array();
+
+            $precios_potesta_regular = array();
+            $precios_potesta_premium = array();
+            $precios_potesta_diesel = array();
+
+            $precios_energo_regular = array();
+            $precios_energo_premium = array();
+            $precios_energo_diesel = array();
 
             foreach ($terminal->valeros()->orderBy('created_at')->get() as $valero) {
                 if($valero->created_at >= $primer_dia)
@@ -128,12 +149,54 @@ class HomeController extends Controller
 
             }
 
+            foreach ($terminal->hamses()->orderBy('created_at')->get() as $hamses) {
+                foreach ($hamses->price_hamse()->orderBy('created_at')->get() as $price3) {
+                    if($price3->created_at >= $primer_dia)
+                    {
+                        array_push($fechas5, $price3->created_at->format('j - m'));
+                        array_push($precios_hamse_regular, $price3->precio_regular);
+                        array_push($precios_hamse_premium, $price3->precio_premium);
+                        array_push($precios_hamse_diesel, $price3->precio_disel);
+                    }
+                }
+
+            }
+
+            foreach ($terminal->potestas()->orderBy('created_at')->get() as $potestas) {
+                foreach ($potestas->price_potesta()->orderBy('created_at')->get() as $price4) {
+                    if($price4->created_at >= $primer_dia)
+                    {
+                        array_push($fechas6, $price4->created_at->format('j - m'));
+                        array_push($precios_potesta_regular, $price4->precio_regular);
+                        array_push($precios_potesta_premium, $price4->precio_premium);
+                        array_push($precios_potesta_diesel, $price4->precio_disel);
+                    }
+                }
+
+            }
+
+            foreach ($terminal->energos()->orderBy('created_at')->get() as $energos) {
+                foreach ($energos->price_energo()->orderBy('created_at')->get() as $price5) {
+                    if($price5->created_at >= $primer_dia)
+                    {
+                        array_push($fechas7, $price5->created_at->format('j - m'));
+                        array_push($precios_energo_regular, $price5->precio_regular);
+                        array_push($precios_energo_premium, $price5->precio_premium);
+                        array_push($precios_energo_diesel, $price5->precio_disel);
+                    }
+                }
+
+            }
+
             $contador1 = count($fechas1);
             $contador2 = count($fechas2);
             $contador3 = count($fechas3);
             $contador4 = count($fechas4);
+            $contador5 = count($fechas5);
+            $contador6 = count($fechas6);
+            $contador7 = count($fechas7);
 
-            if ($contador1 >= $contador2 & $contador1 >= $contador3 & $contador1 >= $contador4) {
+            if ($contador1 >= $contador2 & $contador1 >= $contador3 & $contador1 >= $contador4 & $contador1 >= $contador5 & $contador1 >= $contador6 & $contador1 >= $contador7) {
                 foreach ($terminal->valeros()->orderBy('created_at')->get() as $valero) {
                     if($valero->created_at >= $primer_dia)
                     {
@@ -141,7 +204,7 @@ class HomeController extends Controller
                     }
 
                 }
-            }elseif ($contador2 >= $contador1 & $contador2 >= $contador3 & $contador2 >= $contador4) {
+            }elseif ($contador2 >= $contador1 & $contador2 >= $contador3 & $contador2 >= $contador4 & $contador2 >= $contador5 & $contador2 >= $contador6 & $contador2 >= $contador7) {
                 
                 foreach ($terminal->competitions()->orderBy('created_at')->get() as $competition) {
                     foreach ($competition->prices as $price) {
@@ -164,7 +227,7 @@ class HomeController extends Controller
                     }
                 }
 
-            }elseif ($contador4 >= $contador1 & $contador4 >= $contador2 & $contador4 >= $contador3) {
+            }elseif ($contador4 >= $contador1 & $contador4 >= $contador2 & $contador4 >= $contador3 & $contador4 >= $contador5 & $contador4 >= $contador6 & $contador4 >= $contador7) {
                 
                 foreach ($terminal->impulsas()->orderBy('created_at')->get() as $impulsas) {
                     foreach ($impulsas->price_impulsa()->orderBy('created_at')->get() as $price2) {
@@ -176,11 +239,69 @@ class HomeController extends Controller
 
                 }
 
+            }elseif ($contador5 >= $contador1 & $contador5 >= $contador2 & $contador5 >= $contador3 & $contador5 >= $contador4 & $contador5 >= $contador6 & $contador5 >= $contador7) {
+                
+                foreach ($terminal->hamses()->orderBy('created_at')->get() as $hamses) {
+                    foreach ($hamses->price_impulsa()->orderBy('created_at')->get() as $price3) {
+                        if($price3->created_at >= $primer_dia)
+                        {
+                            array_push($fechas, $price3->created_at->format('j - m'));
+                        }
+                    }
+
+                }
+
+            }elseif ($contador6 >= $contador1 & $contador6 >= $contador2 & $contador6 >= $contador3 & $contador6 >= $contador4 & $contador6 >= $contador5 & $contador6 >= $contador7) {
+                
+                foreach ($terminal->potestas()->orderBy('created_at')->get() as $potestas) {
+                    foreach ($potestas->price_impulsa()->orderBy('created_at')->get() as $price4) {
+                        if($price3->created_at >= $primer_dia)
+                        {
+                            array_push($fechas, $price4->created_at->format('j - m'));
+                        }
+                    }
+
+                }
+
+            }elseif ($contador7 >= $contador1 & $contador7 >= $contador2 & $contador7 >= $contador3 & $contador7 >= $contador4 & $contador7 >= $contador5 & $contador7 >= $contador6) {
+                
+                foreach ($terminal->energos()->orderBy('created_at')->get() as $energos) {
+                    foreach ($energos->price_impulsa()->orderBy('created_at')->get() as $price5) {
+                        if($price3->created_at >= $primer_dia)
+                        {
+                            array_push($fechas, $price5->created_at->format('j - m'));
+                        }
+                    }
+
+                }
+
             }else{
                 echo "Error no hay valores";
             }
 
-            array_push($datos, $fechas, $precios_valero_regular, $precios_pemex_regular, $precios_policon_regular,$precios_impulsa_regular, $precios_valero_premium, $precios_pemex_premium,$precios_policon_premium, $precios_impulsa_premium,$precios_valero_diesel, $precios_pemex_diesel, $precios_policon_diesel,$precios_impulsa_diesel);
+            array_push($datos, $fechas, 
+                $precios_valero_regular, 
+                $precios_pemex_regular, 
+                $precios_policon_regular,
+                $precios_impulsa_regular, 
+                $precios_hamse_regular,
+                $precios_potesta_regular,
+                $precios_energo_regular, 
+                $precios_valero_premium, 
+                $precios_pemex_premium, 
+                $precios_policon_premium,
+                $precios_impulsa_premium, 
+                $precios_hamse_premium, 
+                $precios_potesta_premium,
+                $precios_energo_premium,
+                $precios_valero_diesel, 
+                $precios_pemex_diesel, 
+                $precios_policon_diesel, 
+                $precios_impulsa_diesel, 
+                $precios_hamse_diesel,
+                $precios_potesta_diesel,
+                $precios_energo_diesel
+            );
 
             array_push($terminales, $datos);
         }
@@ -204,6 +325,9 @@ class HomeController extends Controller
         $precios_pemex = array();
         $precios_policon = array();
         $precios_impulsa = array();
+        $precios_hamse = array();
+        $precios_potesta = array();
+        $precios_energo = array();
 
 
         $combustible = "";
@@ -267,6 +391,34 @@ class HomeController extends Controller
             }
         }
 
+        foreach ($terminal_uni->hamses as $hamses) {
+            foreach ($hamses->price_hamse()->where('created_at','LIKE','%'.$fech.'%')->orderBy('created_at')->get() as $price_ham) {
+                if($request->combustible == 'Regular'){
+                    array_push($precios_hamse, $price_ham->precio_regular);
+
+                } elseif ($request->combustible == 'Supreme 93') {
+                    array_push($precios_hamse, $price_ham->precio_premium);
+
+                } else  {
+                    array_push($precios_hamse, $price_ham->precio_disel);
+                }
+            }
+        }
+
+        foreach ($terminal_uni->potestas as $potestas) {
+            foreach ($potestas->price_potesta()->where('created_at','LIKE','%'.$fech.'%')->orderBy('created_at')->get() as $price_impu) {
+                if($request->combustible == 'Regular'){
+                    array_push($precios_potesta, $price_impu->precio_regular);
+
+                } elseif ($request->combustible == 'Supreme 93') {
+                    array_push($precios_potesta, $price_impu->precio_premium);
+
+                } else  {
+                    array_push($precios_potesta, $price_impu->precio_disel);
+                }
+            }
+        }
+
 
 
         $selecion = array(
@@ -274,7 +426,10 @@ class HomeController extends Controller
             'precios_valero' => $precios_valero,
             'precios_pemex' =>$precios_pemex,
             'precios_policon' => $precios_policon,
-            'precios_impulsa' => $precios_impulsa
+            'precios_impulsa' => $precios_impulsa,
+            'precios_hamse' => $precios_hamse,
+            'precios_potesta' => $precios_potesta,
+            'precios_energo' => $precios_energo
         );
         return json_encode($selecion);
     }

@@ -121,6 +121,42 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('impulsa/calendario_edit_impulsa', 'ImpulsaController@calendario_edit_impulsa');
 });
 
+// rutas de hamse
+Route::group(['middleware' => 'auth'], function () {
+	Route::resource('hamse','HamseController');
+	Route::post('hamse/create','HamseController@create');
+	Route::get('hamse/edit/{id}','HamseController@edit')->name('hamse.edit');
+	Route::post('hamse/update/{id}','HamseController@update')->name('hamse.update');
+	Route::post('hamse/store','HamseController@store');
+	Route::post('hamse/edit', 'HamseController@edit');
+	Route::post('hamse/hamse_selec', 'HamseController@hamse_selec');
+	Route::post('hamse/calendario_edit_hamse', 'HamseController@calendario_edit_hamse');
+});
+
+// rutas de potesta
+Route::group(['middleware' => 'auth'], function () {
+	Route::resource('potesta','PotestaController');
+	Route::post('potesta/create','PotestaController@create');
+	Route::get('potesta/edit/{id}','PotestaController@edit')->name('potesta.edit');
+	Route::post('potesta/update/{id}','PotestaController@update')->name('potesta.update');
+	Route::post('potesta/store','PotestaController@store');
+	Route::post('potesta/edit', 'PotestaController@edit');
+	Route::post('potesta/potesta_selec', 'PotestaController@potesta_selec');
+	Route::post('potesta/calendario_edit_potesta', 'PotestaController@calendario_edit_potesta');
+});
+
+// rutas de energo
+Route::group(['middleware' => 'auth'], function () {
+	Route::resource('energo','EnergoController');
+	Route::post('energo/create','EnergoController@create');
+	Route::get('energo/edit/{id}','EnergoController@edit')->name('energo.edit');
+	Route::post('energo/update/{id}','EnergoController@update')->name('energo.update');
+	Route::post('energo/store','EnergoController@store');
+	Route::post('energo/edit', 'EnergoController@edit');
+	Route::post('energo/energo_selec', 'EnergoController@energo_selec');
+	Route::post('energo/calendario_edit_energo', 'EnergoController@calendario_edit_energo');
+});
+
 
 // rutas de estaciones
 Route::group(['middleware' => 'auth'], function () {

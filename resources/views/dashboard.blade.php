@@ -20,6 +20,7 @@
                                     <option value="05">Mayo</option>
                                     <option value="06">Junio</option>
                                     <option value="07">Julio</option>
+                                    <option value="08">Agosto</option>
                                 </select>
                             </div>
                         </div>
@@ -66,6 +67,12 @@
                                             {{$terminales[5][0]}}
                                         </a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a aria-expanded="false" class="nav-link" data-toggle="tab" href="#link7"
+                                            role="tablist">
+                                            {{$terminales[6][0]}}
+                                        </a>
+                                    </li>
 
                                 </ul>
                                 <div class="tab-content tab-space">
@@ -74,10 +81,36 @@
                                         <div id="carouselExampleIndicators0" class="carousel slide" data-wrap="true">
                                             <div class="carousel-inner">
                                                 <div class="carousel-item active">
-                                                    @include('Graphics.graphics',['color'=>'bg-success','terminal'=>$terminales[0][0],'gasolina'=>'Regular','gasolinaP'=>'Magna','fechas'=>$terminales[0][1],'vector_precio_valero'=>$terminales[0][2],'precio_pemex'=>$terminales[0][3],'precio_policon'=>$terminales[0][4], 'precio_impulsa'=>$terminales[0][5], 'id_terminal'=>'1' ])
+                                                    @include('Graphics.graphics',
+                                                    ['color'=>'bg-success',
+                                                    'terminal'=>$terminales[0][0],
+                                                    'gasolina'=>'Regular',
+                                                    'gasolinaP'=>'Magna',
+                                                    'fechas'=>$terminales[0][1],
+                                                    'vector_precio_valero'=>$terminales[0][2],
+                                                    'precio_pemex'=>$terminales[0][3],
+                                                    'precio_policon'=>$terminales[0][4], 
+                                                    'precio_impulsa'=>$terminales[0][5],
+                                                    'precio_hamse'=>$terminales[0][6],
+                                                    'precio_potesta'=>$terminales[0][7],
+                                                    'precio_energo'=>$terminales[0][8], 
+                                                    'id_terminal'=>'1' ])
                                                 </div>
                                                 <div class="carousel-item">
-                                                    @include('Graphics.graphics',['color'=>'bg-dark','terminal'=>$terminales[0][0],'gasolina'=>'Diésel','gasolinaP'=>'Diésel','fechas'=>$terminales[0][1],'vector_precio_valero'=>$terminales[0][10],'precio_pemex'=>$terminales[0][11],'precio_policon'=>$terminales[0][12], 'precio_impulsa'=>$terminales[0][13], 'id_terminal'=>'1'  ])
+                                                    @include('Graphics.graphics',
+                                                    ['color'=>'bg-dark',
+                                                    'terminal'=>$terminales[0][0],
+                                                    'gasolina'=>'Diésel',
+                                                    'gasolinaP'=>'Diésel',
+                                                    'fechas'=>$terminales[0][1],
+                                                    'vector_precio_valero'=>$terminales[0][10],
+                                                    'precio_pemex'=>$terminales[0][11],
+                                                    'precio_policon'=>$terminales[0][12], 
+                                                    'precio_impulsa'=>$terminales[0][13],
+                                                    'precio_hamse'=>$terminales[0][14],
+                                                    'precio_potesta'=>$terminales[0][15],
+                                                    'precio_energo'=>$terminales[0][16], 
+                                                    'id_terminal'=>'1'  ])
                                                 </div>
                                                 <a class="carousel-control-prev mr-5" href="#carouselExampleIndicators0" role="button" data-slide="prev">
                                                     <span class="text-dark" aria-hidden="true">
@@ -122,13 +155,52 @@
                                         <div id="carouselExampleIndicators1" class="carousel slide" data-wrap="true">
                                             <div class="carousel-inner">
                                                 <div class="carousel-item active">
-                                                    @include('Graphics.graphics',['color'=>'bg-success','terminal'=>$terminales[2][0],'gasolina'=>'Regular','gasolinaP'=>'Magna','fechas'=>$terminales[2][1],'vector_precio_valero'=>$terminales[2][2],'precio_pemex'=>$terminales[2][3],'precio_policon'=>$terminales[2][4] , 'precio_impulsa'=>$terminales[2][5], 'id_terminal'=>'3' ])
+                                                    @include('Graphics.graphics',
+                                                    ['color'=>'bg-success',
+                                                    'terminal'=>$terminales[2][0],
+                                                    'gasolina'=>'Regular',
+                                                    'gasolinaP'=>'Magna',
+                                                    'fechas'=>$terminales[2][1],
+                                                    'vector_precio_valero'=>$terminales[2][2],
+                                                    'precio_pemex'=>$terminales[2][3],
+                                                    'precio_policon'=>$terminales[2][4], 
+                                                    'precio_impulsa'=>$terminales[2][5], 
+                                                    'precio_hamse'=>$terminales[2][6], 
+                                                    'precio_potesta'=>$terminales[2][7], 
+                                                    'precio_energo'=>$terminales[2][8], 
+                                                    'id_terminal'=>'3' ])
                                                 </div>
                                                 <div class="carousel-item">
-                                                    @include('Graphics.graphics',['color'=>'bg-danger','terminal'=>$terminales[2][0],'gasolina'=>'Supreme 93','gasolinaP'=>'Premium','fechas'=>$terminales[2][1],'vector_precio_valero'=>$terminales[2][6],'precio_pemex'=>$terminales[2][7],'precio_policon'=>$terminales[2][8], 'precio_impulsa'=>$terminales[2][9], 'id_terminal'=>'3'  ])
+                                                    @include('Graphics.graphics',
+                                                    ['color'=>'bg-danger',
+                                                    'terminal'=>$terminales[2][0],
+                                                    'gasolina'=>'Supreme 93',
+                                                    'gasolinaP'=>'Premium',
+                                                    'fechas'=>$terminales[2][1],
+                                                    'vector_precio_valero'=>$terminales[2][6],
+                                                    'precio_pemex'=>$terminales[2][7],
+                                                    'precio_policon'=>$terminales[2][8], 
+                                                    'precio_impulsa'=>$terminales[2][9],
+                                                    'precio_hamse'=>$terminales[2][10],
+                                                    'precio_potesta'=>$terminales[2][11],
+                                                    'precio_energo'=>$terminales[2][12], 
+                                                    'id_terminal'=>'3'  ])
                                                 </div>
                                                 <div class="carousel-item">
-                                                    @include('Graphics.graphics',['color'=>'bg-dark','terminal'=>$terminales[2][0],'gasolina'=>'Diésel','gasolinaP'=>'Diésel','fechas'=>$terminales[2][1],'vector_precio_valero'=>$terminales[2][10],'precio_pemex'=>$terminales[2][11],'precio_policon'=>$terminales[2][12], 'precio_impulsa'=>$terminales[2][13], 'id_terminal'=>'3'  ])
+                                                    @include('Graphics.graphics',
+                                                    ['color'=>'bg-dark',
+                                                    'terminal'=>$terminales[2][0],
+                                                    'gasolina'=>'Diésel',
+                                                    'gasolinaP'=>'Diésel',
+                                                    'fechas'=>$terminales[2][1],
+                                                    'vector_precio_valero'=>$terminales[2][10],
+                                                    'precio_pemex'=>$terminales[2][11],
+                                                    'precio_policon'=>$terminales[2][12], 
+                                                    'precio_impulsa'=>$terminales[2][13],
+                                                    'precio_hamse'=>$terminales[2][14],
+                                                    'precio_potesta'=>$terminales[2][15],
+                                                    'precio_energo'=>$terminales[2][16], 
+                                                    'id_terminal'=>'3'  ])
                                                 </div>
                                                 <a class="carousel-control-prev mr-5" href="#carouselExampleIndicators1" role="button" data-slide="prev">
                                                     <span class="text-dark" aria-hidden="true">
@@ -148,13 +220,52 @@
                                         <div id="carouselExampleIndicators2" class="carousel slide" data-wrap="true">
                                             <div class="carousel-inner">
                                                 <div class="carousel-item active">
-                                                    @include('Graphics.graphics',['color'=>'bg-success','terminal'=>$terminales[3][0],'gasolina'=>'Regular','gasolinaP'=>'Magna','fechas'=>$terminales[3][1],'vector_precio_valero'=>$terminales[3][2],'precio_pemex'=>$terminales[3][3],'precio_policon'=>$terminales[3][4], 'precio_impulsa'=>$terminales[3][5], 'id_terminal'=>'4' ])
+                                                    @include('Graphics.graphics',
+                                                    ['color'=>'bg-success',
+                                                    'terminal'=>$terminales[3][0],
+                                                    'gasolina'=>'Regular',
+                                                    'gasolinaP'=>'Magna',
+                                                    'fechas'=>$terminales[3][1],
+                                                    'vector_precio_valero'=>$terminales[3][2],
+                                                    'precio_pemex'=>$terminales[3][3],
+                                                    'precio_policon'=>$terminales[3][4], 
+                                                    'precio_impulsa'=>$terminales[3][5],
+                                                    'precio_hamse'=>$terminales[3][6], 
+                                                    'precio_potesta'=>$terminales[3][6],
+                                                    'precio_energo'=>$terminales[3][7],  
+                                                    'id_terminal'=>'4' ])
                                                 </div>
                                                 <div class="carousel-item">
-                                                    @include('Graphics.graphics',['color'=>'bg-danger','terminal'=>$terminales[3][0],'gasolina'=>'Supreme 93','gasolinaP'=>'Premium','fechas'=>$terminales[3][1],'vector_precio_valero'=>$terminales[3][6],'precio_pemex'=>$terminales[3][7],'precio_policon'=>$terminales[3][8], 'precio_impulsa'=>$terminales[3][9], 'id_terminal'=>'4' ])
+                                                    @include('Graphics.graphics',
+                                                    ['color'=>'bg-danger',
+                                                    'terminal'=>$terminales[3][0],
+                                                    'gasolina'=>'Supreme 93',
+                                                    'gasolinaP'=>'Premium',
+                                                    'fechas'=>$terminales[3][1],
+                                                    'vector_precio_valero'=>$terminales[3][6],
+                                                    'precio_pemex'=>$terminales[3][7],
+                                                    'precio_policon'=>$terminales[3][8], 
+                                                    'precio_impulsa'=>$terminales[3][9],
+                                                    'precio_hamse'=>$terminales[3][10],
+                                                    'precio_potesta'=>$terminales[3][11],
+                                                    'precio_energo'=>$terminales[3][12], 
+                                                    'id_terminal'=>'4' ])
                                                 </div>
                                                 <div class="carousel-item">
-                                                    @include('Graphics.graphics',['color'=>'bg-dark','terminal'=>$terminales[3][0],'gasolina'=>'Diésel','gasolinaP'=>'Diésel','fechas'=>$terminales[3][1],'vector_precio_valero'=>$terminales[3][10],'precio_pemex'=>$terminales[3][11],'precio_policon'=>$terminales[3][12], 'precio_impulsa'=>$terminales[3][13] , 'id_terminal'=>'4' ])
+                                                    @include('Graphics.graphics',
+                                                    ['color'=>'bg-dark',
+                                                    'terminal'=>$terminales[3][0],
+                                                    'gasolina'=>'Diésel',
+                                                    'gasolinaP'=>'Diésel',
+                                                    'fechas'=>$terminales[3][1],
+                                                    'vector_precio_valero'=>$terminales[3][10],
+                                                    'precio_pemex'=>$terminales[3][11],
+                                                    'precio_policon'=>$terminales[3][12], 
+                                                    'precio_impulsa'=>$terminales[3][13],
+                                                    'precio_hamse'=>$terminales[3][14],
+                                                    'precio_potesta'=>$terminales[3][15],
+                                                    'precio_energo'=>$terminales[3][16], 
+                                                    'id_terminal'=>'4' ])
                                                 </div>
                                                 <a class="carousel-control-prev mr-5" href="#carouselExampleIndicators2" role="button" data-slide="prev">
                                                     <span class="text-dark" aria-hidden="true">
@@ -181,13 +292,116 @@
                                         <div id="carouselExampleIndicators4" class="carousel slide" data-wrap="true">
                                             <div class="carousel-inner">
                                                 <div class="carousel-item active">
-                                                   @include('Graphics.graphics',['color'=>'bg-success','terminal'=>$terminales[5][0],'gasolina'=>'Regular','gasolinaP'=>'Magna','fechas'=>$terminales[5][1],'vector_precio_valero'=>$terminales[5][2],'precio_pemex'=>$terminales[5][3],'precio_policon'=>$terminales[5][4] , 'precio_impulsa'=>$terminales[5][5], 'id_terminal'=>'6' ])
+                                                   @include('Graphics.graphics',
+                                                   ['color'=>'bg-success',
+                                                   'terminal'=>$terminales[5][0],
+                                                   'gasolina'=>'Regular',
+                                                   'gasolinaP'=>'Magna',
+                                                   'fechas'=>$terminales[5][1],
+                                                   'vector_precio_valero'=>$terminales[5][2],
+                                                   'precio_pemex'=>$terminales[5][3],
+                                                   'precio_policon'=>$terminales[5][4],
+                                                   'precio_impulsa'=>$terminales[5][5],
+                                                   'precio_hamse'=>$terminales[5][6],
+                                                   'precio_potesta'=>$terminales[5][7],
+                                                   'precio_energo'=>$terminales[5][8], 
+                                                   'id_terminal'=>'6' ])
                                                  </div>
                                                 <div class="carousel-item">
-                                                    @include('Graphics.graphics',['color'=>'bg-danger','terminal'=>$terminales[5][0],'gasolina'=>'Supreme 93','gasolinaP'=>'Premium','fechas'=>$terminales[5][1],'vector_precio_valero'=>$terminales[5][6],'precio_pemex'=>$terminales[5][7],'precio_policon'=>$terminales[5][8], 'precio_impulsa'=>$terminales[5][9], 'id_terminal'=>'6' ])
+                                                    @include('Graphics.graphics',
+                                                    ['color'=>'bg-danger',
+                                                    'terminal'=>$terminales[5][0],
+                                                    'gasolina'=>'Supreme 93',
+                                                    'gasolinaP'=>'Premium',
+                                                    'fechas'=>$terminales[5][1],
+                                                    'vector_precio_valero'=>$terminales[5][6],
+                                                    'precio_pemex'=>$terminales[5][7],
+                                                    'precio_policon'=>$terminales[5][8], 
+                                                    'precio_impulsa'=>$terminales[5][9],
+                                                    'precio_hamse'=>$terminales[5][10],
+                                                    'precio_potesta'=>$terminales[5][11],
+                                                    'precio_energo'=>$terminales[5][12], 
+                                                    'id_terminal'=>'6' ])
                                                 </div>
                                                 <div class="carousel-item">
-                                                    @include('Graphics.graphics',['color'=>'bg-dark','terminal'=>$terminales[5][0],'gasolina'=>'Diésel','gasolinaP'=>'Diésel','fechas'=>$terminales[5][1],'vector_precio_valero'=>$terminales[5][10],'precio_pemex'=>$terminales[5][11],'precio_policon'=>$terminales[5][12], 'precio_impulsa'=>$terminales[5][13], 'id_terminal'=>'6' ])
+                                                    @include('Graphics.graphics',
+                                                    ['color'=>'bg-dark',
+                                                    'terminal'=>$terminales[5][0],
+                                                    'gasolina'=>'Diésel',
+                                                    'gasolinaP'=>'Diésel',
+                                                    'fechas'=>$terminales[5][1],
+                                                    'vector_precio_valero'=>$terminales[5][10],
+                                                    'precio_pemex'=>$terminales[5][11],
+                                                    'precio_policon'=>$terminales[5][12], 
+                                                    'precio_impulsa'=>$terminales[5][13],
+                                                    'precio_hamse'=>$terminales[5][14],
+                                                    'precio_potesta'=>$terminales[5][15],
+                                                    'precio_energo'=>$terminales[5][16], 
+                                                    'id_terminal'=>'6' ])
+                                                </div>
+                                                <a class="carousel-control-prev mr-5" href="#carouselExampleIndicators4" role="button" data-slide="prev">
+                                                    <span class="text-dark" aria-hidden="true">
+                                                        <i class="material-icons" style="font-size: 50px;">keyboard_arrow_left</i>
+                                                    </span>
+                                                </a>
+                                                <a class="carousel-control-next ml-5" href="#carouselExampleIndicators4" role="button" data-slide="next">
+                                                    <span class="text-dark" aria-hidden="true">
+                                                        <i class="material-icons" style="font-size: 50px;">keyboard_arrow_right</i>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div aria-expanded="false" class="tab-pane mt-3" id="link7">
+                                        <div id="carouselExampleIndicators4" class="carousel slide" data-wrap="true">
+                                            <div class="carousel-inner">
+                                                <div class="carousel-item active">
+                                                   @include('Graphics.graphics',
+                                                   ['color'=>'bg-success',
+                                                   'terminal'=>$terminales[6][0],
+                                                   'gasolina'=>'Regular',
+                                                   'gasolinaP'=>'Magna',
+                                                   'fechas'=>$terminales[6][1],
+                                                   'vector_precio_valero'=>$terminales[6][2],
+                                                   'precio_pemex'=>$terminales[6][3],
+                                                   'precio_policon'=>$terminales[6][4],
+                                                   'precio_impulsa'=>$terminales[6][5],
+                                                   'precio_hamse'=>$terminales[6][6],
+                                                   'precio_potesta'=>$terminales[6][7],
+                                                   'precio_energo'=>$terminales[6][8], 
+                                                   'id_terminal'=>'7' ])
+                                                 </div>
+                                                <div class="carousel-item">
+                                                    @include('Graphics.graphics',
+                                                    ['color'=>'bg-danger',
+                                                    'terminal'=>$terminales[6][0],
+                                                    'gasolina'=>'Supreme 93',
+                                                    'gasolinaP'=>'Premium',
+                                                    'fechas'=>$terminales[6][1],
+                                                    'vector_precio_valero'=>$terminales[6][6],
+                                                    'precio_pemex'=>$terminales[6][7],
+                                                    'precio_policon'=>$terminales[6][8], 
+                                                    'precio_impulsa'=>$terminales[6][9],
+                                                    'precio_hamse'=>$terminales[6][10],
+                                                    'precio_potesta'=>$terminales[6][11],
+                                                    'precio_energo'=>$terminales[6][12], 
+                                                    'id_terminal'=>'7' ])
+                                                </div>
+                                                <div class="carousel-item">
+                                                    @include('Graphics.graphics',
+                                                    ['color'=>'bg-dark',
+                                                    'terminal'=>$terminales[6][0],
+                                                    'gasolina'=>'Diésel',
+                                                    'gasolinaP'=>'Diésel',
+                                                    'fechas'=>$terminales[6][1],
+                                                    'vector_precio_valero'=>$terminales[6][10],
+                                                    'precio_pemex'=>$terminales[6][11],
+                                                    'precio_policon'=>$terminales[6][12], 
+                                                    'precio_impulsa'=>$terminales[6][13],
+                                                    'precio_hamse'=>$terminales[6][14],
+                                                    'precio_potesta'=>$terminales[6][15],
+                                                    'precio_energo'=>$terminales[6][16], 
+                                                    'id_terminal'=>'7' ])
                                                 </div>
                                                 <a class="carousel-control-prev mr-5" href="#carouselExampleIndicators4" role="button" data-slide="prev">
                                                     <span class="text-dark" aria-hidden="true">

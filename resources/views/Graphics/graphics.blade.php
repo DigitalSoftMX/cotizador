@@ -21,17 +21,32 @@
             );
         }
         else{
-             $precios = array(
-                'Valero' => $vector_precio_valero[count($vector_precio_valero)-1],
-                'Pemex' => $precio_pemex[count($precio_pemex)-1],
-                'Policon' => $precio_policon[count($precio_policon)-1],
-                'Impulsa' => $precio_impulsa[count($precio_impulsa)-1]
-
-            );
+             $precios = array();
+            
+            if ($vector_precio_valero != NULL) {
+                 $precios['Valero'] = $vector_precio_valero[count($vector_precio_valero)-1];
+             }
+             if ($precio_pemex != NULL) {
+                 $precios['Pemex'] = $precio_pemex[count($precio_pemex)-1];
+             }
+             if ($precio_policon != NULL) {
+                 $precios['Policon'] = $precio_policon[count($precio_policon)-1];
+             }
+             if ($precio_impulsa != NULL) {
+                 $precios['Impulsa'] = $precio_impulsa[count($precio_impulsa)-1];
+             }
+             if ($precio_hamse != NULL) {
+                 $precios['Hamse'] = $precio_hamse[count($precio_hamse)-1];
+             }
+             if ($precio_potesta != NULL) {
+                 $precios['Potesta'] = $precio_potesta[count($precio_potesta)-1];
+             }
+             if ($precio_energo != NULL) {
+                 $precios['Energo'] = $precio_energo[count($precio_energo)-1];
+             }
         }
 
         array_multisort($precios);
-
         ?>
         <div class="row text-center">
 
@@ -39,7 +54,8 @@
             <div class="col-3 mx-auto d-block">
                 <div class="card">
                   <div class="card-body">
-                    <h6 class="card-title">Precio del día {{ $fechas[count($vector_precio_valero)-1] }} para {{ $key }}:</h6>
+                    <h6 class="card-title">Precio del ultimo día registrado para: {{$key}}
+                    </h6>
                     <h5 class="card-title">$
                         {{ $value }}
                     </h5>
@@ -102,7 +118,31 @@
                         backgroundColor: ['rgb(255, 255, 255, 0)'],
                         borderColor: ['rgb(255, 207, 1)'],
                         borderWidth: 3
-                    }
+                    },
+                    {
+                        // Informacion del competidor Hamse
+                        label: 'hamse',
+                        data: @json($precio_hamse),
+                        backgroundColor: ['rgb(255, 255, 255, 0)'],
+                        borderColor: ['rgb(0, 0, 0)'],
+                        borderWidth: 3
+                    },
+                    {
+                        // Informacion del competidor Potesta
+                        label: 'potesta',
+                        data: @json($precio_potesta),
+                        backgroundColor: ['rgb(255, 255, 255, 0)'],
+                        borderColor: ['rgb(191, 0, 150)'],
+                        borderWidth: 3
+                    },
+                    {
+                        // Informacion del competidor Potesta
+                        label: 'energo',
+                        data: @json($precio_energo),
+                        backgroundColor: ['rgb(255, 255, 255, 0)'],
+                        borderColor: ['rgb(0, 196, 196)'],
+                        borderWidth: 3
+                    },
                 ]
             },
             options: {
@@ -173,6 +213,27 @@
                                 {
                                     label: 'impulsa',
                                     data: datos.precios_impulsa,
+                                    backgroundColor: ['rgb(255, 255, 255, 0)'],
+                                    borderColor: ['rgb(255, 207, 1)'],
+                                    borderWidth: 3
+                                },
+                                {
+                                    label: 'hamse',
+                                    data: datos.precios_hamse,
+                                    backgroundColor: ['rgb(255, 255, 255, 0)'],
+                                    borderColor: ['rgb(255, 207, 1)'],
+                                    borderWidth: 3
+                                },
+                                {
+                                    label: 'potesta',
+                                    data: datos.precios_potesta,
+                                    backgroundColor: ['rgb(255, 255, 255, 0)'],
+                                    borderColor: ['rgb(255, 207, 1)'],
+                                    borderWidth: 3
+                                },
+                                {
+                                    label: 'energo',
+                                    data: datos.precios_energo,
                                     backgroundColor: ['rgb(255, 255, 255, 0)'],
                                     borderColor: ['rgb(255, 207, 1)'],
                                     borderWidth: 3

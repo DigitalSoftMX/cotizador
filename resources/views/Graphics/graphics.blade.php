@@ -67,6 +67,8 @@
 
     </div>
 </div>
+@php 
+@endphp
 @push('js')
 <script>
     $( document ).ready(function() {
@@ -125,7 +127,7 @@
                         data: @json($precio_hamse),
                         backgroundColor: ['rgb(255, 255, 255, 0)'],
                         borderColor: ['rgb(0, 0, 0)'],
-                        borderWidth: 3
+                        borderWidth: 3,
                     },
                     {
                         // Informacion del competidor Potesta
@@ -143,7 +145,8 @@
                         borderColor: ['rgb(0, 196, 196)'],
                         borderWidth: 3
                     },
-                ]
+                ],
+
             },
             options: {
                 scales: {
@@ -248,7 +251,7 @@
                                         stepSize: 0.5
                                     }
                                 }],
-                            }
+                            },
                         }
                     };
 

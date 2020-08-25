@@ -153,10 +153,14 @@ class HomeController extends Controller
                 foreach ($hamses->price_hamse()->orderBy('created_at')->get() as $price3) {
                     if($price3->created_at >= $primer_dia)
                     {
+                        $precio_descuesto_regular = $price3->precio_regular - ($price3->precio_regular*0.075);
+                        $precio_descuesto_premium = $price3->precio_premium - ($price3->precio_premium*0.065);
+                        $precio_descuesto_diesel = $price3->precio_disel - ($price3->precio_disel*0.062);
+
                         array_push($fechas5, $price3->created_at->format('j - m'));
-                        array_push($precios_hamse_regular, $price3->precio_regular);
-                        array_push($precios_hamse_premium, $price3->precio_premium);
-                        array_push($precios_hamse_diesel, $price3->precio_disel);
+                        array_push($precios_hamse_regular, $precio_descuesto_regular);
+                        array_push($precios_hamse_premium, $precio_descuesto_premium);
+                        array_push($precios_hamse_diesel, $precio_descuesto_diesel);
                     }
                 }
 
@@ -166,10 +170,24 @@ class HomeController extends Controller
                 foreach ($potestas->price_potesta()->orderBy('created_at')->get() as $price4) {
                     if($price4->created_at >= $primer_dia)
                     {
+                        if ($price4->potesta_id == 3) {
+                            $precio_descuesto_regular = $price4->precio_regular - ($price4->precio_regular*0.055);
+                            $precio_descuesto_premium = $price4->precio_premium - ($price4->precio_premium*0.020);
+                            $precio_descuesto_diesel = $price4->precio_disel - ($price4->precio_disel*0.074);
+                        }elseif($price4->potesta_id == 6){
+                            $precio_descuesto_regular = $price4->precio_regular - ($price4->precio_regular*0.01);
+                            $precio_descuesto_premium = $price4->precio_premium;
+                            $precio_descuesto_diesel = $price4->precio_disel - ($price4->precio_disel*0.01);
+                        }elseif($price4->potesta_id == 7){
+                            $precio_descuesto_regular = $price4->precio_regular - ($price4->precio_regular*0.055);
+                            $precio_descuesto_premium = $price4->precio_premium - ($price4->precio_premium*0.020);
+                            $precio_descuesto_diesel = $price4->precio_disel - ($price4->precio_disel*0.074);
+                        }
+
                         array_push($fechas6, $price4->created_at->format('j - m'));
-                        array_push($precios_potesta_regular, $price4->precio_regular);
-                        array_push($precios_potesta_premium, $price4->precio_premium);
-                        array_push($precios_potesta_diesel, $price4->precio_disel);
+                        array_push($precios_potesta_regular, $precio_descuesto_regular);
+                        array_push($precios_potesta_premium, $precio_descuesto_premium);
+                        array_push($precios_potesta_diesel, $precio_descuesto_diesel);
                     }
                 }
 
@@ -179,10 +197,22 @@ class HomeController extends Controller
                 foreach ($energos->price_energo()->orderBy('created_at')->get() as $price5) {
                     if($price5->created_at >= $primer_dia)
                     {
+                        if ($price5->potesta_id == 4) {
+                            $precio_descuesto_regular = $price5->precio_regular;
+                            $precio_descuesto_premium = $price5->precio_premium;
+                            $precio_descuesto_diesel = $price5->precio_disel - ($price5->precio_disel*0.075);
+                        }elseif($price5->potesta_id == 7){
+                            $precio_descuesto_regular = $price5->precio_regular;
+                            $precio_descuesto_premium = $price5->precio_premium;
+                            $precio_descuesto_diesel = $price5->precio_disel - ($price5->precio_disel*0.08);
+                        }
+
                         array_push($fechas7, $price5->created_at->format('j - m'));
-                        array_push($precios_energo_regular, $price5->precio_regular);
-                        array_push($precios_energo_premium, $price5->precio_premium);
-                        array_push($precios_energo_diesel, $price5->precio_disel);
+                        array_push($precios_energo_regular, $precio_descuesto_regular);
+                        array_push($precios_energo_premium, $precio_descuesto_premium);
+                        array_push($precios_energo_diesel, $precio_descuesto_diesel);
+
+                
                     }
                 }
 
@@ -195,6 +225,7 @@ class HomeController extends Controller
             $contador5 = count($fechas5);
             $contador6 = count($fechas6);
             $contador7 = count($fechas7);
+
 
             if ($contador1 >= $contador2 & $contador1 >= $contador3 & $contador1 >= $contador4 & $contador1 >= $contador5 & $contador1 >= $contador6 & $contador1 >= $contador7) {
                 foreach ($terminal->valeros()->orderBy('created_at')->get() as $valero) {
@@ -278,7 +309,6 @@ class HomeController extends Controller
             }else{
                 echo "Error no hay valores";
             }
-
             array_push($datos, $fechas, 
                 $precios_valero_regular, 
                 $precios_pemex_regular, 
@@ -304,9 +334,11 @@ class HomeController extends Controller
             );
 
             array_push($terminales, $datos);
+
+
         }
+        
         //var_dump($terminales[2][1]);
-        //dd($terminales);
         return view('dashboard', compact('fechas', 'terminales'));
     }
 
@@ -418,6 +450,21 @@ class HomeController extends Controller
                 }
             }
         }
+
+        foreach ($terminal_uni->energos as $energos) {
+            foreach ($energos->price_energo()->where('created_at','LIKE','%'.$fech.'%')->orderBy('created_at')->get() as $price_ener) {
+                if($request->combustible == 'Regular'){
+                    array_push($precios_potesta, $price_impu->precio_regular);
+
+                } elseif ($request->combustible == 'Supreme 93') {
+                    array_push($precios_potesta, $price_impu->precio_premium);
+
+                } else  {
+                    array_push($precios_potesta, $price_impu->precio_disel);
+                }
+            }
+        }
+
 
 
 

@@ -31,7 +31,7 @@
                             <div class="col col-lg-9 col-md-9 col-sm-12">
 
                                 <ul class="nav nav-pills nav-pills-primary mt-3 justify-content-center" role="tablist">
-                                    <li class="nav-item">
+                                    <li class="nav-item d-none">
                                         <a aria-expanded="true" class="nav-link" data-toggle="tab" href="#link1"
                                             role="tablist">
                                             {{$terminales[0][0]}}
@@ -55,7 +55,7 @@
                                             {{$terminales[3][0]}}
                                         </a>
                                     </li>
-                                    <li class="nav-item">
+                                    <li class="nav-item d-none">
                                         <a aria-expanded="false" class="nav-link" data-toggle="tab" href="#link5"
                                             role="tablist">
                                             {{$terminales[4][0]}}
@@ -76,7 +76,6 @@
 
                                 </ul>
                                 <div class="tab-content tab-space">
-
                                     <div aria-expanded="false" class="tab-pane mt-3" id="link1">
                                         <div id="carouselExampleIndicators0" class="carousel slide" data-wrap="true">
                                             <div class="carousel-inner">
@@ -353,7 +352,7 @@
                                         </div>
                                     </div>
                                     <div aria-expanded="false" class="tab-pane mt-3" id="link7">
-                                        <div id="carouselExampleIndicators4" class="carousel slide" data-wrap="true">
+                                        <div id="carouselExampleIndicators5" class="carousel slide" data-wrap="true">
                                             <div class="carousel-inner">
                                                 <div class="carousel-item active">
                                                    @include('Graphics.graphics',
@@ -403,12 +402,12 @@
                                                     'precio_energo'=>$terminales[6][16], 
                                                     'id_terminal'=>'7' ])
                                                 </div>
-                                                <a class="carousel-control-prev mr-5" href="#carouselExampleIndicators4" role="button" data-slide="prev">
+                                                <a class="carousel-control-prev mr-5" href="#carouselExampleIndicators5" role="button" data-slide="prev">
                                                     <span class="text-dark" aria-hidden="true">
                                                         <i class="material-icons" style="font-size: 50px;">keyboard_arrow_left</i>
                                                     </span>
                                                 </a>
-                                                <a class="carousel-control-next ml-5" href="#carouselExampleIndicators4" role="button" data-slide="next">
+                                                <a class="carousel-control-next ml-5" href="#carouselExampleIndicators5" role="button" data-slide="next">
                                                     <span class="text-dark" aria-hidden="true">
                                                         <i class="material-icons" style="font-size: 50px;">keyboard_arrow_right</i>
                                                     </span>

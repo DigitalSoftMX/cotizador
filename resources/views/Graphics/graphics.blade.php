@@ -115,7 +115,7 @@
                     @endif
                     {
                         // Informacion del competidor otro
-                        label: 'impulsa',
+                        label: 'Impulsa',
                         data: @json($precio_impulsa),
                         backgroundColor: ['rgb(255, 255, 255, 0)'],
                         borderColor: ['rgb(255, 207, 1)'],
@@ -123,7 +123,7 @@
                     },
                     {
                         // Informacion del competidor Hamse
-                        label: 'hamse',
+                        label: 'Hamse',
                         data: @json($precio_hamse),
                         backgroundColor: ['rgb(255, 255, 255, 0)'],
                         borderColor: ['rgb(0, 0, 0)'],
@@ -131,7 +131,7 @@
                     },
                     {
                         // Informacion del competidor Potesta
-                        label: 'potesta',
+                        label: 'Potesta',
                         data: @json($precio_potesta),
                         backgroundColor: ['rgb(255, 255, 255, 0)'],
                         borderColor: ['rgb(191, 0, 150)'],
@@ -139,7 +139,7 @@
                     },
                     {
                         // Informacion del competidor Potesta
-                        label: 'energo',
+                        label: 'Energo',
                         data: @json($precio_energo),
                         backgroundColor: ['rgb(255, 255, 255, 0)'],
                         borderColor: ['rgb(0, 196, 196)'],

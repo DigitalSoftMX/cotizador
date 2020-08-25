@@ -273,7 +273,7 @@ class HomeController extends Controller
             }elseif ($contador5 >= $contador1 & $contador5 >= $contador2 & $contador5 >= $contador3 & $contador5 >= $contador4 & $contador5 >= $contador6 & $contador5 >= $contador7) {
                 
                 foreach ($terminal->hamses()->orderBy('created_at')->get() as $hamses) {
-                    foreach ($hamses->price_impulsa()->orderBy('created_at')->get() as $price3) {
+                    foreach ($hamses->price_hamse()->orderBy('created_at')->get() as $price3) {
                         if($price3->created_at >= $primer_dia)
                         {
                             array_push($fechas, $price3->created_at->format('j - m'));
@@ -285,7 +285,7 @@ class HomeController extends Controller
             }elseif ($contador6 >= $contador1 & $contador6 >= $contador2 & $contador6 >= $contador3 & $contador6 >= $contador4 & $contador6 >= $contador5 & $contador6 >= $contador7) {
                 
                 foreach ($terminal->potestas()->orderBy('created_at')->get() as $potestas) {
-                    foreach ($potestas->price_impulsa()->orderBy('created_at')->get() as $price4) {
+                    foreach ($potestas->price_potesta()->orderBy('created_at')->get() as $price4) {
                         if($price3->created_at >= $primer_dia)
                         {
                             array_push($fechas, $price4->created_at->format('j - m'));
@@ -297,7 +297,7 @@ class HomeController extends Controller
             }elseif ($contador7 >= $contador1 & $contador7 >= $contador2 & $contador7 >= $contador3 & $contador7 >= $contador4 & $contador7 >= $contador5 & $contador7 >= $contador6) {
                 
                 foreach ($terminal->energos()->orderBy('created_at')->get() as $energos) {
-                    foreach ($energos->price_impulsa()->orderBy('created_at')->get() as $price5) {
+                    foreach ($energos->price_energo()->orderBy('created_at')->get() as $price5) {
                         if($price3->created_at >= $primer_dia)
                         {
                             array_push($fechas, $price5->created_at->format('j - m'));

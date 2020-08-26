@@ -214,28 +214,28 @@
                                 },
                                 @endif
                                 {
-                                    label: 'impulsa',
+                                    label: 'Impulsa',
                                     data: datos.precios_impulsa,
                                     backgroundColor: ['rgb(255, 255, 255, 0)'],
                                     borderColor: ['rgb(255, 207, 1)'],
                                     borderWidth: 3
                                 },
                                 {
-                                    label: 'hamse',
+                                    label: 'Hamse',
                                     data: datos.precios_hamse,
                                     backgroundColor: ['rgb(255, 255, 255, 0)'],
                                     borderColor: ['rgb(255, 207, 1)'],
                                     borderWidth: 3
                                 },
                                 {
-                                    label: 'potesta',
+                                    label: 'Potesta',
                                     data: datos.precios_potesta,
                                     backgroundColor: ['rgb(255, 255, 255, 0)'],
                                     borderColor: ['rgb(255, 207, 1)'],
                                     borderWidth: 3
                                 },
                                 {
-                                    label: 'energo',
+                                    label: 'Energo',
                                     data: datos.precios_energo,
                                     backgroundColor: ['rgb(255, 255, 255, 0)'],
                                     borderColor: ['rgb(255, 207, 1)'],

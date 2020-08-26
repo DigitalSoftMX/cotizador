@@ -28,7 +28,7 @@ class HamseController extends Controller
         $comeptidor_selecionado = $request['id'];
         $fecha = $request['fecha'];
 
-        $precios = PricePolicon::where('hamse_id', $comeptidor_selecionado)->where('created_at', 'like', '' . $fecha . '%')->get();
+        $precios = PriceEnergo::where('hamse_id', $comeptidor_selecionado)->where('created_at', 'like', '' . $fecha . '%')->get();
         $selecion = array('precios' => $precios);
         return json_encode($selecion);
     }

@@ -92,7 +92,7 @@
                 from: from,
                 align: align
             }
-        });
+        }); 
     }
     $( document ).ready(function() {
         init_calendar('calendar_first', '01-01-2020', '12-12-2020');
@@ -103,6 +103,12 @@
             id = $('#cotizador').val();
             fecha = $('#calendar_first').val();
 
+            $.ajaxSetup({
+              headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              }
+            });
+
             $.ajax({
                 url: 'impulsa_selec',
                 type: 'POST',
@@ -111,9 +117,6 @@
                   '_token': $('input[name=_token]').val(),
                   'id' : $('#cotizador').val(),
                   'fecha': $('#calendar_first').val(),
-                },
-                headers:{ 
-                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') 
                 },
                 success: function(response){
                     var datos =  response;
@@ -136,7 +139,7 @@
                     
                 },
                 error: function(xhr){
-                    alert("An error occured: " + xhr.status + " " + xhr.statusText);
+                     alert("An error occured: " + xhr.status + " " + xhr.statusText);
                 }
             });
         });
@@ -164,7 +167,7 @@
                     showNotification('top','right', 'warning', ''+res.color+'', ''+res.mensaje+'');
                 },
                 error: function(xhr){
-                    alert("An error occured: " + xhr.status + " " + xhr.statusText);
+                     alert("An error occured: " + xhr.status + " " + xhr.statusText);
                 }
             });
         });

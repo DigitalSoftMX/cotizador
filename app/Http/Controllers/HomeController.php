@@ -153,9 +153,9 @@ class HomeController extends Controller
                 foreach ($hamses->price_hamse()->orderBy('created_at')->get() as $price3) {
                     if($price3->created_at >= $primer_dia)
                     {
-                        $precio_descuesto_regular = $price3->precio_regular - ($price3->precio_regular*0.075);
-                        $precio_descuesto_premium = $price3->precio_premium - ($price3->precio_premium*0.065);
-                        $precio_descuesto_diesel = $price3->precio_disel - ($price3->precio_disel*0.062);
+                        $precio_descuesto_regular = $price3->precio_regular - 0.075;
+                        $precio_descuesto_premium = $price3->precio_premium - 0.065;
+                        $precio_descuesto_diesel = $price3->precio_disel - 0.062;
 
                         array_push($fechas5, $price3->created_at->format('j - m'));
                         array_push($precios_hamse_regular, $precio_descuesto_regular);
@@ -171,17 +171,17 @@ class HomeController extends Controller
                     if($price4->created_at >= $primer_dia)
                     {
                         if ($price4->potesta_id == 3) {
-                            $precio_descuesto_regular = $price4->precio_regular - ($price4->precio_regular*0.055);
-                            $precio_descuesto_premium = $price4->precio_premium - ($price4->precio_premium*0.020);
-                            $precio_descuesto_diesel = $price4->precio_disel - ($price4->precio_disel*0.074);
+                            $precio_descuesto_regular = $price4->precio_regular - 0.055;
+                            $precio_descuesto_premium = $price4->precio_premium - 0.020;
+                            $precio_descuesto_diesel = $price4->precio_disel - 0.074;
                         }elseif($price4->potesta_id == 6){
-                            $precio_descuesto_regular = $price4->precio_regular - ($price4->precio_regular*0.01);
+                            $precio_descuesto_regular = $price4->precio_regular - 0.01;
                             $precio_descuesto_premium = $price4->precio_premium;
-                            $precio_descuesto_diesel = $price4->precio_disel - ($price4->precio_disel*0.01);
+                            $precio_descuesto_diesel = $price4->precio_disel - 0.01;
                         }elseif($price4->potesta_id == 7){
-                            $precio_descuesto_regular = $price4->precio_regular - ($price4->precio_regular*0.055);
-                            $precio_descuesto_premium = $price4->precio_premium - ($price4->precio_premium*0.020);
-                            $precio_descuesto_diesel = $price4->precio_disel - ($price4->precio_disel*0.074);
+                            $precio_descuesto_regular = $price4->precio_regular - 0.055;
+                            $precio_descuesto_premium = $price4->precio_premium - 0.020;
+                            $precio_descuesto_diesel = $price4->precio_disel - 0.074;
                         }
 
                         array_push($fechas6, $price4->created_at->format('j - m'));
@@ -197,14 +197,14 @@ class HomeController extends Controller
                 foreach ($energos->price_energo()->orderBy('created_at')->get() as $price5) {
                     if($price5->created_at >= $primer_dia)
                     {
-                        if ($price5->potesta_id == 4) {
+                        if ($price5->energo_id == 4) {
                             $precio_descuesto_regular = $price5->precio_regular;
                             $precio_descuesto_premium = $price5->precio_premium;
-                            $precio_descuesto_diesel = $price5->precio_disel - ($price5->precio_disel*0.075);
-                        }elseif($price5->potesta_id == 7){
+                            $precio_descuesto_diesel = $price5->precio_disel - 0.75;
+                        }elseif($price5->energo_id == 7){
                             $precio_descuesto_regular = $price5->precio_regular;
                             $precio_descuesto_premium = $price5->precio_premium;
-                            $precio_descuesto_diesel = $price5->precio_disel - ($price5->precio_disel*0.08);
+                            $precio_descuesto_diesel = $price5->precio_disel - 0.08;
                         }
 
                         array_push($fechas7, $price5->created_at->format('j - m'));

@@ -28,7 +28,7 @@ class EnergoController extends Controller
         $comeptidor_selecionado = $request['id'];
         $fecha = $request['fecha'];
 
-        $precios = PricePolicon::where('energo_id', $comeptidor_selecionado)->where('created_at', 'like', '' . $fecha . '%')->get();
+        $precios = PriceEnergo::where('energo_id', $comeptidor_selecionado)->where('created_at', 'like', '' . $fecha . '%')->get();
         $selecion = array('precios' => $precios);
         return json_encode($selecion);
     }

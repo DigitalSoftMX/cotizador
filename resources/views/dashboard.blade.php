@@ -77,6 +77,7 @@
                                 </ul>
                                 <div class="tab-content tab-space">
                                     <div aria-expanded="false" class="tab-pane mt-3" id="link1">
+                                 
                                         <div id="carouselExampleIndicators0" class="carousel slide" data-wrap="true">
                                             <div class="carousel-inner">
                                                 <div class="carousel-item active">
@@ -102,13 +103,13 @@
                                                     'gasolina'=>'Diésel',
                                                     'gasolinaP'=>'Diésel',
                                                     'fechas'=>$terminales[0][1],
-                                                    'vector_precio_valero'=>$terminales[0][10],
-                                                    'precio_pemex'=>$terminales[0][11],
-                                                    'precio_policon'=>$terminales[0][12], 
-                                                    'precio_impulsa'=>$terminales[0][13],
-                                                    'precio_hamse'=>$terminales[0][14],
-                                                    'precio_potesta'=>$terminales[0][15],
-                                                    'precio_energo'=>$terminales[0][16], 
+                                                    'vector_precio_valero'=>$terminales[0][9],
+                                                    'precio_pemex'=>$terminales[0][10],
+                                                    'precio_policon'=>$terminales[0][11], 
+                                                    'precio_impulsa'=>$terminales[0][12],
+                                                    'precio_hamse'=>$terminales[0][13],
+                                                    'precio_potesta'=>$terminales[0][14],
+                                                    'precio_energo'=>$terminales[0][15], 
                                                     'id_terminal'=>'1'  ])
                                                 </div>
                                                 <a class="carousel-control-prev mr-5" href="#carouselExampleIndicators0" role="button" data-slide="prev">
@@ -176,13 +177,13 @@
                                                     'gasolina'=>'Supreme 93',
                                                     'gasolinaP'=>'Premium',
                                                     'fechas'=>$terminales[2][1],
-                                                    'vector_precio_valero'=>$terminales[2][6],
-                                                    'precio_pemex'=>$terminales[2][7],
-                                                    'precio_policon'=>$terminales[2][8], 
-                                                    'precio_impulsa'=>$terminales[2][9],
-                                                    'precio_hamse'=>$terminales[2][10],
-                                                    'precio_potesta'=>$terminales[2][11],
-                                                    'precio_energo'=>$terminales[2][12], 
+                                                    'vector_precio_valero'=>$terminales[2][9],
+                                                    'precio_pemex'=>$terminales[2][10],
+                                                    'precio_policon'=>$terminales[2][11], 
+                                                    'precio_impulsa'=>$terminales[2][12],
+                                                    'precio_hamse'=>$terminales[2][13],
+                                                    'precio_potesta'=>$terminales[2][14],
+                                                    'precio_energo'=>$terminales[2][15], 
                                                     'id_terminal'=>'3'  ])
                                                 </div>
                                                 <div class="carousel-item">
@@ -192,13 +193,13 @@
                                                     'gasolina'=>'Diésel',
                                                     'gasolinaP'=>'Diésel',
                                                     'fechas'=>$terminales[2][1],
-                                                    'vector_precio_valero'=>$terminales[2][10],
-                                                    'precio_pemex'=>$terminales[2][11],
-                                                    'precio_policon'=>$terminales[2][12], 
-                                                    'precio_impulsa'=>$terminales[2][13],
-                                                    'precio_hamse'=>$terminales[2][14],
-                                                    'precio_potesta'=>$terminales[2][15],
-                                                    'precio_energo'=>$terminales[2][16], 
+                                                    'vector_precio_valero'=>$terminales[2][16],
+                                                    'precio_pemex'=>$terminales[2][17],
+                                                    'precio_policon'=>$terminales[2][18], 
+                                                    'precio_impulsa'=>$terminales[2][19],
+                                                    'precio_hamse'=>$terminales[2][20],
+                                                    'precio_potesta'=>$terminales[2][21],
+                                                    'precio_energo'=>$terminales[2][22], 
                                                     'id_terminal'=>'3'  ])
                                                 </div>
                                                 <a class="carousel-control-prev mr-5" href="#carouselExampleIndicators1" role="button" data-slide="prev">
@@ -219,6 +220,9 @@
                                         <div id="carouselExampleIndicators2" class="carousel slide" data-wrap="true">
                                             <div class="carousel-inner">
                                                 <div class="carousel-item active">
+
+                                    
+
                                                     @include('Graphics.graphics',
                                                     ['color'=>'bg-success',
                                                     'terminal'=>$terminales[3][0],
@@ -230,8 +234,8 @@
                                                     'precio_policon'=>$terminales[3][4], 
                                                     'precio_impulsa'=>$terminales[3][5],
                                                     'precio_hamse'=>$terminales[3][6], 
-                                                    'precio_potesta'=>$terminales[3][6],
-                                                    'precio_energo'=>$terminales[3][7],  
+                                                    'precio_potesta'=>$terminales[3][7],
+                                                    'precio_energo'=>$terminales[3][8],  
                                                     'id_terminal'=>'4' ])
                                                 </div>
                                                 <div class="carousel-item">
@@ -241,13 +245,13 @@
                                                     'gasolina'=>'Supreme 93',
                                                     'gasolinaP'=>'Premium',
                                                     'fechas'=>$terminales[3][1],
-                                                    'vector_precio_valero'=>$terminales[3][6],
-                                                    'precio_pemex'=>$terminales[3][7],
-                                                    'precio_policon'=>$terminales[3][8], 
-                                                    'precio_impulsa'=>$terminales[3][9],
-                                                    'precio_hamse'=>$terminales[3][10],
-                                                    'precio_potesta'=>$terminales[3][11],
-                                                    'precio_energo'=>$terminales[3][12], 
+                                                    'vector_precio_valero'=>$terminales[3][9],
+                                                    'precio_pemex'=>$terminales[3][10],
+                                                    'precio_policon'=>$terminales[3][11], 
+                                                    'precio_impulsa'=>$terminales[3][12],
+                                                    'precio_hamse'=>$terminales[3][13],
+                                                    'precio_potesta'=>$terminales[3][14],
+                                                    'precio_energo'=>$terminales[3][15], 
                                                     'id_terminal'=>'4' ])
                                                 </div>
                                                 <div class="carousel-item">
@@ -257,13 +261,13 @@
                                                     'gasolina'=>'Diésel',
                                                     'gasolinaP'=>'Diésel',
                                                     'fechas'=>$terminales[3][1],
-                                                    'vector_precio_valero'=>$terminales[3][10],
-                                                    'precio_pemex'=>$terminales[3][11],
-                                                    'precio_policon'=>$terminales[3][12], 
-                                                    'precio_impulsa'=>$terminales[3][13],
-                                                    'precio_hamse'=>$terminales[3][14],
-                                                    'precio_potesta'=>$terminales[3][15],
-                                                    'precio_energo'=>$terminales[3][16], 
+                                                    'vector_precio_valero'=>$terminales[3][16],
+                                                    'precio_pemex'=>$terminales[3][17],
+                                                    'precio_policon'=>$terminales[3][18], 
+                                                    'precio_impulsa'=>$terminales[3][19],
+                                                    'precio_hamse'=>$terminales[3][20],
+                                                    'precio_potesta'=>$terminales[3][21],
+                                                    'precio_energo'=>$terminales[3][22], 
                                                     'id_terminal'=>'4' ])
                                                 </div>
                                                 <a class="carousel-control-prev mr-5" href="#carouselExampleIndicators2" role="button" data-slide="prev">
@@ -313,13 +317,13 @@
                                                     'gasolina'=>'Supreme 93',
                                                     'gasolinaP'=>'Premium',
                                                     'fechas'=>$terminales[5][1],
-                                                    'vector_precio_valero'=>$terminales[5][6],
-                                                    'precio_pemex'=>$terminales[5][7],
-                                                    'precio_policon'=>$terminales[5][8], 
-                                                    'precio_impulsa'=>$terminales[5][9],
-                                                    'precio_hamse'=>$terminales[5][10],
-                                                    'precio_potesta'=>$terminales[5][11],
-                                                    'precio_energo'=>$terminales[5][12], 
+                                                    'vector_precio_valero'=>$terminales[5][9],
+                                                    'precio_pemex'=>$terminales[5][10],
+                                                    'precio_policon'=>$terminales[5][11], 
+                                                    'precio_impulsa'=>$terminales[5][12],
+                                                    'precio_hamse'=>$terminales[5][13],
+                                                    'precio_potesta'=>$terminales[5][14],
+                                                    'precio_energo'=>$terminales[5][15], 
                                                     'id_terminal'=>'6' ])
                                                 </div>
                                                 <div class="carousel-item">
@@ -329,13 +333,13 @@
                                                     'gasolina'=>'Diésel',
                                                     'gasolinaP'=>'Diésel',
                                                     'fechas'=>$terminales[5][1],
-                                                    'vector_precio_valero'=>$terminales[5][10],
-                                                    'precio_pemex'=>$terminales[5][11],
-                                                    'precio_policon'=>$terminales[5][12], 
-                                                    'precio_impulsa'=>$terminales[5][13],
-                                                    'precio_hamse'=>$terminales[5][14],
-                                                    'precio_potesta'=>$terminales[5][15],
-                                                    'precio_energo'=>$terminales[5][16], 
+                                                    'vector_precio_valero'=>$terminales[5][16],
+                                                    'precio_pemex'=>$terminales[5][17],
+                                                    'precio_policon'=>$terminales[5][18], 
+                                                    'precio_impulsa'=>$terminales[5][19],
+                                                    'precio_hamse'=>$terminales[5][20],
+                                                    'precio_potesta'=>$terminales[5][21],
+                                                    'precio_energo'=>$terminales[5][22], 
                                                     'id_terminal'=>'6' ])
                                                 </div>
                                                 <a class="carousel-control-prev mr-5" href="#carouselExampleIndicators4" role="button" data-slide="prev">
@@ -377,13 +381,13 @@
                                                     'gasolina'=>'Supreme 93',
                                                     'gasolinaP'=>'Premium',
                                                     'fechas'=>$terminales[6][1],
-                                                    'vector_precio_valero'=>$terminales[6][6],
-                                                    'precio_pemex'=>$terminales[6][7],
-                                                    'precio_policon'=>$terminales[6][8], 
-                                                    'precio_impulsa'=>$terminales[6][9],
-                                                    'precio_hamse'=>$terminales[6][10],
-                                                    'precio_potesta'=>$terminales[6][11],
-                                                    'precio_energo'=>$terminales[6][12], 
+                                                    'vector_precio_valero'=>$terminales[6][9],
+                                                    'precio_pemex'=>$terminales[6][10],
+                                                    'precio_policon'=>$terminales[6][11], 
+                                                    'precio_impulsa'=>$terminales[6][12],
+                                                    'precio_hamse'=>$terminales[6][13],
+                                                    'precio_potesta'=>$terminales[6][14],
+                                                    'precio_energo'=>$terminales[6][15], 
                                                     'id_terminal'=>'7' ])
                                                 </div>
                                                 <div class="carousel-item">
@@ -393,13 +397,13 @@
                                                     'gasolina'=>'Diésel',
                                                     'gasolinaP'=>'Diésel',
                                                     'fechas'=>$terminales[6][1],
-                                                    'vector_precio_valero'=>$terminales[6][10],
-                                                    'precio_pemex'=>$terminales[6][11],
-                                                    'precio_policon'=>$terminales[6][12], 
-                                                    'precio_impulsa'=>$terminales[6][13],
-                                                    'precio_hamse'=>$terminales[6][14],
-                                                    'precio_potesta'=>$terminales[6][15],
-                                                    'precio_energo'=>$terminales[6][16], 
+                                                    'vector_precio_valero'=>$terminales[6][16],
+                                                    'precio_pemex'=>$terminales[6][17],
+                                                    'precio_policon'=>$terminales[6][18], 
+                                                    'precio_impulsa'=>$terminales[6][19],
+                                                    'precio_hamse'=>$terminales[6][20],
+                                                    'precio_potesta'=>$terminales[6][21],
+                                                    'precio_energo'=>$terminales[6][22], 
                                                     'id_terminal'=>'7' ])
                                                 </div>
                                                 <a class="carousel-control-prev mr-5" href="#carouselExampleIndicators5" role="button" data-slide="prev">

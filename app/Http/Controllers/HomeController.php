@@ -249,7 +249,7 @@
                 } elseif ($contador2 >= $contador1 & $contador2 >= $contador3 & $contador2 >= $contador4 & $contador2 >= $contador5 & $contador2 >= $contador6 & $contador2 >= $contador7) {
 
                     foreach ($terminal->competitions()->orderBy('created_at')->get() as $competition) {
-                        foreach ($competition->prices as $price) {
+                        foreach ($competition->prices()->orderBy('created_at')->get() as $price) {
                             if($price->created_at >= $primer_dia) {
                                 array_push($fechas, $price->created_at->format('j - m'));
                             }

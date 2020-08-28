@@ -107,6 +107,14 @@
                         borderColor: ['rgb(0, 116, 55)'],
                         borderWidth: 3
                     },
+                    {
+                        // Informacion del competidor otro
+                        label: 'Impulsa',
+                        data: @json($precio_impulsa),
+                        backgroundColor: ['rgb(255, 255, 255, 0)'],
+                        borderColor: ['rgb(255, 207, 1)'],
+                        borderWidth: 3
+                    },
                     @if(auth()->user()->roles[0]->id == 1)
                     {
                         // Informacion del competidor policon
@@ -114,15 +122,6 @@
                         data: @json($precio_policon),
                         backgroundColor: ['rgb(255, 255, 255, 0)'],
                         borderColor: ['rgb(223, 1, 31)'],
-                        borderWidth: 3
-                    },
-                    @endif
-                    {
-                        // Informacion del competidor otro
-                        label: 'Impulsa',
-                        data: @json($precio_impulsa),
-                        backgroundColor: ['rgb(255, 255, 255, 0)'],
-                        borderColor: ['rgb(255, 207, 1)'],
                         borderWidth: 3
                     },
                     {
@@ -149,6 +148,7 @@
                         borderColor: ['rgb(0, 196, 196)'],
                         borderWidth: 3
                     },
+                    @endif
                 ],
 
             },

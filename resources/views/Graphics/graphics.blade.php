@@ -22,7 +22,7 @@
         }
         else{
              $precios = array();
-            
+
             if ($vector_precio_valero != NULL) {
                  $precios['Valero'] = $vector_precio_valero[count($vector_precio_valero)-1];
              }
@@ -67,7 +67,7 @@
 
     </div>
 </div>
-@php 
+@php
 @endphp
 @push('js')
 <script>
@@ -224,21 +224,21 @@
                                     label: 'Hamse',
                                     data: datos.precios_hamse,
                                     backgroundColor: ['rgb(255, 255, 255, 0)'],
-                                    borderColor: ['rgb(255, 207, 1)'],
+                                    borderColor: ['rgb(0, 0, 0)'],
                                     borderWidth: 3
                                 },
                                 {
                                     label: 'Potesta',
                                     data: datos.precios_potesta,
                                     backgroundColor: ['rgb(255, 255, 255, 0)'],
-                                    borderColor: ['rgb(255, 207, 1)'],
+                                    borderColor: ['rgb(191, 0, 150)'],
                                     borderWidth: 3
                                 },
                                 {
                                     label: 'Energo',
                                     data: datos.precios_energo,
                                     backgroundColor: ['rgb(255, 255, 255, 0)'],
-                                    borderColor: ['rgb(255, 207, 1)'],
+                                    borderColor: ['rgb(0, 196, 196)'],
                                     borderWidth: 3
                                 }
                             ]

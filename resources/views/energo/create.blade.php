@@ -43,14 +43,14 @@
                                     <label for="regular_sin">
                                         Regular
                                     </label>
-                                    <input class="form-control" id="regular_sin" name="precio_regular" placeholder="0" type="text" value="">
+                                    <input class="form-control" id="regular_sin" name="precio_regular" placeholder="0" type="text" value="0" disabled>
                                     </input>
                                 </div>
                                 <div class="form-group col">
                                     <label for="premium_sin">
                                         Premium
                                     </label>
-                                    <input class="form-control" id="premium_sin" min="0" name="precio_premium" placeholder="0" type="text" value="">
+                                    <input class="form-control" id="premium_sin" min="0" name="precio_premium" placeholder="0" type="text" value="0" disabled>
                                     </input>
                                 </div>
                                 <div class="form-group col">
@@ -101,7 +101,7 @@
 
 
         $( "#calendar_first" ).blur(function() {
-            
+
             id = $('#cotizador').val();
             fecha = $('#calendar_first').val();
 
@@ -114,8 +114,8 @@
                   'id' : $('#cotizador').val(),
                   'fecha': $('#calendar_first').val(),
                 },
-                headers:{ 
-                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') 
+                headers:{
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(response){
                     var datos =  response;
@@ -123,7 +123,7 @@
 
                         $("#regular_sin").val(datos.precios[0].precio_regular);
                         $("#premium_sin").val(datos.precios[0].precio_premium);
-                        $("#disel_sin").val(datos.precios[0].precio_disel);  
+                        $("#disel_sin").val(datos.precios[0].precio_disel);
 
                     }else{
 
@@ -131,10 +131,10 @@
 
                         $("#regular_sin").val(0);
                         $("#premium_sin").val(0);
-                        $("#disel_sin").val(0);    
+                        $("#disel_sin").val(0);
 
                     }
-                    
+
                 },
                 error: function(xhr){
                      alert("An error occured: " + xhr.status + " " + xhr.statusText);
@@ -142,7 +142,7 @@
             });
         });
 
-        $("#editar").click(function(){ 
+        $("#editar").click(function(){
             $.ajax({
                 url: 'calendario_edit_energo',
                 type: 'POST',
@@ -154,8 +154,8 @@
                     precio_p:$('#premium_sin').val(),
                     precio_d:$('#disel_sin').val()
                 },
-                headers:{ 
-                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') 
+                headers:{
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(res){
                     $("#regular_sin").val(0);
@@ -165,7 +165,7 @@
                     showNotification('top','right', 'warning', ''+res.color+'', ''+res.mensaje+'');
                 },
                 error: function(xhr){
-                    
+
                 }
             });
         });

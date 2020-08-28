@@ -14,11 +14,15 @@
         <?php
 
         if(auth()->user()->roles[0]->id == 2){
-            $precios = array(
-                'Impulsa' => $precio_impulsa[count($precio_impulsa)-1],
-                'Pemex' => $precio_pemex[count($precio_pemex)-1],
-
-            );
+            $precios = array();
+            
+            if ($precio_pemex != NULL) {
+                $precios['Pemex'] = $precio_pemex[count($precio_pemex)-1];
+            }
+            
+            if ($precio_impulsa != NULL) {
+                $precios['Impulsa'] = $precio_impulsa[count($precio_impulsa)-1];
+            }
         }
         else{
              $precios = array();

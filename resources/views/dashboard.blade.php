@@ -31,7 +31,7 @@
                             <div class="col col-lg-9 col-md-9 col-sm-12">
 
                                 <ul class="nav nav-pills nav-pills-primary mt-3 justify-content-center" role="tablist">
-                                    <li class="nav-item d-none">
+                                    <li class="nav-item">
                                         <a aria-expanded="true" class="nav-link" data-toggle="tab" href="#link1"
                                             role="tablist">
                                             {{$terminales[0][0]}}

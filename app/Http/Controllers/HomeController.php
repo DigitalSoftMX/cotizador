@@ -191,6 +191,13 @@
                             $precio_descuesto_regular = floatval($price4->precio_regular) - floatval(0.55);
                             $precio_descuesto_premium = floatval($price4->precio_premium) - floatval(0.20);
                             $precio_descuesto_diesel = floatval($price4->precio_disel) - floatval(0.74);
+
+                        }elseif($price4->potesta_id == 4){
+                            // Mexico
+
+                            $precio_descuesto_regular = floatval($price4->precio_regular) - floatval(0.50);
+                            $precio_descuesto_premium = floatval($price4->precio_premium) - floatval(0.30);
+                            $precio_descuesto_diesel = floatval($price4->precio_disel) - floatval(0.80);
                         }
 
                         array_push($fechas6, $price4->created_at->format('j - m'));

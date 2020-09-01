@@ -15,11 +15,11 @@
 
         if(auth()->user()->roles[0]->id == 2){
             $precios = array();
-            
+
             if ($precio_pemex != NULL) {
                 $precios['Pemex'] = $precio_pemex[count($precio_pemex)-1];
             }
-            
+
             if ($precio_impulsa != NULL) {
                 $precios['Impulsa'] = $precio_impulsa[count($precio_impulsa)-1];
             }
@@ -224,6 +224,7 @@
                                     borderColor: ['rgb(255, 207, 1)'],
                                     borderWidth: 3
                                 },
+                                @if(auth()->user()->roles[0]->id == 1)
                                 {
                                     label: 'Hamse',
                                     data: datos.precios_hamse,
@@ -245,6 +246,7 @@
                                     borderColor: ['rgb(0, 196, 196)'],
                                     borderWidth: 3
                                 }
+                                @endif
                             ]
                         },
                         options: {

@@ -209,6 +209,16 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::any('flete', 'QuoteController@flete');
 });
 
+// Ventas Controller
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('ventas','VentasController@index');
+    Route::get('ventas/create','VentasController@create');
+    Route::post('ventas/guardar-vendedor','VentasController@guardar_vendedor')->name('guardarvendedor');
+    Route::get('ventas/lista-vendedores','VentasController@listar_vendedores')->name('ventas.lista_vendedores');
+    Route::get('ventas/add-unidad-negocio/{id}','VentasController@add_unidad_negocio')->name('ventas.addunidadnegocio');
+    Route::post('ventas/save-unidad-negocio','VentasController@save_unidad_negocio');
+});
+
 
 //Route::get('estaciones', ['as' => 'estaciones.index', 'uses' => 'EstacionController@index']);
 //Route::group(['middleware' => 'auth'], function () {

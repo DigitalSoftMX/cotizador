@@ -15,13 +15,16 @@
 
         if(auth()->user()->roles[0]->id == 2){
             $precios = array();
+            $posicion_ultima_fecha = array();
 
             if ($precio_pemex != NULL) {
                 $precios['Pemex'] = $precio_pemex[count($precio_pemex)-1];
+                $posicion_ultima_fecha['Pemex'] = count($precio_pemex)-1;
             }
 
             if ($precio_impulsa != NULL) {
                 $precios['Impulsa'] = $precio_impulsa[count($precio_impulsa)-1];
+                $posicion_ultima_fecha['Impulsa'] = count($precio_impulsa)-1;
             }
         }
         else{
@@ -29,36 +32,53 @@
 
             if ($vector_precio_valero != NULL) {
                  $precios['Valero'] = $vector_precio_valero[count($vector_precio_valero)-1];
+                 $posicion_ultima_fecha['Valero'] = count($vector_precio_valero)-1;
              }
              if ($precio_pemex != NULL) {
                  $precios['Pemex'] = $precio_pemex[count($precio_pemex)-1];
+                 $posicion_ultima_fecha['Pemex'] = count($precio_pemex)-1;
              }
              if ($precio_policon != NULL) {
                  $precios['Policon'] = $precio_policon[count($precio_policon)-1];
+                 $posicion_ultima_fecha['Policon'] = count($precio_policon)-1;
              }
              if ($precio_impulsa != NULL) {
                  $precios['Impulsa'] = $precio_impulsa[count($precio_impulsa)-1];
+                 $posicion_ultima_fecha['Impulsa'] = count($precio_impulsa)-1;
              }
              if ($precio_hamse != NULL) {
                  $precios['Hamse'] = $precio_hamse[count($precio_hamse)-1];
+                 $posicion_ultima_fecha['Hamse'] = count($precio_hamse)-1;
              }
              if ($precio_potesta != NULL) {
                  $precios['Potesta'] = $precio_potesta[count($precio_potesta)-1];
+                 $posicion_ultima_fecha['Potesta'] = count($precio_potesta)-1;
              }
              if ($precio_energo != NULL) {
                  $precios['Energo'] = $precio_energo[count($precio_energo)-1];
+                 $posicion_ultima_fecha['Energo'] = count($precio_energo)-1;
              }
         }
 
         array_multisort($precios);
         ?>
         <div class="row text-center">
-
             @foreach($precios as $key => $value)
+
             <div class="col-3 mx-auto d-block">
                 <div class="card">
                   <div class="card-body">
-                    <h6 class="card-title">Precio del ultimo día registrado para: {{$key}}
+                    <h6 class="card-title">
+                        Precio del ultimo día registrado para: {{$key}}
+                        <br>
+
+                        @php
+                            $ultima_fecha = $fechas[ $posicion_ultima_fecha[$key] ]."-".date("Y");
+                            $ultima_fecha = str_replace(' ', '', $ultima_fecha);
+                        @endphp
+
+                        {{-- {{ $ultima_fecha }} --}}
+
                     </h6>
                     <h5 class="card-title">$
                         {{ $value }}

@@ -219,6 +219,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('ventas/save-unidad-negocio','VentasController@save_unidad_negocio');
 });
 
+// Vendedores Controller
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('clientes','VendedorClienteController@index');
+    Route::get('clientes/agregar-cliente','VendedorClienteController@agregar_cliente')->name('clientes.agregarcliente');
+    Route::post('clientes/guardar-cliente','VendedorClienteController@guardar_cliente')->name('clientes.guardarcliente');
+    Route::get('clientes/documentacion/{id}','VendedorClienteController@documentacion')->name('clientes.documentacion');
+});
+
 
 //Route::get('estaciones', ['as' => 'estaciones.index', 'uses' => 'EstacionController@index']);
 //Route::group(['middleware' => 'auth'], function () {

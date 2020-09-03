@@ -39,7 +39,7 @@
         */
         public function index(Request $request, Terminal $terminal)
         {
-            $request->user()->authorizeRoles(['Administrador','Invitado']);
+            $request->user()->authorizeRoles(['Administrador','Invitado','Vendedor']);
 
             $month = date('m');
             $year = date('Y');

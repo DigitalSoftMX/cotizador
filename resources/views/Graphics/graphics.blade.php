@@ -77,7 +77,7 @@
                             $ultima_fecha = str_replace(' ', '', $ultima_fecha);
                         @endphp
 
-                        {{-- {{ $ultima_fecha }} --}}
+                        {{ $ultima_fecha }}
 
                     </h6>
                     <h5 class="card-title">$

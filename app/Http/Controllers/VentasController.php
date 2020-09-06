@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Role;
 use App\User;
 use App\VendedorUnidadNegocio;
+use App\Cliente;
+use App\ClienteVendedor;
+use Illuminate\Support\Facades\DB;
 
 class VentasController extends Controller
 {
@@ -104,6 +107,44 @@ class VentasController extends Controller
         $actualiza = VendedorUnidadNegocio::where('user_id', $id)->first();
         $actualiza->update($request->all());
         echo "Los datos se han actualizado";
+    }
+
+    public function lista_clientes(Request $request){
+        $request->user()->authorizeRoles(['Administrador']);
+
+        $clientes_disponibles_q = Cliente::select('clientes.nombre','clientes.email', 'clientes.direccion', 'clientes.tipo', 'clientes.bandera_blanca', 'clientes.numero_estacion',
+                                          'clientes.telefono', 'clientes.id', DB::raw('DATEDIFF(cliente_vendedor.dia_termino, CURDATE()) as dias'))
+                ->where('cliente_vendedor.status', '=' , 'Olvidado')
+                ->join('cliente_vendedor', 'cliente_vendedor.cliente_id','=','clientes.id')
+                ->get();
+
+        $data = array(
+            $clientes_disponibles_q
+        );
+
+        return view('ventas.clientes_disponibles',compact('data'));
+    }
+
+    public function asignar_vendedor(Request $request, $id){
+        $request->user()->authorizeRoles(['Administrador']);
+
+        $rol = Role::where('name', 'Vendedor')->first()->id;
+
+        $cliente = Cliente::where('id',$id)->first();
+
+        $vendedores = User::select('users.name', 'users.app_name', 'users.apm_name','users.id')
+        ->where('role_user.role_id', $rol)
+        ->distinct('users.id')
+        ->join('cliente_vendedor', 'cliente_vendedor.user_id', '!=', 'users.id')
+        ->join('role_user', 'role_user.user_id', '=', 'users.id')
+        ->get();
+
+        $data = array(
+            $cliente,
+            $vendedores
+        );
+
+        return view('ventas.asignar_vendedor_cliente', compact('data'));
     }
 
 

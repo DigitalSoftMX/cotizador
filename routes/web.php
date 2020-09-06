@@ -217,6 +217,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('ventas/lista-vendedores','VentasController@listar_vendedores')->name('ventas.lista_vendedores');
     Route::get('ventas/add-unidad-negocio/{id}','VentasController@add_unidad_negocio')->name('ventas.addunidadnegocio');
     Route::post('ventas/save-unidad-negocio','VentasController@save_unidad_negocio');
+    Route::get('ventas/lista-clientes','VentasController@lista_clientes')->name('ventas.listaclientes');
+    Route::get('ventas/asignar-vendedor/{id}','VentasController@asignar_vendedor')->name('ventas.asignarvendedor');
 });
 
 // Vendedores Controller
@@ -225,6 +227,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('clientes/agregar-cliente','VendedorClienteController@agregar_cliente')->name('clientes.agregarcliente');
     Route::post('clientes/guardar-cliente','VendedorClienteController@guardar_cliente')->name('clientes.guardarcliente');
     Route::get('clientes/documentacion/{id}','VendedorClienteController@documentacion')->name('clientes.documentacion');
+    Route::post('clientes/subir','VendedorClienteController@subir')->name('clientes.subirarchivo');
+    Route::post('clientes/subir/solicitud-documentos','VendedorClienteController@solicitud_documentos')->name('clientes.subirsolicituddocumentos');
+    Route::post('clientes/subir/propuesta','VendedorClienteController@propuestas')->name('clientes.subirarchivopropuesta');
+    Route::get('clientes/avance/{id}','VendedorClienteController@avance')->name('clientes.avance');
 });
 
 

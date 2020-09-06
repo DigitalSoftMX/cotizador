@@ -17,10 +17,6 @@
 
                         <div class="row ">
 
-                            <div class="col-lg-4 mb-4 ml-auto">
-                                <a class="btn btn-primary btn-block text-white" href="{{ route('clientes.agregarcliente') }}">Agregar cliente</a>
-                            </div>
-
                             <div class="col-lg-12 col-12">
                                 <table id="mis-clientes" class="display" style="width:100%">
                                     <thead>
@@ -28,7 +24,7 @@
                                             <th>Nombre empresa</th>
                                             <th>Correo</th>
                                             <th>Información</th>
-                                            <th>Agregar documentación</th>
+                                            <th>Asignar vendedor</th>
                                             <th>Avance</th>
                                         </tr>
                                     </thead>
@@ -41,26 +37,19 @@
                                                 @php
                                                     $informacion = "Nombre o Razón Social: ".$cliente->nombre."<br>Correo electronico: ".$cliente->email."<br>";
                                                     $informacion .= "Dirección: ".$cliente->direccion."<br>Tipo: ".$cliente->tipo."<br>Tel: ".$cliente->telefono."<br>";
-                                                    if($cliente->tipo === "Estación"){
-                                                        $informacion .= "Bandera blanca: ".$cliente->bandera_blanca."<br>No. estación: ".$cliente->numero_estacion."<br>";
+                                                    if($cliente->tipo === "Estacion"){
+                                                        $informacion .= "Bandera blanca: ".$cliente->direccion."<br>No. estación: ".$cliente->numero_estacion."<br>";
                                                     }
 
-                                                    if($cliente->status != "Finalizado"){
-                                                        $informacion .= "<span>Te restan: ".$cliente->dias." dias.</span>";
-                                                    }else{
-                                                        $informacion .= "El seguimiento ha finalizado";
-                                                    }
+
+
+                                                    $informacion .= "<span>Dias: ".$cliente->dias." dias.</span>";
 
                                                 @endphp
 
                                                 <td><button onclick="informacion_cliente('{{ $informacion }}')" class="btn btn-info text-white">Visualizar</button></td>
-                                                @if($cliente->status != "Finalizado")
-                                                <td><a class="btn btn-success text-white" href="{{ route('clientes.documentacion', $cliente->id ) }}">Agregar</a></td>
-                                                @else
-                                                    <td></td>
-                                                @endif
-                                                <td><a class="btn btn-primary text-white" href="{{ route('clientes.avance', $cliente->id) }}">Visualizar</a></td>
-
+                                                <td><a class="btn btn-success text-white" href="{{ route('ventas.asignarvendedor', $cliente->id) }}">Asignar</a></td>
+                                                <td><a class="btn btn-primary text-white">Visualizar</a></td>
                                             </tr>
                                         @endforeach
                                     </tbody>

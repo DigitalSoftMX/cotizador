@@ -15,8 +15,8 @@ class Cliente extends Model
 
     protected $fillable = [
         'id', 'nombre', 'direccion', 'telefono', 'email', 'tipo', 'bandera_blanca', 'numero_estacion',
-        'carta_intencion', 'carta_confidencialidad', 'propuesta', 'contrato_formal', 'solicitud_documentacion1',
-        'solicitud_documentacion2', 'solicitud_documentacion3', 'solicitud_documentacion4', 'solicitud_documentacion5',
+        'carta_intencion', 'convenio_confidencialidad', 'margen_garantizado',
+        'contrato_comodato', 'contrato_suministro', 'carta_bienvenida', 'solicitud_documentacion', 'propuestas',
         'value_key'
     ];
 

@@ -23,15 +23,16 @@ class ClientesTable extends Migration
             $table->string('tipo');
             $table->string('bandera_blanca')->nullable();
             $table->string('numero_estacion')->nullable();
+
             $table->string('carta_intencion')->nullable();
-            $table->string('carta_confidencialidad')->nullable();
-            $table->string('propuesta')->nullable();
-            $table->string('contrato_formal')->nullable();
-            $table->string('solicitud_documentacion1')->nullable();
-            $table->string('solicitud_documentacion2')->nullable();
-            $table->string('solicitud_documentacion3')->nullable();
-            $table->string('solicitud_documentacion4')->nullable();
-            $table->string('solicitud_documentacion5')->nullable();
+            $table->string('convenio_confidencialidad')->nullable();
+            $table->string('margen_garantizado')->nullable();
+            $table->string('contrato_comodato')->nullable();
+            $table->string('contrato_suministro')->nullable();
+            $table->string('carta_bienvenida')->nullable();
+
+            $table->json('solicitud_documentacion')->nullable();
+            $table->json('propuestas')->nullable();
             $table->string('value_key');
             $table->timestamps();
         });

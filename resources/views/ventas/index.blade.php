@@ -21,17 +21,19 @@
 
                                 <a  href="{{ route('ventas.lista_vendedores') }}">
                                     <div class="card" style="background-color: #CACACA;color: #000;">
-                                        <div class="card-body">
+                                        <div class="card-body text-white">
                                             Vendedores
                                         </div>
                                     </div>
                                 </a>
 
-                                <div class="card bg-success text-white">
-                                    <div class="card-body">
-                                        Clientes disponibles
+                                <a href="{{ route('ventas.listaclientes') }}">
+                                    <div class="card bg-success text-white">
+                                        <div class="card-body">
+                                            Clientes disponibles
+                                        </div>
                                     </div>
-                                </div>
+                                </a>
 
                                 <div class="card bg-warning text-white">
                                     <div class="card-body">

@@ -218,7 +218,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('ventas/add-unidad-negocio/{id}','VentasController@add_unidad_negocio')->name('ventas.addunidadnegocio');
     Route::post('ventas/save-unidad-negocio','VentasController@save_unidad_negocio');
     Route::get('ventas/lista-clientes','VentasController@lista_clientes')->name('ventas.listaclientes');
-    Route::get('ventas/asignar-vendedor/{id}','VentasController@asignar_vendedor')->name('ventas.asignarvendedor');
+	Route::get('ventas/asignar-vendedor/{id}','VentasController@asignar_vendedor')->name('ventas.asignarvendedor');
+    Route::get('ventas/seguimientos','VentasController@seguimientos')->name('ventas.seguimientos');
+
+    Route::get('ventas/download/{file}','VentasController@download')->name('ventas.download');
+    Route::post('ventas/agregar-dias','VentasController@agregar_dias')->name('ventas.agregardias');
+    Route::post('ventas/asignar-vendedor/guardar','VentasController@asignar_vendedor_guardar')->name('ventas.asignarvendedorguardar');
 });
 
 // Vendedores Controller

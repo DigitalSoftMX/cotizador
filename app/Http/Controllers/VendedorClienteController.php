@@ -34,8 +34,8 @@ class VendedorClienteController extends Controller
             if($cliente->dias <= 0 && $cliente->status != 'Finalizado'){
 
                 ClienteVendedor::where('cliente_id', $cliente->id)
-                -where('user_id', $user_id)
-                ->update(['status' => 'Olvidado']);
+                ->where('user_id', $user_id)
+                ->update(['status' => 'Olvidado', 'show_disponible' => 'si']);
 
             }else{
                 array_push($mis_clientes, $cliente);
@@ -91,6 +91,7 @@ class VendedorClienteController extends Controller
 
         $cliente_vendedor->user_id = $user_id;
         $cliente_vendedor->cliente_id = $cliente_id;
+        $cliente_vendedor->show_disponible = "no";
         $cliente_vendedor->status = 'Seguimiento';  // valores que puede tomar ['Seguimiento', 'Olvidado', 'Finalizado']
         $cliente_vendedor->dia_termino = date("Y-m-d",strtotime($fecha_actual."+ 40 days"));
         $cliente_vendedor->save();
@@ -276,12 +277,15 @@ class VendedorClienteController extends Controller
 
     public function avance(Request $request, $id)
     {
-        $request->user()->authorizeRoles(['Vendedor']);
+        $request->user()->authorizeRoles(['Vendedor','Administrador']);
 
-        $cliente = Cliente::find($id)->first();
+        $cliente = Cliente::find($id);
+
+        // dd($cliente);
 
         $data['archivos-subidos'] = array();
         $data['archivos-restantes'] = array();
+        $data['archivos_descarga'] = array();
 
         $contratos = array('carta_intencion', 'convenio_confidencialidad',
                             'margen_garantizado', 'solicitud_documentacion',
@@ -290,6 +294,7 @@ class VendedorClienteController extends Controller
 
         $solicitud_documentacion = array('solicitud_documento', 'ine', 'acta_constitutiva',
                                         'poder_notarial', 'rfc', 'constancia_situacion_fiscal', 'comprobante_domicilio');
+
 
         foreach($contratos as $contrato)
         {
@@ -300,6 +305,14 @@ class VendedorClienteController extends Controller
                 if( $cliente[$contrato] != null )
                 {
                     array_push($data['archivos-subidos'], $contrato);
+                    if($contrato == 'propuestas')
+                    {
+                        $num = count(json_decode($cliente[$contrato], true)) - 1;
+                        array_push( $data['archivos_descarga'] , $contrato.$id."#".$num.".pdf");
+                    }else{
+                        array_push( $data['archivos_descarga'] , $contrato.$id.".pdf");
+                    }
+
                 }else{
                     array_push($data['archivos-restantes'], $contrato);
                 }
@@ -315,6 +328,7 @@ class VendedorClienteController extends Controller
                         if( strcmp($documentos_cliente[$documento], " ") != 0 )
                         {
                             array_push($data['archivos-subidos'], $documento);
+                            array_push( $data['archivos_descarga'] , $documento.$id.".pdf");
                         }else{
                             array_push($data['archivos-restantes'], $documento);
                         }
@@ -326,6 +340,7 @@ class VendedorClienteController extends Controller
             }
         }
 
+        // dd($data['archivos_descarga']);
         return view('vendedor_cliente.avance', compact('data'));
 
     }

@@ -22,10 +22,14 @@
                                     <div class="card-body">
                                         <h4 class="card-title">Archivos subidos</h4>
 
-                                        @foreach ( $data['archivos-subidos'] as $documento)
+                                        @foreach ( $data['archivos-subidos'] as $index => $documento)
+                                            <a href="{{ route('ventas.download', $data['archivos_descarga'][$index] ) }}" target="_blank">
                                             <div class="card bg-success">
-                                                <div class="card-body text-center">{{ strtoupper(str_replace('_',' ', $documento)) }}</div>
+                                                <div class="card-body text-center">
+                                                    {{ strtoupper(str_replace('_',' ', $documento)) }}
+                                                </div>
                                             </div>
+                                            </a>
                                         @endforeach
                                     </div>
                                 </div>

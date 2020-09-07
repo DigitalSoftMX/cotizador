@@ -35,11 +35,13 @@
                                     </div>
                                 </a>
 
-                                <div class="card bg-warning text-white">
-                                    <div class="card-body">
-                                        Seguimientos
+                                <a href="{{ route('ventas.seguimientos') }}">
+                                    <div class="card bg-warning text-white">
+                                        <div class="card-body">
+                                            Seguimientos
+                                        </div>
                                     </div>
-                                </div>
+                                </a>
 
                             </div>
                         </div>

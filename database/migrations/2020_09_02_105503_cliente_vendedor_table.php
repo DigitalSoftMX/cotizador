@@ -19,6 +19,7 @@ class ClienteVendedorTable extends Migration
             $table->unsignedBigInteger('cliente_id');
             $table->date('dia_termino');
             $table->enum('status', ['Seguimiento', 'Olvidado', 'Finalizado']);
+            $table->enum('show_disponible', ['si', 'no']);
             $table->timestamps();
 
 

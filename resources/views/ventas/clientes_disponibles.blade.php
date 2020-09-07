@@ -49,7 +49,8 @@
 
                                                 <td><button onclick="informacion_cliente('{{ $informacion }}')" class="btn btn-info text-white">Visualizar</button></td>
                                                 <td><a class="btn btn-success text-white" href="{{ route('ventas.asignarvendedor', $cliente->id) }}">Asignar</a></td>
-                                                <td><a class="btn btn-primary text-white">Visualizar</a></td>
+
+                                                <td><a class="btn btn-primary text-white" href="{{ route('clientes.avance', $cliente->id) }}">Visualizar</a></td>
                                             </tr>
                                         @endforeach
                                     </tbody>

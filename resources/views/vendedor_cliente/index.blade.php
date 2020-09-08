@@ -41,6 +41,8 @@
                                                 @php
                                                     $informacion = "Nombre o Razón Social: ".$cliente->nombre."<br>Correo electronico: ".$cliente->email."<br>";
                                                     $informacion .= "Dirección: ".$cliente->direccion."<br>Tipo: ".$cliente->tipo."<br>Tel: ".$cliente->telefono."<br>";
+                                                    $informacion .= "Estado: ".$cliente->estado."<br>";
+
                                                     if($cliente->tipo === "Estación"){
                                                         $informacion .= "Bandera blanca: ".$cliente->bandera_blanca."<br>No. estación: ".$cliente->numero_estacion."<br>";
                                                     }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Cliente;
 use App\ClienteVendedor;
 use Illuminate\Support\Facades\DB;
+use App\VendedorUnidadNegocio;
 
 class VendedorClienteController extends Controller
 {
@@ -17,7 +18,7 @@ class VendedorClienteController extends Controller
 
         /* Obtenemos los clientes del vendedor */
         $mis_clientes_q = Cliente::select('clientes.nombre','clientes.email', 'clientes.direccion', 'clientes.tipo', 'clientes.bandera_blanca', 'clientes.numero_estacion',
-                                          'clientes.telefono', 'clientes.id', 'cliente_vendedor.status', DB::raw('DATEDIFF(cliente_vendedor.dia_termino, CURDATE()) as dias'))
+                                          'clientes.estado', 'clientes.telefono', 'clientes.id', 'cliente_vendedor.status', DB::raw('DATEDIFF(cliente_vendedor.dia_termino, CURDATE()) as dias'))
                 ->where('cliente_vendedor.status', '!=' , 'Olvidado')
                 ->where('cliente_vendedor.user_id', $user_id)
                 ->join('cliente_vendedor', 'cliente_vendedor.cliente_id','=','clientes.id')
@@ -51,7 +52,16 @@ class VendedorClienteController extends Controller
 
     public function agregar_cliente(Request $request){
         $request->user()->authorizeRoles(['Vendedor']);
-        return view('vendedor_cliente.agregar_cliente');
+
+        $user_id = $request->user()->id;
+        $estados_q = VendedorUnidadNegocio::select('unidades_negocio')->where('user_id', $user_id)->get()[0];
+
+        if($estados_q->unidades_negocio == null){
+            $estados = array();
+        }else{
+            $estados = json_decode($estados_q->unidades_negocio,true);
+        }
+        return view('vendedor_cliente.agregar_cliente')->with('estados', $estados);
     }
 
     public function guardar_cliente(Request $request){
@@ -74,6 +84,7 @@ class VendedorClienteController extends Controller
         $cliente->email = $request->post('email');
         $tipo = $request->post('tipo');
         $cliente->tipo = $tipo;
+        $cliente->estado = $request->post('estado');
 
 
         if( strcmp ( $cliente->tipo, "Estación" )  == 0){
@@ -127,8 +138,6 @@ class VendedorClienteController extends Controller
         Cliente::find($id_cliente)->update([$contrato => $name]);
         // Almacenamos en local
         \Storage::disk('public')->put($name,  \File::get($file));
-
-        // $this->enviarEmailPDF( array($name), $id_cliente, $contrato, $request);
 
         $this->se_ha_finalizado( $request, $id_cliente);
 
@@ -281,8 +290,6 @@ class VendedorClienteController extends Controller
 
         $cliente = Cliente::find($id);
 
-        // dd($cliente);
-
         $data['archivos-subidos'] = array();
         $data['archivos-restantes'] = array();
         $data['archivos_descarga'] = array();
@@ -340,7 +347,6 @@ class VendedorClienteController extends Controller
             }
         }
 
-        // dd($data['archivos_descarga']);
         return view('vendedor_cliente.avance', compact('data'));
 
     }

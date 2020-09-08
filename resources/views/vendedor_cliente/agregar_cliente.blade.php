@@ -43,6 +43,15 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label for="estado">Estado:</label>
+                                    <select class="form-control" name="estado" style="top: 15px;">
+                                        @foreach ($estados as $estado )
+                                            <option value="{{ $estado }}">{{ $estado }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="form-group mt-5">
                                     <label for="telefono">Telefono:</label>
                                     <input type="text" class="form-control" id="telefono" name="telefono" required>
                                 </div>

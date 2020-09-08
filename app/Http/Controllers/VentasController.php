@@ -114,7 +114,11 @@ class VentasController extends Controller
         $request->user()->authorizeRoles(['Administrador']);
 
         $clientes_disponibles_q = Cliente::select('clientes.nombre','clientes.email', 'clientes.direccion', 'clientes.tipo', 'clientes.bandera_blanca', 'clientes.numero_estacion',
-                                          'clientes.telefono', 'clientes.id', DB::raw('DATEDIFF(cliente_vendedor.dia_termino, CURDATE()) as dias'))
+                                          'clientes.telefono', 'clientes.id', 'clientes.estado',
+                                          'clientes.carta_intencion', 'clientes.convenio_confidencialidad', 'clientes.margen_garantizado',
+                                          'clientes.contrato_comodato', 'clientes.contrato_suministro', 'clientes.carta_bienvenida',
+                                          'clientes.solicitud_documentacion', 'clientes.propuestas',
+                                           DB::raw('DATEDIFF(cliente_vendedor.dia_termino, CURDATE()) as dias'))
                 ->where('cliente_vendedor.status', '=' , 'Olvidado')
                 ->where('cliente_vendedor.show_disponible', "si")
                 ->join('cliente_vendedor', 'cliente_vendedor.cliente_id','=','clientes.id')
@@ -136,16 +140,42 @@ class VentasController extends Controller
         $cliente = Cliente::where('id',$id)->first();
 
         $vendedores = User::select('users.name', 'users.app_name', 'users.apm_name','users.id')
-        ->where('role_user.role_id', $rol)
-        ->distinct('users.id')
-        ->join('cliente_vendedor', 'cliente_vendedor.user_id', '!=', 'users.id')
-        ->join('role_user', 'role_user.user_id', '=', 'users.id')
-        ->get();
+                    ->where('role_user.role_id', $rol)
+                    ->join('role_user', 'role_user.user_id', '=', 'users.id')
+                    ->get();
+
+        $vendedores_no = User::select('users.id')
+                        ->where('role_user.role_id', $rol)
+                        ->where('cliente_vendedor.cliente_id', $id)
+                        ->join('cliente_vendedor', 'cliente_vendedor.user_id', '=', 'users.id')
+                        ->join('role_user', 'role_user.user_id', '=', 'users.id')
+                        ->get();
+
+        $vendedores_si = array();
+
+        foreach($vendedores as $vendedor)
+        {
+            $band = TRUE;
+
+            foreach($vendedores_no as $vendedor_no){
+                if($vendedor->id == $vendedor_no->id)
+                {
+                    $band = FALSE;
+                    break;
+                }
+            }
+            if($band == TRUE)
+            {
+                array_push($vendedores_si, $vendedor);
+            }
+        }
 
         $data = array(
             $cliente,
-            $vendedores
+            $vendedores_si
         );
+
+        // dd($vendedores);
 
         return view('ventas.asignar_vendedor_cliente', compact('data'));
     }
@@ -154,8 +184,11 @@ class VentasController extends Controller
         $request->user()->authorizeRoles(['Administrador']);
 
         $seguimientos_q = ClienteVendedor::select('cliente_vendedor.user_id', 'cliente_vendedor.cliente_id', 'cliente_vendedor.status',
-        'clientes.nombre','clientes.email', 'clientes.direccion', 'clientes.tipo', 'clientes.bandera_blanca', 'clientes.numero_estacion',
+        'clientes.nombre', 'clientes.estado','clientes.email', 'clientes.direccion', 'clientes.tipo', 'clientes.bandera_blanca', 'clientes.numero_estacion',
         'users.name', 'users.app_name', 'users.apm_name',
+        'clientes.carta_intencion', 'clientes.convenio_confidencialidad', 'clientes.margen_garantizado',
+        'clientes.contrato_comodato', 'clientes.contrato_suministro', 'clientes.carta_bienvenida',
+        'clientes.solicitud_documentacion', 'clientes.propuestas',
         'clientes.telefono', DB::raw('DATEDIFF(cliente_vendedor.dia_termino, CURDATE()) as dias')
         )
                         ->where('cliente_vendedor.status','!=','Olvidado')

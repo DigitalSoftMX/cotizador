@@ -27,11 +27,20 @@
 
                             <div class="col-12">
 
+                                @php
+
+                                    $tipo_documentos = array('carta_intencion', 'convenio_confidencialidad', 'margen_garantizado', 'contrato_comodato',
+                                        'solicitud_documentacion', 'propuestas', 'contrato_suministro', 'carta_bienvenida'
+                                    );
+
+                                @endphp
+
                                 <table id="seguimientos" class="display" style="width:100%">
                                     <thead>
                                         <tr>
                                             <th>Vendedor</th>
                                             <th>Cliente</th>
+                                            <th>Unidad de negocio</th>
                                             <th>Información cliente</th>
                                             <th>Avance</th>
                                             <th>Aumentar tiempo de seguimiento</th>
@@ -42,6 +51,7 @@
                                             <tr>
                                                 <td>{{ $cliente_vendedor->name }} {{ $cliente_vendedor->app_name }} {{ $cliente_vendedor->apm_name }}</td>
                                                 <td>{{ $cliente_vendedor->nombre }}</td>
+                                                <td>{{ $cliente_vendedor->estado }}</td>
 
                                                 @php
                                                     $informacion = "Nombre o Razón Social: ".$cliente_vendedor->nombre."<br>Correo electronico: ".$cliente_vendedor->email."<br>";
@@ -56,9 +66,19 @@
                                                         $informacion .= "El seguimiento ha finalizado";
                                                     }
 
+                                                    $avances = "";
+                                                    foreach($tipo_documentos as $tipo_documento)
+                                                    {
+                                                        if($cliente_vendedor[$tipo_documento] != null){
+                                                            $avances .= '<span class="badge badge-success mr-1">'.strtoupper(str_replace('_',' ', $tipo_documento)).'</span>';
+                                                        }else{
+                                                            $avances .= '<span class="badge badge-danger mr-1">'.strtoupper(str_replace('_',' ', $tipo_documento)).'</span>';
+                                                        }
+                                                    }
+
                                                 @endphp
 
-                                                <td><button type="button" class="btn btn-primary" onclick="informacion_cliente('{{ $informacion }}')">Información</button></td>
+                                                <td><button type="button" class="btn btn-primary" onclick="informacion_cliente('{{ $informacion }}', '{{ $avances }}')">Información</button></td>
                                                 <td><a class="btn btn-success text-white" href="{{ route('clientes.avance', $cliente_vendedor->cliente_id) }}">Visualizar</a></td>
                                                 <td>
 
@@ -109,6 +129,7 @@
 
       <!-- Modal footer -->
       <div class="modal-footer">
+        <p id="avance_p" class="card-text"></p>
         <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
       </div>
 
@@ -143,8 +164,9 @@
 
         } );
 
-        function informacion_cliente(string){
+        function informacion_cliente(string, avance){
             document.getElementById('info_p').innerHTML = string;
+            document.getElementById('avance_p').innerHTML = avance;
             $("#informacion_modal").modal()
         }
 

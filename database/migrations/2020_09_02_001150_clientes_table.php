@@ -21,6 +21,9 @@ class ClientesTable extends Migration
             $table->string('telefono');
             $table->string('email');
             $table->string('tipo');
+
+            $table->string('estado');
+
             $table->string('bandera_blanca')->nullable();
             $table->string('numero_estacion')->nullable();
 

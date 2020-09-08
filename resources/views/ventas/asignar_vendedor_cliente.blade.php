@@ -17,7 +17,7 @@
 
                         <div class="row justify-content-center">
 
-                            <div class="col-lg-4 mb-4">
+                            <div class="col-lg-12 mb-4">
 
                                 @if (session('status'))
                                     <div class="alert {{ session('status_alert') }}" role="alert" id="alert-view">
@@ -26,7 +26,7 @@
                                 @endif
                             </div>
 
-                            <div class="col-8">
+                            <div class="col-4">
                                 <form method="POST" action="{{ route('ventas.asignarvendedorguardar') }}">
                                     @csrf
                                     <input type="text" name="cliente_id" value="{{ $data[0]->id }}" style="display: none;">

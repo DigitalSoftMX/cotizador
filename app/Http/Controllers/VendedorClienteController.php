@@ -7,6 +7,8 @@ use App\Cliente;
 use App\ClienteVendedor;
 use Illuminate\Support\Facades\DB;
 use App\VendedorUnidadNegocio;
+use Mail;
+use App\Mail\NotificacionDocs;
 
 class VendedorClienteController extends Controller
 {
@@ -141,6 +143,8 @@ class VendedorClienteController extends Controller
 
         $this->se_ha_finalizado( $request, $id_cliente);
 
+        $this->sendMail( array($name), $id_cliente, $contrato, $request);
+
         return back()
             ->with('status', 'Archivo '.str_replace('_',' ', $contrato).' subido correctamente')
             ->with('status_alert', 'alert-success');
@@ -168,11 +172,14 @@ class VendedorClienteController extends Controller
             $documentos = json_decode($documentos_cliente->solicitud_documentacion, true);
         }
 
+        $pdfs = array();
         $i = 0;
         while( $request->has('documento'.$i) )
         {
             $tipo_documento = $request->post('documento'.$i);
             $name = $tipo_documento.$id_cliente.".pdf";
+
+            array_push($pdfs, $name);
 
             $file = $request->file('file'.$i);
             // Almacenamos en local
@@ -181,9 +188,10 @@ class VendedorClienteController extends Controller
             $documentos[$tipo_documento] = $name;
             $i++;
         }
-
         // Almacenamos en BD
         Cliente::find($id_cliente)->update(['solicitud_documentacion' => json_encode($documentos)]);
+
+        $this->sendMail($pdfs, $id_cliente, $tipo_documento, $request);
 
         $this->se_ha_finalizado( $request, $id_cliente);
 
@@ -210,11 +218,16 @@ class VendedorClienteController extends Controller
         $file = $request->file('file');
         array_push($propuesta, $name);
 
+        $pdfs = array();
+        array_push($pdfs, $name);
+
         // Almacenamos en BD
         Cliente::find($id_cliente)->update(['propuestas' => json_encode($propuesta)]);
 
         // Almacenamos en local
         \Storage::disk('public')->put($name,  \File::get($file));
+
+        $this->sendMail($pdfs, $id_cliente, "propuesta", $request);
 
         $this->se_ha_finalizado( $request, $id_cliente);
 
@@ -224,10 +237,29 @@ class VendedorClienteController extends Controller
 
     }
 
-    public function enviarEmailPDF($pdfs, $id_user, $tipo_documento, $request){
+    public function sendMail($pdfs, $id_cliente, $contrato, $request)
+    {
+        $email_cliente = Cliente::find($id_cliente)->first()->email;
+        $tipo_documento = strtoupper( str_replace('_',' ', $contrato) );
+        $vendedor = strtoupper( $request->user()->name.' '.$request->user()->app_name );
 
-        $email_cliente = Cliente::find($id_user)->first()->email;
-        $tipo_documento = ucfirst( str_replace('_',' ', $tipo_documento) );
+        $subject = 'El vendedor '.$vendedor.' ha subido documentación de tu seguimiento.';
+
+        $data = array(
+            'email' => $email_cliente,
+            'subject' => $subject,
+            'pdfs' => $pdfs,
+            'tipo_documento' => $tipo_documento,
+            'vendedor' => $vendedor
+        );
+
+        Mail::send('mail.notificacion_docs', $data, function ($message) use ($data) {
+
+            $message->from('ventas@impulsaenergia.mx', 'Impulsa: notificación vendedor');
+            $message->to($data['email']);
+            $message->subject($data['subject']);
+
+        });
     }
 
     public function se_ha_finalizado( $request, $cliente_id){
@@ -349,6 +381,12 @@ class VendedorClienteController extends Controller
 
         return view('vendedor_cliente.avance', compact('data'));
 
+    }
+
+    /* Para que un cliente descarge un archivo */
+    public function download_client($name_file)
+    {
+        return \Storage::response("public/$name_file");
     }
 
 }

@@ -236,7 +236,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('clientes/subir/solicitud-documentos','VendedorClienteController@solicitud_documentos')->name('clientes.subirsolicituddocumentos');
     Route::post('clientes/subir/propuesta','VendedorClienteController@propuestas')->name('clientes.subirarchivopropuesta');
     Route::get('clientes/avance/{id}','VendedorClienteController@avance')->name('clientes.avance');
+
+    Route::get('sendMail','VendedorClienteController@sendMail');
 });
+
+Route::get('clientes/download/{name_file}','VendedorClienteController@download_client')->name('clientes.downloadclient');
 
 
 //Route::get('estaciones', ['as' => 'estaciones.index', 'uses' => 'EstacionController@index']);

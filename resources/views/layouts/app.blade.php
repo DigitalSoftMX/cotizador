@@ -17,6 +17,13 @@
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="{{ asset('material') }}/demo/demo.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
+
+    <!-- Table.js CSS -->
+    <link href="{{ asset('table-plugin/jquery.dataTables.min.css') }}" rel="stylesheet" />
+
+    <!-- Dropify CSS -->
+    <link href="{{ asset('dropify/css/dropify.min.css') }}" rel="stylesheet" />
+
     </head>
     <body class="{{ $class ?? '' }}">
         @auth()
@@ -28,7 +35,7 @@
         @guest()
             @include('layouts.page_templates.guest')
         @endguest
-        
+
         <!--div class="fixed-plugin">
           <div class="dropdown show-dropdown">
             <a href="#" data-toggle="dropdown">
@@ -113,7 +120,7 @@
         <script src="{{ asset('material') }}/js/plugins/moment.min.js"></script>
         <!--  Plugin for Sweet Alert -->
         <script src="{{ asset('material') }}/js/plugins/sweetalert2.js"></script>
-       
+
         <!-- Forms Validations Plugin -->
         <script src="{{ asset('material') }}/js/plugins/jquery.validate.min.js"></script>
         <!-- Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
@@ -142,8 +149,8 @@
         <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE'"></script>
         <!-- Chartist JS -->
         <script src="{{ asset('material') }}/js/plugins/chartist.min.js"></script>
-        
-        
+
+
         <!--  Notifications Plugin    -->
         <script src="{{ asset('material') }}/js/plugins/bootstrap-notify.js"></script>
         <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
@@ -154,6 +161,10 @@
         <script src="{{ asset('js') }}/cotizador.js"></script>
         <script src="{{ asset('js') }}/DateComponent.js"></script>
         <script src="{{ asset('js') }}/notificaciones.js"></script>
+        <!-- Table.js JS -->
+        <script src="{{ asset('table-plugin/jquery.dataTables.min.js') }}"></script>
+        <!-- Dropify JS -->
+        <script src="{{ asset('dropify/js/dropify.min.js') }}"></script>
         @stack('js')
     </body>
 </html>

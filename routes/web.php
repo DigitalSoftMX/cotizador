@@ -209,6 +209,39 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::any('flete', 'QuoteController@flete');
 });
 
+// Ventas Controller
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('ventas','VentasController@index');
+    Route::get('ventas/create','VentasController@create');
+    Route::post('ventas/guardar-vendedor','VentasController@guardar_vendedor')->name('guardarvendedor');
+    Route::get('ventas/lista-vendedores','VentasController@listar_vendedores')->name('ventas.lista_vendedores');
+    Route::get('ventas/add-unidad-negocio/{id}','VentasController@add_unidad_negocio')->name('ventas.addunidadnegocio');
+    Route::post('ventas/save-unidad-negocio','VentasController@save_unidad_negocio');
+    Route::get('ventas/lista-clientes','VentasController@lista_clientes')->name('ventas.listaclientes');
+	Route::get('ventas/asignar-vendedor/{id}','VentasController@asignar_vendedor')->name('ventas.asignarvendedor');
+    Route::get('ventas/seguimientos','VentasController@seguimientos')->name('ventas.seguimientos');
+
+    Route::get('ventas/download/{file}','VentasController@download')->name('ventas.download');
+    Route::post('ventas/agregar-dias','VentasController@agregar_dias')->name('ventas.agregardias');
+    Route::post('ventas/asignar-vendedor/guardar','VentasController@asignar_vendedor_guardar')->name('ventas.asignarvendedorguardar');
+});
+
+// Vendedores Controller
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('clientes','VendedorClienteController@index');
+    Route::get('clientes/agregar-cliente','VendedorClienteController@agregar_cliente')->name('clientes.agregarcliente');
+    Route::post('clientes/guardar-cliente','VendedorClienteController@guardar_cliente')->name('clientes.guardarcliente');
+    Route::get('clientes/documentacion/{id}','VendedorClienteController@documentacion')->name('clientes.documentacion');
+    Route::post('clientes/subir','VendedorClienteController@subir')->name('clientes.subirarchivo');
+    Route::post('clientes/subir/solicitud-documentos','VendedorClienteController@solicitud_documentos')->name('clientes.subirsolicituddocumentos');
+    Route::post('clientes/subir/propuesta','VendedorClienteController@propuestas')->name('clientes.subirarchivopropuesta');
+    Route::get('clientes/avance/{id}','VendedorClienteController@avance')->name('clientes.avance');
+
+    Route::get('sendMail','VendedorClienteController@sendMail');
+});
+
+Route::get('clientes/download/{name_file}','VendedorClienteController@download_client')->name('clientes.downloadclient');
+
 
 //Route::get('estaciones', ['as' => 'estaciones.index', 'uses' => 'EstacionController@index']);
 //Route::group(['middleware' => 'auth'], function () {

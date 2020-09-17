@@ -98,7 +98,7 @@
 
             $.ajax({
                 method: "POST",
-                url: "/ventas/save-unidad-negocio",
+                url: "{{ route('ventas.saveunidadnegocio') }}",
                 data: {
                     _token : $('input[name=_token]').val(),
                     unidades_negocio: seleccionados_json,

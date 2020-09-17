@@ -56,11 +56,7 @@
                                                 @endphp
 
                                                 <td><button onclick="informacion_cliente('{{ $informacion }}')" class="btn btn-info text-white">Visualizar</button></td>
-                                                @if($cliente->status != "Finalizado")
                                                 <td><a class="btn btn-success text-white" href="{{ route('clientes.documentacion', $cliente->id ) }}">Agregar</a></td>
-                                                @else
-                                                    <td></td>
-                                                @endif
                                                 <td><a class="btn btn-primary text-white" href="{{ route('clientes.avance', $cliente->id) }}">Visualizar</a></td>
 
                                             </tr>

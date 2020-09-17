@@ -69,49 +69,60 @@ class VendedorClienteController extends Controller
     public function guardar_cliente(Request $request){
 
         $request->user()->authorizeRoles(['Vendedor']);
+        $rfc =  strtoupper( $request->post('rfc') );
+        $existe = Cliente::where('rfc',$rfc)->get();
 
-        $user_id = $request->user()->id;
+        if(count($existe) > 0){
 
-        $str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
-        $str = str_shuffle( str_shuffle($str) );
-        $value_key = $user_id.substr( $str , 0, 7);
+            return back()
+                ->with('status', 'No se puede agregar este cliente dado que ya existe.')
+                ->with('status_alert', 'alert-danger');
+        }else{
+            $user_id = $request->user()->id;
 
-
-        $fecha_actual = date("Y-m-d");
-
-        $cliente = new Cliente();
-        $cliente->nombre = $request->post('nombre');
-        $cliente->direccion = $request->post('direccion');
-        $cliente->telefono = $request->post('telefono');
-        $cliente->email = $request->post('email');
-        $tipo = $request->post('tipo');
-        $cliente->tipo = $tipo;
-        $cliente->estado = $request->post('estado');
+            $str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+            $str = str_shuffle( str_shuffle($str) );
+            $value_key = $user_id.substr( $str , 0, 7);
 
 
-        if( strcmp ( $cliente->tipo, "Estación" )  == 0){
-            $cliente->bandera_blanca = $request->post('bandera_blanca');
-            $cliente->numero_estacion = $request->post('numero_estacion');
+            $fecha_actual = date("Y-m-d");
+
+            $cliente = new Cliente();
+            $cliente->rfc = $rfc;
+            $cliente->nombre = $request->post('nombre');
+            $cliente->direccion = $request->post('direccion');
+            $cliente->telefono = $request->post('telefono');
+            $cliente->email = $request->post('email');
+            $tipo = $request->post('tipo');
+            $cliente->tipo = $tipo;
+            $cliente->estado = $request->post('estado');
+
+
+            if( strcmp ( $cliente->tipo, "Estación" )  == 0){
+                $cliente->bandera_blanca = $request->post('bandera_blanca');
+                $cliente->numero_estacion = $request->post('numero_estacion');
+            }
+
+            $cliente->value_key = $value_key;
+
+            $cliente->save();
+
+            $cliente_id = Cliente::where('value_key', $value_key)->first()->id;
+
+            $cliente_vendedor = new ClienteVendedor();
+
+            $cliente_vendedor->user_id = $user_id;
+            $cliente_vendedor->cliente_id = $cliente_id;
+            $cliente_vendedor->status = 'Seguimiento';  // valores que puede tomar ['Seguimiento', 'Olvidado', 'Finalizado']
+            $cliente_vendedor->dia_termino = date("Y-m-d",strtotime($fecha_actual."+ 40 days"));
+            $cliente_vendedor->show_disponible = "no";
+            // $cliente_vendedor->asignado = 'no';
+            $cliente_vendedor->save();
+
+            return back()
+                ->with('status', 'Cliente agregado exitosamente')
+                ->with('status_alert', 'alert-success');
         }
-
-        $cliente->value_key = $value_key;
-
-        $cliente->save();
-
-        $cliente_id = Cliente::where('value_key', $value_key)->first()->id;
-
-        $cliente_vendedor = new ClienteVendedor();
-
-        $cliente_vendedor->user_id = $user_id;
-        $cliente_vendedor->cliente_id = $cliente_id;
-        $cliente_vendedor->show_disponible = "no";
-        $cliente_vendedor->status = 'Seguimiento';  // valores que puede tomar ['Seguimiento', 'Olvidado', 'Finalizado']
-        $cliente_vendedor->dia_termino = date("Y-m-d",strtotime($fecha_actual."+ 40 days"));
-        $cliente_vendedor->save();
-
-        return back()
-            ->with('status', 'Cliente agregado exitosamente')
-            ->with('status_alert', 'alert-success');
     }
 
     public function documentacion(Request $request, $id){
@@ -141,7 +152,9 @@ class VendedorClienteController extends Controller
         // Almacenamos en local
         \Storage::disk('public')->put($name,  \File::get($file));
 
-        $this->se_ha_finalizado( $request, $id_cliente);
+        if( $contrato == 'carta_bienvenida'){
+            $this->se_ha_finalizado( $request, $id_cliente);
+        }
 
         $this->sendMail( array($name), $id_cliente, $contrato, $request);
 
@@ -193,7 +206,7 @@ class VendedorClienteController extends Controller
 
         $this->sendMail($pdfs, $id_cliente, $tipo_documento, $request);
 
-        $this->se_ha_finalizado( $request, $id_cliente);
+        // $this->se_ha_finalizado( $request, $id_cliente);
 
         return back()
             ->with('status', 'Archivos subido correctamente')
@@ -229,7 +242,7 @@ class VendedorClienteController extends Controller
 
         $this->sendMail($pdfs, $id_cliente, "propuesta", $request);
 
-        $this->se_ha_finalizado( $request, $id_cliente);
+        // $this->se_ha_finalizado( $request, $id_cliente);
 
         return back()
             ->with('status', 'Su propuesta se ha subido correctamente')
@@ -285,6 +298,7 @@ class VendedorClienteController extends Controller
                 if( $cliente[$contrato] === null )
                 {
                     $finalizado = FALSE;
+                    break;
                 }
 
             }else{
@@ -298,11 +312,17 @@ class VendedorClienteController extends Controller
                         if( strcmp($documentos_cliente[$documento], " ") === 0 )
                         {
                             $finalizado = FALSE;
+                            break;
                         }
+                    }
+
+                    if($finalizado === FALSE){
+                        break;
                     }
 
                 }else{
                     $finalizado = FALSE;
+                    break;
                 }
             }
         }

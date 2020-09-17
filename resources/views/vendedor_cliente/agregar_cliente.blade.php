@@ -38,6 +38,11 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label for="rfc">RFC:</label>
+                                    <input type="text" class="form-control" id="rfc" name="rfc" required>
+                                </div>
+
+                                <div class="form-group">
                                     <label for="direccion">Dirección:</label>
                                     <input type="text" class="form-control" id="direccion" name="direccion" required>
                                 </div>

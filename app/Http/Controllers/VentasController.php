@@ -268,9 +268,10 @@ class VentasController extends Controller
 
         $cliente_vendedor->user_id = $user_id;
         $cliente_vendedor->cliente_id = $cliente_id;
-        $cliente_vendedor->show_disponible = "no";
         $cliente_vendedor->status = 'Seguimiento';  // valores que puede tomar ['Seguimiento', 'Olvidado', 'Finalizado']
         $cliente_vendedor->dia_termino = date("Y-m-d",strtotime($fecha_actual."+ 40 days"));
+        $cliente_vendedor->show_disponible = "no";
+        // $cliente_vendedor->asignado = 'si';
         $cliente_vendedor->save();
 
         return redirect(route('ventas.seguimientos'));

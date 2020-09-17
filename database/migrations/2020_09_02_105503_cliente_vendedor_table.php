@@ -20,6 +20,7 @@ class ClienteVendedorTable extends Migration
             $table->date('dia_termino');
             $table->enum('status', ['Seguimiento', 'Olvidado', 'Finalizado']);
             $table->enum('show_disponible', ['si', 'no']);
+            // $table->enum('asignado', ['si', 'no']);
             $table->timestamps();
 
 

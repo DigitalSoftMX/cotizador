@@ -216,7 +216,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('ventas/guardar-vendedor','VentasController@guardar_vendedor')->name('guardarvendedor');
     Route::get('ventas/lista-vendedores','VentasController@listar_vendedores')->name('ventas.lista_vendedores');
     Route::get('ventas/add-unidad-negocio/{id}','VentasController@add_unidad_negocio')->name('ventas.addunidadnegocio');
-    Route::post('ventas/save-unidad-negocio','VentasController@save_unidad_negocio');
+    Route::post('ventas/save-unidad-negocio','VentasController@save_unidad_negocio')->name('ventas.saveunidadnegocio');
     Route::get('ventas/lista-clientes','VentasController@lista_clientes')->name('ventas.listaclientes');
 	Route::get('ventas/asignar-vendedor/{id}','VentasController@asignar_vendedor')->name('ventas.asignarvendedor');
     Route::get('ventas/seguimientos','VentasController@seguimientos')->name('ventas.seguimientos');

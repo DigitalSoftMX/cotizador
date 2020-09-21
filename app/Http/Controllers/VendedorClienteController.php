@@ -116,7 +116,7 @@ class VendedorClienteController extends Controller
             $cliente_vendedor->status = 'Seguimiento';  // valores que puede tomar ['Seguimiento', 'Olvidado', 'Finalizado']
             $cliente_vendedor->dia_termino = date("Y-m-d",strtotime($fecha_actual."+ 40 days"));
             $cliente_vendedor->show_disponible = "no";
-            // $cliente_vendedor->asignado = 'no';
+            $cliente_vendedor->asignado = 'no';
             $cliente_vendedor->save();
 
             return back()

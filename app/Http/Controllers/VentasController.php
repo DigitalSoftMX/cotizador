@@ -271,7 +271,7 @@ class VentasController extends Controller
         $cliente_vendedor->status = 'Seguimiento';  // valores que puede tomar ['Seguimiento', 'Olvidado', 'Finalizado']
         $cliente_vendedor->dia_termino = date("Y-m-d",strtotime($fecha_actual."+ 40 days"));
         $cliente_vendedor->show_disponible = "no";
-        // $cliente_vendedor->asignado = 'si';
+        $cliente_vendedor->asignado = 'si';
         $cliente_vendedor->save();
 
         return redirect(route('ventas.seguimientos'));
@@ -301,6 +301,104 @@ class VentasController extends Controller
 
             }
         }
+    }
+
+    public function agregar_cliente(Request $request){
+        $request->user()->authorizeRoles(['Administrador']);
+        return view('ventas.agregar_cliente', compact('vendedores'));
+    }
+
+    public function cliente_guardar(Request $request){
+
+        $request->user()->authorizeRoles(['Administrador']);
+
+        $rfc =  strtoupper( $request->post('rfc') );
+        $existe = Cliente::where('rfc',$rfc)->get();
+
+        if(count($existe) > 0){
+
+            return back()
+                ->with('status', 'No se puede agregar este cliente dado que ya existe.')
+                ->with('status_alert', 'alert-danger');
+        }else{
+
+            $user_id = $request->post('vendedor');
+
+            $str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+            $str = str_shuffle( str_shuffle($str) );
+            $value_key = $user_id.substr( $str , 0, 7);
+
+
+            $fecha_actual = date("Y-m-d");
+
+            $cliente = new Cliente();
+            $cliente->rfc = $rfc;
+            $cliente->nombre = $request->post('nombre');
+            $cliente->direccion = $request->post('direccion');
+            $cliente->telefono = $request->post('telefono');
+            $cliente->email = $request->post('email');
+            $tipo = $request->post('tipo');
+            $cliente->tipo = $tipo;
+            $cliente->estado = $request->post('estado');
+
+
+            if( strcmp ( $cliente->tipo, "Estación" )  == 0){
+                $cliente->bandera_blanca = $request->post('bandera_blanca');
+                $cliente->numero_estacion = $request->post('numero_estacion');
+            }
+
+            $cliente->value_key = $value_key;
+
+            $cliente->save();
+
+            $cliente_id = Cliente::where('value_key', $value_key)->first()->id;
+
+            $cliente_vendedor = new ClienteVendedor();
+
+            $cliente_vendedor->user_id = $user_id;
+            $cliente_vendedor->cliente_id = $cliente_id;
+            $cliente_vendedor->status = 'Seguimiento';  // valores que puede tomar ['Seguimiento', 'Olvidado', 'Finalizado']
+            $cliente_vendedor->dia_termino = date("Y-m-d",strtotime($fecha_actual."+ 40 days"));
+            $cliente_vendedor->show_disponible = "no";
+            $cliente_vendedor->asignado = 'si';
+            $cliente_vendedor->save();
+
+            return back()
+                ->with('status', 'Cliente agregado exitosamente')
+                ->with('status_alert', 'alert-success');
+        }
+
+    }
+
+    public function obtener_vendedores(Request $request){
+
+        $estado = $request->get('estado');
+
+        $rol = Role::where('name', 'Vendedor')->first();
+
+        $vendedores = User::select('users.id', 'users.name', 'users.app_name', 'users.apm_name', 'vendedor_unidad_negocio.unidades_negocio')
+                        ->where('role_user.role_id', $rol->id)
+                        ->join('role_user', 'role_user.user_id', '=', 'users.id')
+                        ->join('vendedor_unidad_negocio', 'vendedor_unidad_negocio.user_id', '=', 'users.id')
+                        ->get();
+
+        $vendedores_estado = "";
+        foreach($vendedores as $vendedor){
+            if($vendedor->unidades_negocio != null){
+
+                $unidades =  json_decode($vendedor->unidades_negocio, true);
+                foreach($unidades as $unidad){
+
+                    if($unidad === $estado){
+                        $vendedores_estado .= "<option value='".$vendedor->id."'>".$vendedor->name." ".$vendedor->app_name." ".$vendedor->apm_name."</option>";
+                        break;
+                    }
+
+                }
+            }
+        }
+        echo $vendedores_estado;
+
     }
 
     /**

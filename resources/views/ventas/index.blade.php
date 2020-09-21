@@ -43,6 +43,14 @@
                                     </div>
                                 </a>
 
+                                <a href="{{ route('ventas.agregarcliente') }}">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            Agregar cliente
+                                        </div>
+                                    </div>
+                                </a>
+
                             </div>
                         </div>
 

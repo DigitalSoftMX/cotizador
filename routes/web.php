@@ -224,6 +224,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('ventas/download/{file}','VentasController@download')->name('ventas.download');
     Route::post('ventas/agregar-dias','VentasController@agregar_dias')->name('ventas.agregardias');
     Route::post('ventas/asignar-vendedor/guardar','VentasController@asignar_vendedor_guardar')->name('ventas.asignarvendedorguardar');
+
+    Route::get('ventas/agregar-cliente','VentasController@agregar_cliente')->name('ventas.agregarcliente');
+    Route::post('ventas/cliente-guardar','VentasController@cliente_guardar')->name('ventas.guardarcliente');
+
+    Route::get('ventas/obtener-vendedores','VentasController@obtener_vendedores')->name('ventas.obtenervendedores');
+
 });
 
 // Vendedores Controller

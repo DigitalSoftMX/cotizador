@@ -47,7 +47,7 @@
                                                     <input type="text" name="id_cliente" value="{{ $data['id'] }}" style="display: none;">
                                                     <input type="text" name="contrato" value="carta_intencion" style="display: none;">
                                                     <input @if($data['documentos']->carta_intencion != NULL) data-default-file="{{ \Storage::url($data['documentos']->carta_intencion) }}" @endif
-                                                    name="file" type="file" class="dropify" data-min-width="400" data-allowed-file-extensions="pdf" data-max-file-size="1M" required/>
+                                                    name="file" type="file" class="dropify" data-min-width="400" data-allowed-file-extensions="pdf" data-max-file-size="25M" required/>
                                                 </form>
                                             </div>
                                         </div>
@@ -71,7 +71,7 @@
                                                     <input type="text" name="id_cliente" value="{{ $data['id'] }}" style="display: none;">
                                                     <input type="text" name="contrato" value="convenio_confidencialidad" style="display: none;">
                                                     <input @if($data['documentos']->convenio_confidencialidad != NULL) data-default-file="{{ \Storage::url($data['documentos']->convenio_confidencialidad) }}" @endif
-                                                     type="file" name="file" class="dropify" data-min-width="400" data-allowed-file-extensions="pdf" data-max-file-size="1M" required/>
+                                                     type="file" name="file" class="dropify" data-min-width="400" data-allowed-file-extensions="pdf" data-max-file-size="25M" required/>
                                                 </form>
                                             </div>
                                         </div>
@@ -95,7 +95,7 @@
                                                     <input type="text" name="id_cliente" value="{{ $data['id'] }}" style="display: none;">
                                                     <input type="text" name="contrato" value="margen_garantizado" style="display: none;">
                                                     <input @if($data['documentos']->margen_garantizado != NULL) data-default-file="{{ \Storage::url($data['documentos']->margen_garantizado) }}" @endif
-                                                    type="file" name="file" class="dropify" data-min-width="400" data-allowed-file-extensions="pdf" data-max-file-size="1M" required/>
+                                                    type="file" name="file" class="dropify" data-min-width="400" data-allowed-file-extensions="pdf" data-max-file-size="25M" required/>
                                                 </form>
                                             </div>
                                         </div>
@@ -128,7 +128,7 @@
                                                                     @csrf
                                                                     <input type="text" name="id_cliente" value="{{ $data['id'] }}" style="display: none;">
                                                                     <input type="text" name="documento0" value="solicitud_documento" style="display: none;">
-                                                                    <input type="file" name="file0" class="dropify" data-min-width="400" data-allowed-file-extensions="pdf" data-max-file-size="1M" required required/>
+                                                                    <input type="file" name="file0" class="dropify" data-min-width="400" data-allowed-file-extensions="pdf" data-max-file-size="25M" required required/>
                                                                 </div>
                                                             </div>
 
@@ -154,7 +154,7 @@
                                                                 <div class="card-body">
                                                                     <h4 class="card-title">INE (Representante Legal)</h4>
                                                                     <input type="text" name="documento0" value="ine" style="display: none;">
-                                                                    <input type="file" name="file0" class="dropify" data-min-width="400" data-allowed-file-extensions="pdf" data-max-file-size="1M" required/>
+                                                                    <input type="file" name="file0" class="dropify" data-min-width="400" data-allowed-file-extensions="pdf" data-max-file-size="25M"/>
                                                                 </div>
                                                             </div>
 
@@ -166,7 +166,7 @@
                                                                 <div class="card-body">
                                                                     <h4 class="card-title">Acta constitutiva</h4>
                                                                     <input type="text" name="documento1" value="acta_constitutiva" style="display: none;">
-                                                                    <input type="file" name="file1" class="dropify" data-min-width="400" data-allowed-file-extensions="pdf" data-max-file-size="1M" required/>
+                                                                    <input type="file" name="file1" class="dropify" data-min-width="400" data-allowed-file-extensions="pdf" data-max-file-size="25M"/>
                                                                 </div>
                                                             </div>
 
@@ -178,7 +178,7 @@
                                                                 <div class="card-body">
                                                                     <h4 class="card-title">Poder Notarial</h4>
                                                                     <input type="text" name="documento2" value="poder_notarial" style="display: none;">
-                                                                    <input type="file" name="file2" class="dropify" data-min-width="400" data-allowed-file-extensions="pdf" data-max-file-size="1M" required/>
+                                                                    <input type="file" name="file2" class="dropify" data-min-width="400" data-allowed-file-extensions="pdf" data-max-file-size="25M"/>
                                                                 </div>
                                                             </div>
 
@@ -190,7 +190,7 @@
                                                                 <div class="card-body">
                                                                     <h4 class="card-title">RFC</h4>
                                                                     <input type="text" name="documento3" value="rfc" style="display: none;">
-                                                                    <input type="file" name="file3" class="dropify" data-min-width="400" data-allowed-file-extensions="pdf" data-max-file-size="1M" required/>
+                                                                    <input type="file" name="file3" class="dropify" data-min-width="400" data-allowed-file-extensions="pdf" data-max-file-size="25M"/>
                                                                 </div>
                                                             </div>
 
@@ -202,7 +202,7 @@
                                                                 <div class="card-body">
                                                                     <h4 class="card-title">Constancia de situación físcal. (No mayor a 3 meses)</h4>
                                                                     <input type="text" name="documento4" value="constancia_situacion_fiscal" style="display: none;">
-                                                                    <input type="file" name="file4" class="dropify" data-min-width="400" data-allowed-file-extensions="pdf" data-max-file-size="1M" required/>
+                                                                    <input type="file" name="file4" class="dropify" data-min-width="400" data-allowed-file-extensions="pdf" data-max-file-size="25M"/>
                                                                 </div>
                                                             </div>
 
@@ -214,7 +214,7 @@
                                                                 <div class="card-body">
                                                                     <h4 class="card-title">Comprobante de domicilio. (Vigente)</h4>
                                                                     <input type="text" name="documento5" value="comprobante_domicilio" style="display: none;">
-                                                                    <input type="file" name="file5" class="dropify" data-min-width="400" data-allowed-file-extensions="pdf" data-max-file-size="1M" required/>
+                                                                    <input type="file" name="file5" class="dropify" data-min-width="400" data-allowed-file-extensions="pdf" data-max-file-size="25M"/>
                                                                 </div>
                                                             </div>
 
@@ -254,7 +254,7 @@
                                                     {{-- data-default-file="url_of_your_file" --}}
                                                     <button type="submit" class="btn btn-primary">Subir archivo</button>
                                                     <input type="text" name="id_cliente" value="{{ $data['id'] }}" style="display: none;">
-                                                    <input type="file" name="file" class="dropify" data-min-width="400" data-allowed-file-extensions="pdf" data-max-file-size="1M" required/>
+                                                    <input type="file" name="file" class="dropify" data-min-width="400" data-allowed-file-extensions="pdf" data-max-file-size="25M" required/>
                                                 </form>
                                             </div>
                                         </div>
@@ -278,7 +278,7 @@
                                                     <input type="text" name="id_cliente" value="{{ $data['id'] }}" style="display: none;">
                                                     <input type="text" name="contrato" value="contrato_comodato" style="display: none;">
                                                     <input @if($data['documentos']->contrato_comodato != NULL) data-default-file="{{ \Storage::url($data['documentos']->contrato_comodato) }}" @endif
-                                                    type="file" name="file" class="dropify" data-min-width="400" data-allowed-file-extensions="pdf" data-max-file-size="1M" required/>
+                                                    type="file" name="file" class="dropify" data-min-width="400" data-allowed-file-extensions="pdf" data-max-file-size="25M" required/>
                                                 </form>
                                             </div>
                                         </div>
@@ -302,7 +302,7 @@
                                                     <input type="text" name="id_cliente" value="{{ $data['id'] }}" style="display: none;">
                                                     <input type="text" name="contrato" value="contrato_suministro" style="display: none;">
                                                     <input @if($data['documentos']->contrato_suministro != NULL) data-default-file="{{ \Storage::url($data['documentos']->contrato_suministro) }}" @endif
-                                                    type="file" name="file" class="dropify" data-min-width="400" data-allowed-file-extensions="pdf" data-max-file-size="1M" required/>
+                                                    type="file" name="file" class="dropify" data-min-width="400" data-allowed-file-extensions="pdf" data-max-file-size="25M" required/>
                                                 </form>
                                             </div>
                                         </div>
@@ -326,7 +326,7 @@
                                                     <input type="text" name="id_cliente" value="{{ $data['id'] }}" style="display: none;">
                                                     <input type="text" name="contrato" value="carta_bienvenida" style="display: none;">
                                                     <input @if($data['documentos']->carta_bienvenida != NULL) data-default-file="{{ \Storage::url($data['documentos']->carta_bienvenida) }}" @endif
-                                                    type="file" name="file" class="dropify" data-min-width="400" data-allowed-file-extensions="pdf" data-max-file-size="1M" required/>
+                                                    type="file" name="file" class="dropify" data-min-width="400" data-allowed-file-extensions="pdf" data-max-file-size="25M" required/>
                                                 </form>
                                             </div>
                                         </div>

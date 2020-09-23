@@ -18,7 +18,7 @@ class VentasController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request){
-        $request->user()->authorizeRoles(['Administrador']);
+        $request->user()->authorizeRoles(['Administrador','Ventas']);
         $this->clientes_olvidados();
         return view('ventas.index');
     }
@@ -29,12 +29,12 @@ class VentasController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request){
-        $request->user()->authorizeRoles(['Administrador']);
+        $request->user()->authorizeRoles(['Administrador','Ventas']);
         return view('ventas.alta_vendedor');
     }
 
     public function guardar_vendedor(Request $request){
-        $request->user()->authorizeRoles(['Administrador']);
+        $request->user()->authorizeRoles(['Administrador','Ventas']);
         $rol = Role::where('name', 'Vendedor')->first();
 
         $existe = User::where('email', $request->post('mail'))->first();
@@ -77,7 +77,7 @@ class VentasController extends Controller
     }
 
     public function listar_vendedores(Request $request){
-        $request->user()->authorizeRoles(['Administrador']);
+        $request->user()->authorizeRoles(['Administrador','Ventas']);
 
         $rol = Role::where('name', 'Vendedor')->first();
 
@@ -91,7 +91,7 @@ class VentasController extends Controller
     }
 
     public function add_unidad_negocio($id, Request $request){
-        $request->user()->authorizeRoles(['Administrador']);
+        $request->user()->authorizeRoles(['Administrador','Ventas']);
 
         $unidades = User::select('users.id', 'vendedor_unidad_negocio.unidades_negocio')
                             ->where('users.id', $id)
@@ -111,7 +111,7 @@ class VentasController extends Controller
     }
 
     public function lista_clientes(Request $request){
-        $request->user()->authorizeRoles(['Administrador']);
+        $request->user()->authorizeRoles(['Administrador','Ventas']);
 
         $clientes_disponibles_q = Cliente::select('clientes.nombre','clientes.email', 'clientes.direccion', 'clientes.tipo', 'clientes.bandera_blanca', 'clientes.numero_estacion',
                                           'clientes.telefono', 'clientes.id', 'clientes.estado',
@@ -133,7 +133,7 @@ class VentasController extends Controller
     }
 
     public function asignar_vendedor(Request $request, $id){
-        $request->user()->authorizeRoles(['Administrador']);
+        $request->user()->authorizeRoles(['Administrador','Ventas']);
 
         $rol = Role::where('name', 'Vendedor')->first()->id;
 
@@ -181,7 +181,7 @@ class VentasController extends Controller
     }
 
     public function seguimientos(Request $request){
-        $request->user()->authorizeRoles(['Administrador']);
+        $request->user()->authorizeRoles(['Administrador','Ventas']);
 
         $seguimientos_q = ClienteVendedor::select('cliente_vendedor.user_id', 'cliente_vendedor.cliente_id', 'cliente_vendedor.status',
         'clientes.nombre', 'clientes.estado','clientes.email', 'clientes.direccion', 'clientes.tipo', 'clientes.bandera_blanca', 'clientes.numero_estacion',
@@ -223,14 +223,14 @@ class VentasController extends Controller
 
     public function download(Request $request, $file){
 
-        $request->user()->authorizeRoles(['Administrador']);
+        $request->user()->authorizeRoles(['Administrador','Ventas']);
 
         return \Storage::response("public/$file");
     }
 
     public function agregar_dias(Request $request){
 
-        $request->user()->authorizeRoles(['Administrador']);
+        $request->user()->authorizeRoles(['Administrador','Ventas']);
 
         $cliente_id = $request->post('cliente_id');
         $user_id = $request->post('user_id');
@@ -254,7 +254,7 @@ class VentasController extends Controller
 
     public function asignar_vendedor_guardar(Request $request){
 
-        $request->user()->authorizeRoles(['Administrador']);
+        $request->user()->authorizeRoles(['Administrador','Ventas']);
 
         $fecha_actual = date("Y-m-d");
 
@@ -304,19 +304,19 @@ class VentasController extends Controller
     }
 
     public function agregar_cliente(Request $request){
-        $request->user()->authorizeRoles(['Administrador']);
+        $request->user()->authorizeRoles(['Administrador','Ventas']);
         return view('ventas.agregar_cliente', compact('vendedores'));
     }
 
     public function cliente_guardar(Request $request){
 
-        $request->user()->authorizeRoles(['Administrador']);
+        $request->user()->authorizeRoles(['Administrador','Ventas']);
 
         $rfc =  strtoupper( $request->post('rfc') );
         $existe = Cliente::where('rfc',$rfc)->get();
 
-        if(count($existe) > 0){
-
+        // if(count($existe) > 0){
+        if(false){
             return back()
                 ->with('status', 'No se puede agregar este cliente dado que ya existe.')
                 ->with('status_alert', 'alert-danger');

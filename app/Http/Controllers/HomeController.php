@@ -39,7 +39,7 @@
         */
         public function index(Request $request, Terminal $terminal)
         {
-            $request->user()->authorizeRoles(['Administrador','Invitado','Vendedor']);
+            $request->user()->authorizeRoles(['Administrador','Invitado','Vendedor','Ventas']);
 
             $month = date('m');
             $year = date('Y');
@@ -348,7 +348,7 @@
 
 public function fechas(Request $request, Terminal $terminal)
 {
-$request->user()->authorizeRoles(['Administrador','Invitado']);
+$request->user()->authorizeRoles(['Administrador','Invitado','Vendedor','Ventas']);
 
 // creamos la fecha a buscar
 $fech = date("Y").'-'.$request->fecha;

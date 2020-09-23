@@ -47,7 +47,7 @@
 
                                 <div class="form-group">
                                     <label for="rfc">RFC:</label>
-                                    <input type="text" class="form-control" id="rfc" name="rfc" required>
+                                    <input type="text" class="form-control" id="rfc" name="rfc">
                                 </div>
 
                                 <div class="form-group">

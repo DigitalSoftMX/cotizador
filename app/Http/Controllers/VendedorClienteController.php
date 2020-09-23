@@ -72,7 +72,8 @@ class VendedorClienteController extends Controller
         $rfc =  strtoupper( $request->post('rfc') );
         $existe = Cliente::where('rfc',$rfc)->get();
 
-        if(count($existe) > 0){
+        // if(count($existe) > 0){
+        if(false){
 
             return back()
                 ->with('status', 'No se puede agregar este cliente dado que ya existe.')
@@ -192,13 +193,15 @@ class VendedorClienteController extends Controller
             $tipo_documento = $request->post('documento'.$i);
             $name = $tipo_documento.$id_cliente.".pdf";
 
-            array_push($pdfs, $name);
+            if( $request->file('file'.$i) !== null )
+            {
+                array_push($pdfs, $name);
 
-            $file = $request->file('file'.$i);
-            // Almacenamos en local
-            \Storage::disk('public')->put($name,  \File::get($file));
-
-            $documentos[$tipo_documento] = $name;
+                $file = $request->file('file'.$i);
+                // Almacenamos en local
+                \Storage::disk('public')->put($name,  \File::get($file));
+                $documentos[$tipo_documento] = $name;
+            }
             $i++;
         }
         // Almacenamos en BD
@@ -338,7 +341,7 @@ class VendedorClienteController extends Controller
 
     public function avance(Request $request, $id)
     {
-        $request->user()->authorizeRoles(['Vendedor','Administrador']);
+        $request->user()->authorizeRoles(['Vendedor','Administrador','Ventas']);
 
         $cliente = Cliente::find($id);
 

@@ -14,10 +14,12 @@ class Cliente extends Model
     protected $table = 'clientes';
 
     protected $fillable = [
-        'id', 'rfc', 'nombre', 'direccion', 'telefono', 'email', 'tipo', 'estado', 'bandera_blanca', 'numero_estacion',
-        'carta_intencion', 'convenio_confidencialidad', 'margen_garantizado',
-        'contrato_comodato', 'contrato_suministro', 'carta_bienvenida', 'solicitud_documentacion', 'propuestas',
-        'value_key'
+        'id', 'nombre', 'encargado', 'estado', 'telefono', 'pagina_web', 'rfc', 'direccion',
+        'tipo', 'email', 'estatus', 'bandera_blanca', 'numero_estacion', 'carta_de_intencion',
+        'convenio_de_confidencialidad', 'margen_garantizado', 'solicitud_de_documentos',
+        'ine', 'acta_constitutiva', 'poder_notarial', 'constancia_de_situacion_fiscal',
+        'comprobante_de_domicilio', 'propuestas', 'contrato_comodato', 'contrato_de_suministro',
+        'carta_bienvenida', 'permiso_cree', 'value_key'
     ];
 
 }

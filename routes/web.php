@@ -211,7 +211,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 // Ventas Controller
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('ventas','VentasController@index');
+
     Route::get('ventas/create','VentasController@create');
     Route::post('ventas/guardar-vendedor','VentasController@guardar_vendedor')->name('guardarvendedor');
     Route::get('ventas/lista-vendedores','VentasController@listar_vendedores')->name('ventas.lista_vendedores');
@@ -222,13 +222,35 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('ventas/seguimientos','VentasController@seguimientos')->name('ventas.seguimientos');
 
     Route::get('ventas/download/{file}','VentasController@download')->name('ventas.download');
-    Route::post('ventas/agregar-dias','VentasController@agregar_dias')->name('ventas.agregardias');
     Route::post('ventas/asignar-vendedor/guardar','VentasController@asignar_vendedor_guardar')->name('ventas.asignarvendedorguardar');
 
     Route::get('ventas/agregar-cliente','VentasController@agregar_cliente')->name('ventas.agregarcliente');
     Route::post('ventas/cliente-guardar','VentasController@cliente_guardar')->name('ventas.guardarcliente');
 
     Route::get('ventas/obtener-vendedores','VentasController@obtener_vendedores')->name('ventas.obtenervendedores');
+
+
+    /* Nuevas Rutas */
+    Route::get('ventas','VentasController@index')->name('ventas.index');
+    Route::get('ventas/agregar-prospecto','VentasController@agregar_prospecto')->name('ventas.agregar_prospecto');
+    Route::post('ventas/guardar-prospecto','VentasController@guardar_prospecto')->name('ventas.guardarProspecto');
+    Route::post('ventas/asignar-prospecto-vendedor','VentasController@asignar_prospecto_vendedor')->name('ventas.asignar_prospecto_vendedor');
+    Route::post('ventas/agregar-dias-prospecto','VentasController@agregar_dias_prospecto')->name('ventas.agregar_dias_prospecto');
+    Route::get('ventas/editar-prospecto/{id}','VentasController@editar_prospecto')->name('ventas.editar_prospecto');
+    Route::post('ventas/actualizar-prospecto','VentasController@actualizar_prospecto')->name('ventas.actualizar_prospecto');
+    Route::get('ventas/agregar-cliente/{id}','VentasController@agregar_cliente')->name('ventas.agregar_cliente');
+    Route::post('ventas/guardar-cliente','VentasController@guardar_cliente')->name('ventas.guardar_cliente');
+    Route::post('ventas/guardar-documento','VentasController@guardar_documento')->name('ventas.guardar_documento');
+    Route::post('ventas/guardar-propuesta', 'VentasController@guardar_propuesta')->name('ventas.guardar_propuesta');
+
+
+    Route::get('ventas/agregar-vendedor','VentasController@agregar_vendedor')->name('ventas.agregar_vendedor');
+    Route::get('ventas/editar-vendedor/{id}','VentasController@editar_vendedor')->name('ventas.editar_vendedor');
+
+
+    Route::get('ventas/editar-cliente/{id}','VentasController@editar_cliente')->name('ventas.editar_cliente');
+
+    Route::get('ventas/agregar-documentacion/{id}','VentasController@agregar_documentacion')->name('ventas.agregar_documentacion');
 
 });
 

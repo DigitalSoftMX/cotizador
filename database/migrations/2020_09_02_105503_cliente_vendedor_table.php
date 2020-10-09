@@ -14,6 +14,7 @@ class ClienteVendedorTable extends Migration
     public function up()
     {
         Schema::create('cliente_vendedor', function (Blueprint $table) {
+
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('cliente_id');
@@ -24,13 +25,13 @@ class ClienteVendedorTable extends Migration
             $table->timestamps();
 
 
-            $table->foreign('user_id')->references('id')->on('users')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
+            // $table->foreign('user_id')->references('id')->on('users')
+            //     ->onDelete('cascade')
+            //     ->onUpdate('cascade');
 
-            $table->foreign('cliente_id')->references('id')->on('clientes')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
+            // $table->foreign('cliente_id')->references('id')->on('clientes')
+            //     ->onDelete('cascade')
+            //     ->onUpdate('cascade');
         });
     }
 

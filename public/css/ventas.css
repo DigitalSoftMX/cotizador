@@ -1,0 +1,402 @@
+.menu-options{
+    display: flex;
+}
+
+.menu-options .option{
+    font-size: 18px;
+    text-align: center;
+    width: 40%;
+}
+
+.menu-options .option input[type=radio]{
+    position: absolute;
+    clip: rect(0,0,0,0);
+    pointer-events: none;
+}
+
+.menu-options .option label {
+    width: 100%;
+    padding: 5px 0px;
+    margin-bottom: 0px;
+}
+
+.menu-options .option input + p {
+    color: #006BA9;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 10px 0px;
+}
+
+.menu-options .option input:checked + p {
+    color: #006BA9;
+    background-color: #FFD000;
+    transition: 500ms;
+    transform: scale(1.1);
+}
+
+#prospectos{
+    display: block;
+}
+
+#clientes{
+    display: none;
+}
+
+#vendedores{
+    display: none;
+}
+
+.form-days-add{
+    display: flex;
+    justify-content: center;
+}
+
+.form-days-add input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.form-days-add input[type=number]{
+    border: transparent;
+    width: 40px;
+    text-align: center;
+    margin-right: 2vh;
+}
+
+.form-days-add button{
+    border: solid 1px transparent;
+    border-radius: 50%;
+    background-color: #006BA9;
+    width: 30px;
+    height: 30px;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+}
+
+.information--text {
+    text-align: center;
+}
+
+.information--text a{
+    color: #006BA9;
+    font-weight: bold;
+}
+
+.information--text p{
+    margin-bottom: 0px;
+}
+
+.tableInformation{
+    overflow: auto;
+}
+
+.tableInformation tr {
+    background-color: #fff !important;
+}
+
+.tableInformation tr th{
+    text-align: center !important;
+    background-color: #fff !important;
+}
+
+.dataTables_filter input[type=search]{
+    border: transparent !important;
+    border-bottom: solid 1px #00000029 !important;
+}
+
+.content--center{
+    display: flex;
+    justify-content: center;
+}
+
+/* Reset Select */
+select {
+    -webkit-appearance: none; /* Para ocultar la flechita */
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    outline: 0;
+    box-shadow: none;
+    /* border: 1px solid#006BA9; */
+    border: transparent;
+    background-image: none;
+    border-radius: 5px;
+    text-align-last: center;
+    color: #006BA9;
+}
+/* Remove IE arrow */
+select::-ms-expand {
+    display: none;
+}
+/* Custom Select */
+.select {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 40px;
+    /* line-height: 3; */
+    overflow: hidden;
+    border-radius: 5px;
+    border: solid 1px #006BA9;
+}
+select {
+    flex: 1;
+    padding: 0 .5em;
+    color: #000;
+    cursor: pointer;
+}
+
+.select i.material-icons{
+    padding: 6px 0px 0px 15px !important;
+}
+
+select:focus .select{
+    border: 1px solid #006BA9;;
+}
+
+/* Arrow */
+.select::after {
+    /* content: '\25BC'; */
+    content: '\2304';
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0 1em;
+    cursor: pointer;
+    pointer-events: none;
+    -webkit-transition: .25s all ease;
+    -o-transition: .25s all ease;
+    transition: .25s all ease;
+    color: #006BA9;
+    background-color: #fff;
+    height: 100%;
+    line-height: 2;
+}
+/* Transition */
+/* .select:hover::after {
+    transition: 500ms;
+    transform: rotate(180deg);
+    color: #000;
+} */
+
+.options--content{
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 30px;
+}
+
+.options--content .btn-option{
+    width: 126px;
+    text-align: center;
+    background-color: #006BA9;
+    color: #fff;
+    border-radius: 6px;
+    border: transparent;
+    padding: 6px;
+    cursor: pointer;
+}
+
+.content-information {
+    width: 100%;
+    display: flex;
+    border: 1px solid #707070;
+    padding: 5px 15px;
+    border-radius: 6px;
+    margin-bottom: 2em;
+}
+
+.mb-2em{
+    margin-bottom: 2em;
+}
+.content-information i{
+    margin-right: 10px;
+}
+
+.content-information input{
+    width: 80%;
+    border: transparent;
+}
+
+.content-information input::placeholder{
+    line-height: inherit;
+}
+
+.content--progress{
+    padding: 20px 0px 0px;
+}
+
+.information{
+    padding: 30px 30px 0px;
+}
+
+.information .select{
+    margin-bottom: 30px;
+}
+
+.title--content{
+    padding: 10px 0px 5px;
+    background-color: #006BA9;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+}
+
+.title--content h1{
+    font-size: 30px;
+}
+
+.footer--options{
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 30px 30px;
+}
+
+.footer--options .btn-option{
+    width: 126px;
+    text-align: center;
+    background-color: #006BA9;
+    color: #fff;
+    border-radius: 6px;
+    border: transparent;
+    padding: 6px;
+    cursor: pointer;
+}
+
+.options--footer{
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 0px 0px !important;
+}
+
+.options--footer .btn-option{
+    width: 126px;
+    text-align: center;
+    background-color: #006BA9;
+    color: #fff;
+    border-radius: 6px;
+    border: transparent;
+    padding: 6px;
+    cursor: pointer;
+}
+
+.container-title-first{
+    display: flex;
+    padding: 30px 0px 0px;
+    width: 300px;
+    border-bottom: solid 1px #006BA9;
+    margin-bottom: 40px;
+}
+
+.container-title-first h1{
+    font-size: 22px !important;
+    font-weight: 500;
+    color: #006BA9 !important;
+}
+
+.container-title-first i{
+    font-size: 22px !important;
+    color: #006BA9 !important;
+    margin-right: 10px;
+}
+
+
+.tableInformationDocuments{
+    overflow: auto;
+}
+
+.tableInformationDocuments thead tr {
+    background-color: #fff !important;
+    border-bottom: solid 1px #006BA9;
+}
+
+.tableInformationDocuments tbody tr {
+    background-color: #fff !important;
+    border-bottom: solid 1px #F7F7F7;
+}
+
+.tableInformationDocuments tbody tr td .information--text{
+    margin: 5px 0px;
+}
+
+.tableInformationDocuments tbody tr td .information--text button{
+    background: transparent;
+    border: transparent;
+    cursor: pointer;
+}
+
+.information--text button i{
+    color: #006BA9 !important;
+}
+
+.tableInformationDocuments tr th{
+    text-align: center;
+    background-color: #fff !important;
+    color: #006BA9;
+}
+
+.tableInformationDocuments tr th:first-child{
+    text-align: left;
+}
+
+.form--content{
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.form--content .form--content--items{
+    margin-right: 10px;
+}
+
+.form--content .form--content--items:last-child{
+    margin-right: 0px;
+}
+
+.form-notes{
+    width: 100%;
+    display: flex;
+    border-radius: 3px;
+    margin-right: 10px;
+    margin-bottom: 6px;
+}
+
+.form--content .form-notes:last-child{
+    margin-right: 0px;
+}
+
+.form-notes label{
+    z-index: 2;
+    position: absolute;
+    color: #006BA9;
+}
+
+.form-notes input[type=text]{
+    border: transparent;
+    margin-top: 15px;
+    width: 100%;
+    border-bottom: solid 1px #00000029;
+}
+
+.form-notes input[type=text]:focus{
+    border-bottom: solid 2px #006BA9;
+    background-color: #00000029;
+}
+
+
+.form--notes--date{
+    border: 1px solid #006BA9;
+    width: 100%;
+    margin-right: 20px;
+    border-radius: 3px;
+    padding: 5px 5px;
+    margin-bottom: 10px;
+}
+
+.form--notes--date input{
+    width: 100%;
+    border: transparent;
+}
+
+.bg-transparent{
+    background-color: transparent !important;
+}

@@ -152,3 +152,10 @@
 
         document.getElementById('estados_seleccionados').innerHTML = badge;
     }
+
+    function excel_download(nameTable)
+    {
+        $('#'+nameTable).table2csv({
+            file_name: nameTable+'.csv'
+        });
+    }

@@ -67,8 +67,10 @@
                                     <div id="prospectos">
 
                                         <div class="options--content">
+                                            <button type="button" class="btn-option" onclick="excel_download('prospectosTable')" >Excel</button>
                                             <button type="button" class="btn-option" data-toggle="modal" data-target="#add-prospecto">Agregar</button>
                                         </div>
+
                                         <div class="tableInformation">
                                             <table id="prospectosTable" class="display" style="width:100%">
                                                 <thead>
@@ -125,6 +127,10 @@
                                     </div>
 
                                     <div id="clientes">
+
+                                        <div class="options--content">
+                                            <button type="button" class="btn-option" onclick="excel_download('clientesTable')" >Excel</button>
+                                        </div>
 
                                         <div class="tableInformation">
                                             <table id="clientesTable" class="display" style="width:100%">
@@ -286,6 +292,7 @@
 </div>
 
 @push('js')
+    <script src="{{ asset('js/table2csv.js') }}"></script>
     <script src="{{ asset('js/ventas.js') }}"></script>
     <script>
         $(document).ready(function() {

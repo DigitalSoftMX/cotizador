@@ -25,6 +25,8 @@
     <link href="{{ asset('dropify/css/dropify.min.css') }}" rel="stylesheet" />
 
     <link href="{{ asset('css/ventas.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/ventas-icons/style.css') }}" rel="stylesheet">
+
 
     </head>
     <body class="{{ $class ?? '' }}">

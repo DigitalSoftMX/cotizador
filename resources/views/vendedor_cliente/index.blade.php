@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'Bienvenido', 'titlePage' => __('Ventas')])
+@extends('layouts.app', ['activePage' => 'Ventas', 'titlePage' => __('Ventas')])
 @section('content')
 <div class="content">
     <div class="container-fluid">
@@ -10,59 +10,193 @@
                             {{ __('') }}
                         </h4>
                         <p class="card-category">
-                            {{ __('Agrega nuevos clientes, lleva el seguimiento y sube la documentación requerida.') }}
+                            {{ __('Aquí puedes dar de alta, dar seguimiento a los clientes y asignar clientes.') }}
                         </p>
                     </div>
                     <div class="card-body">
 
-                        <div class="row ">
+                        <div class="row pl-5 pr-5">
 
-                            <div class="col-lg-4 mb-4 ml-auto">
-                                <a class="btn btn-primary btn-block text-white" href="{{ route('clientes.agregarcliente') }}">Agregar cliente</a>
+                            <div class="col-12 text-left">
+                                @if (session('status'))
+                                    <div class="alert {{ session('status_alert') }}" role="alert" id="status-alert">
+                                        {{ session('status') }}
+                                    </div>
+                                @endif
                             </div>
 
-                            <div class="col-lg-12 col-12">
-                                <table id="mis-clientes" class="display" style="width:100%">
-                                    <thead>
-                                        <tr>
-                                            <th>Nombre empresa</th>
-                                            <th>Correo</th>
-                                            <th>Información</th>
-                                            <th>Agregar documentación</th>
-                                            <th>Avance</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ( $data[0] as $cliente )
-                                            <tr>
-                                                <td>{{ $cliente->nombre }}</td>
-                                                <td>{{ $cliente->email }}</td>
+                            <div class="col-12">
+                                <div class="menu-options">
 
-                                                @php
-                                                    $informacion = "Nombre o Razón Social: ".$cliente->nombre."<br>Correo electronico: ".$cliente->email."<br>";
-                                                    $informacion .= "Dirección: ".$cliente->direccion."<br>Tipo: ".$cliente->tipo."<br>Tel: ".$cliente->telefono."<br>";
-                                                    $informacion .= "Estado: ".$cliente->estado."<br>";
+                                    <div class="option">
+                                        <label>
+                                            <input type="radio" name="menu-option" value="prospectos" onclick="change(this)" checked>
+                                            <p>
+                                                <span class="icon-persona-add-azul"></span>
+                                                Prospectos
+                                            </p>
+                                        </label>
+                                    </div>
 
-                                                    if($cliente->tipo === "Estación"){
-                                                        $informacion .= "Bandera blanca: ".$cliente->bandera_blanca."<br>No. estación: ".$cliente->numero_estacion."<br>";
-                                                    }
+                                    <div class="option">
+                                        <label>
+                                            <input type="radio" name="menu-option" value="clientes" onclick="change(this)">
+                                            <p>
+                                                <span class="icon-personas-azul"></span>
+                                                Clientes
+                                            </p>
+                                        </label>
+                                    </div>
 
-                                                    if($cliente->status != "Finalizado"){
-                                                        $informacion .= "<span>Te restan: ".$cliente->dias." dias.</span>";
-                                                    }else{
-                                                        $informacion .= "El seguimiento ha finalizado";
-                                                    }
+                                    <div class="option" style="display: none;">
+                                        <label>
+                                            <input type="radio" name="menu-option" value="vendedores" onclick="change(this)">
+                                            <p>
+                                                <span class="icon-vendedores-azul"></span>
+                                                Vendedores
+                                            </p>
+                                        </label>
+                                    </div>
 
-                                                @endphp
+                                </div>
+                            </div>
 
-                                                <td><button onclick="informacion_cliente('{{ $informacion }}')" class="btn btn-info text-white">Visualizar</button></td>
-                                                <td><a class="btn btn-success text-white" href="{{ route('clientes.documentacion', $cliente->id ) }}">Agregar</a></td>
-                                                <td><a class="btn btn-primary text-white" href="{{ route('clientes.avance', $cliente->id) }}">Visualizar</a></td>
+                            <div class="col-12">
+                                <div class="container">
 
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                    <div id="prospectos">
+
+                                        <div class="options--content">
+                                            <button type="button" class="btn-option" data-toggle="modal" data-target="#add-prospecto">Agregar</button>
+                                        </div>
+                                        <div class="tableInformation">
+                                            <table id="prospectosTable" class="display" style="width:100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Días</th>
+                                                        <th>Empresa</th>
+                                                        <th>Contacto</th>
+                                                        <th>Unidad de negocio</th>
+                                                        <th>Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ( $data['prospectos'] as $prospecto)
+                                                        <tr>
+                                                            <td>
+                                                                <div class="information--text">
+                                                                    <p>{{ $prospecto['dias'] }}</p>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="information--text">
+                                                                    <p>{{ $prospecto['empresa'] }}</p>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="information--text">
+                                                                    <p>{{ $prospecto['encargado'] }}</p>
+                                                                </div>
+                                                            </td>
+
+                                                            <td>
+                                                                <div class="information--text">
+                                                                    <p>{{ $prospecto['unidad_negocio'] }}</p>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="option-actions">
+                                                                    <a href="{{ route('ventas.visualizar_prospecto', $prospecto['id'] ) }}">
+                                                                        <span class="icon-ojo-azul"></span>
+                                                                    </a>
+
+                                                                    <a href="{{ route('ventas.editar_prospecto', $prospecto['id'] ) }}">
+                                                                        <span class="icon-editar-azul"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    </div>
+
+                                    <div id="clientes">
+
+                                        <div class="tableInformation">
+                                            <table id="clientesTable" class="display" style="width:100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Avance</th>
+                                                        <th>Empresa</th>
+                                                        <th>RFC</th>
+                                                        <th>Documentación</th>
+                                                        <th>Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                    @foreach ( $data['clientes'] as $cliente)
+                                                        <tr>
+                                                            <td>
+                                                                <div class="content--progress">
+                                                                    <div class="progress">
+                                                                        <div class="progress-bar {{ $cliente['color'] }}" style="width:{{ $cliente['avance'] }}%"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="information--text">
+                                                                    <p>{{ $cliente['empresa'] }}</p>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="information--text">
+                                                                    <p>{{ $cliente['rfc'] }}</p>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="option-actions">
+                                                                    <a href="{{ route('ventas.agregar_documentacion', $cliente['id'] ) }}">
+                                                                        <span class="icon-agregar-azul"></span>
+                                                                    </a>
+
+                                                                    <a href="{{ route('ventas.agregar_documentacion', $cliente['id'] ) }}">
+                                                                        <span class="icon-ojo-azul"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </td>
+
+                                                            <td>
+                                                                <div class="option-actions">
+
+                                                                    <a href="{{ route('ventas.visualizar_cliente', $cliente['id']) }}">
+                                                                        <span class="icon-ojo-azul"></span>
+                                                                    </a>
+
+                                                                    <a href="{{ route('ventas.editar_cliente', $cliente['id']) }}">
+                                                                        <span class="icon-editar-azul"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div id="vendedores">
+
+                                    </div>
+
+                                </div>
                             </div>
 
                         </div>
@@ -74,60 +208,90 @@
     </div>
 </div>
 
-<!-- The Modal -->
-<div class="modal" id="informacion_modal">
+<div class="modal" id="add-prospecto">
   <div class="modal-dialog">
     <div class="modal-content">
 
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Informacion principal</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
+        <div class="title--content">
+            <h1>Prospectos</h1>
+        </div>
 
-      <!-- Modal body -->
-      <div class="modal-body">
-        <p id="info_p" ></p>
-      </div>
+        <form method="POST" action="{{ route('ventas.guardarProspecto') }}">
 
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-      </div>
+            @csrf
+
+            <div class="container information">
+                <div class="row">
+
+                    <div class="col-lg-12 col-12">
+                        <div class="content-information">
+                            <i class="material-icons icon-edificio-gris"></i>
+                            <input type="text" placeholder="Nombre de la empresa" name="nombre_empresa" required>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-12">
+                        <div class="content--center">
+                            <div class="select">
+                                <i class="material-icons icon-udn-gris"></i>
+                                <select style="text-align-last: auto;" name="estado" required>
+                                    <option selected disabled>Unidad de negocio</option>
+                                    @foreach ($estados as $estado)
+                                        <option value="{{ $estado }}" >{{ $estado }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-12">
+
+                        <div class="content-information">
+                            <i class="material-icons icon-persona-add-gris"></i>
+                            <input type="text" placeholder="Responsable" name="nombre_responsable" required>
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-6 col-12">
+
+                        <div class="content-information">
+                            <i class="material-icons icon-telefono-gris"></i>
+                            <input type="text" placeholder="Telefono" name="telefono_empresa" required>
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-6 col-12">
+
+                        <input type="text" value="{{ $user_id }}" name="id_user" style="display: none;">
+
+                        <div class="content-information">
+                            <i class="material-icons icon-mail-gris"></i>
+                            <input type="mail" placeholder="Correo electrónico" name="correo_empresa" required>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer--options">
+                <button type="submit" class="btn-option">Guadar</button>
+                <button class="btn-option" data-dismiss="modal">Cancelar</button>
+            </div>
+        </form>
 
     </div>
   </div>
 </div>
 
 @push('js')
-
+    <script src="{{ asset('js/ventas.js') }}"></script>
     <script>
         $(document).ready(function() {
-
-            $('#mis-clientes').DataTable( {
-                "language": {
-                    "lengthMenu": "Mostrar _MENU_ elementos por página",
-                    "zeroRecords": "No hay ninguna coincidencia",
-                    "info": "Página _PAGE_ de _PAGES_",
-                    "infoEmpty": "No hay datos que mostrar",
-                    "infoFiltered": "",
-                    "search": "Buscar:",
-                    "paginate": {
-                        "next":       "Siguiente",
-                        "previous":   "Anterior"
-                    },
-                }
-            } );
-
-        } );
-
-        function informacion_cliente(string){
-            document.getElementById('info_p').innerHTML = string;
-            $("#informacion_modal").modal()
-        }
-
+            loadTable('prospectosTable');
+            loadTable('clientesTable');
+        });
     </script>
-
 @endpush
-
 @endsection

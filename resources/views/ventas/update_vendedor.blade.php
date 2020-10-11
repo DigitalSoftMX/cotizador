@@ -10,56 +10,85 @@
 
                             <div class="col-12">
                                 <div class="container-title-first">
-                                    <i class="material-icons">perm_identity</i>
+                                    <i class="material-icons icon-edificio-azul"></i>
                                     <h1>Vendedores</h1>
                                 </div>
                             </div>
 
-                            <div class="col-lg-6 col-12">
+                            <div class="col-12 text-left">
+                                @if (session('status'))
+                                    <div class="alert {{ session('status_alert') }}" role="alert" id="status-alert">
+                                        {{ session('status') }}
+                                    </div>
+                                @endif
+                            </div>
 
-                                <div class="content-information">
-                                    <i class="material-icons">perm_identity</i>
-                                    <input type="text" placeholder="Nombre">
+                            <form method="POST" action="{{ route('ventas.actualizar_vendedor') }}" style="display: contents;">
+                                @csrf
+
+                                <div class="col-lg-6 col-12">
+
+                                    <div class="content-information">
+                                        <i class="material-icons icon-vendedores-gris"></i>
+                                        <input type="text" placeholder="Nombre" name="name" value="{{ $vendedor->name }}" required>
+                                    </div>
+
+                                    <div class="content-information">
+                                        <i class="material-icons"></i>
+                                        <input type="text" placeholder="Apellido paterno" name="app_name" value="{{ $vendedor->app_name }}" required>
+                                    </div>
+
+                                    <div class="content-information">
+                                        <i class="material-icons"></i>
+                                        <input type="text" placeholder="Apellido materno" name="apm_name" value="{{ $vendedor->apm_name }}" required>
+                                    </div>
+
+                                    <div class="content-information">
+                                        <i class="material-icons icon-mail-gris"></i>
+                                        <input type="text" placeholder="Correo" name="email" value="{{ $vendedor->email }}" required>
+                                    </div>
+
+                                </div>
+                                <div class="col-lg-6 col-12">
+
+                                    <div class="content-information">
+                                        <i class="material-icons icon-candado-gris"></i>
+                                        <input type="password" placeholder="Contraseña" name="password">
+                                    </div>
+
+                                    <div class="content-information">
+                                        <i class="material-icons icon-telefono-gris"></i>
+                                        <input type="text" placeholder="Telefono" name="phone" value="{{ $vendedor->phone }}" required>
+                                    </div>
+
+                                    <div class="content--center">
+                                        <div class="select">
+                                            <i class="material-icons icon-udn-gris"></i>
+                                            <select style="text-align-last: auto;" id="unidad-negocio">
+                                                <option selected disabled>Unidad de negocio</option>
+                                                @foreach ( $estados as $estado)
+                                                    <option value="{{ $estado }}">{{ $estado }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="container p-0 mt-2 mb-2" id="estados_seleccionados">
+
+                                    </div>
+
+                                    <input type="text" name="unidades_negocio" id="unidades_negocio" value="{{ $unidades_negocio }}" style="display: none;">
+                                    <input type="text" name="id" value="{{ $vendedor->id }}" style="display: none;">
+
                                 </div>
 
-                                <div class="content-information">
-                                    <i class="material-icons">lock_outline</i>
-                                    <input type="text" placeholder="Contraseña">
-                                </div>
-
-                                <div class="content--center">
-                                    <div class="select">
-                                        <i class="material-icons">home_work</i>
-                                        <select style="text-align-last: auto;">
-                                            <option selected disabled>Unidad de negocio</option>
-                                            <option value="1">Pure CSS</option>
-                                            <option value="2">No JS</option>
-                                            <option value="3">Nice!</option>
-                                        </select>
+                                <div class="container">
+                                    <div class="options--footer">
+                                        <button type="submit" class="btn-option">Guadar</button>
+                                        <a href="{{ route('ventas.index') }}" class="btn-option">Cancelar</a>
                                     </div>
                                 </div>
-
-                            </div>
-                            <div class="col-lg-6 col-12">
-
-                                <div class="content-information">
-                                    <i class="material-icons">email</i>
-                                    <input type="text" placeholder="Correo">
-                                </div>
-
-                                <div class="content-information">
-                                    <i class="material-icons">home_work</i>
-                                    <input type="text" placeholder="Telefono">
-                                </div>
-
-                            </div>
-
-                            <div class="container">
-                                <div class="options--footer">
-                                    <button class="btn-option">Editar</button>
-                                    <a href="{{ route('ventas.index') }}" class="btn-option">Cancelar</a>
-                                </div>
-                            </div>
+                            </form>
 
                         </div>
                     </div>
@@ -69,3 +98,13 @@
     </div>
 </div>
 @endsection
+
+@push('js')
+    <script src="{{ asset('js/ventas.js') }}"></script>
+    <script>
+
+        unidades_negocio =  JSON.parse( $('#unidades_negocio').val() );
+        mostrar_unidades();
+
+    </script>
+@endpush

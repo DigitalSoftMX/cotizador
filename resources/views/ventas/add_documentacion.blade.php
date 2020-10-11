@@ -71,18 +71,18 @@
                                                     </td>
                                                 @endif
                                                 <td>
-                                                    <div class="information--text">
+                                                    <div class="option-actions">
                                                         @if ($cliente->carta_de_intencion != null)
                                                             <a target="_blank" href="{{ route('clientes.downloadclient', $documentos['carta_de_intencion']->nombre ) }}">
-                                                                <i class="material-icons">perm_identity</i>
+                                                                <i class="material-icons icon-ojo-azul"></i>
                                                             </a>
                                                         @else
                                                             <a href="javascript:void(0)">
-                                                                <i class="material-icons">perm_identity</i>
+                                                                <i class="material-icons icon-ojo-azul"></i>
                                                             </a>
                                                         @endif
                                                         <a href="javascript:void(0)" onclick="load_file( {{ $cliente->id }} ,'carta de intencion')">
-                                                            <i class="material-icons">perm_identity</i>
+                                                            <i class="material-icons icon-editar-azul"></i>
                                                         </a>
                                                     </div>
                                                 </td>
@@ -118,18 +118,18 @@
                                                     </td>
                                                 @endif
                                                 <td>
-                                                    <div class="information--text">
+                                                    <div class="option-actions">
                                                         @if ($cliente->convenio_de_confidencialidad != null)
                                                             <a target="_blank" href="{{ route('clientes.downloadclient', $documentos['convenio_de_confidencialidad']->nombre) }}">
-                                                                <i class="material-icons">perm_identity</i>
+                                                                <i class="material-icons icon-ojo-azul"></i>
                                                             </a>
                                                         @else
                                                             <a href="javascript:void(0)">
-                                                                <i class="material-icons">perm_identity</i>
+                                                                <i class="material-icons icon-ojo-azul"></i>
                                                             </a>
                                                         @endif
                                                         <a href="javascript:void(0)" onclick="load_file( {{ $cliente->id }} ,'convenio de confidencialidad')">
-                                                            <i class="material-icons">perm_identity</i>
+                                                            <i class="material-icons icon-editar-azul"></i>
                                                         </a>
                                                     </div>
                                                 </td>
@@ -165,19 +165,19 @@
                                                     </td>
                                                 @endif
                                                 <td>
-                                                    <div class="information--text">
+                                                    <div class="option-actions">
                                                         @if ($cliente->margen_garantizado != null)
                                                             <a target="_blank" href="{{ route('clientes.downloadclient', $documentos['margen_garantizado']->nombre ) }}">
-                                                                <i class="material-icons">perm_identity</i>
+                                                                <i class="material-icons icon-ojo-azul"></i>
                                                             </a>
                                                         @else
                                                             <a href="javascript:void(0)">
-                                                                <i class="material-icons">perm_identity</i>
+                                                                <i class="material-icons icon-ojo-azul"></i>
                                                             </button>
                                                         @endif
 
                                                         <a href="javascript:void(0)" onclick="load_file( {{ $cliente->id }} ,'margen garantizado')">
-                                                            <i class="material-icons">perm_identity</i>
+                                                            <i class="material-icons icon-editar-azul"></i>
                                                         </a>
                                                     </div>
                                                 </td>
@@ -213,18 +213,18 @@
                                                     </td>
                                                 @endif
                                                 <td>
-                                                    <div class="information--text">
+                                                    <div class="option-actions">
                                                         @if ($cliente->solicitud_de_documentos != null)
                                                             <a target="_blank" href="{{ route('clientes.downloadclient', $documentos['solicitud_de_documentos']->nombre) }}">
-                                                                <i class="material-icons">perm_identity</i>
+                                                                <i class="material-icons icon-ojo-azul"></i>
                                                             </a>
                                                         @else
                                                             <a href="javascript:void(0)">
-                                                                <i class="material-icons">perm_identity</i>
+                                                                <i class="material-icons icon-ojo-azul"></i>
                                                             </a>
                                                         @endif
                                                         <a href="javascript:void(0)" onclick="load_file( {{ $cliente->id }} ,'solicitud de documentos')">
-                                                            <i class="material-icons">perm_identity</i>
+                                                            <i class="material-icons icon-editar-azul"></i>
                                                         </a>
                                                     </div>
                                                 </td>
@@ -260,18 +260,18 @@
                                                     </td>
                                                 @endif
                                                 <td>
-                                                    <div class="information--text">
+                                                    <div class="option-actions">
                                                         @if ($cliente->ine != null)
                                                             <a target="_blank" href="{{ route('clientes.downloadclient', $documentos['ine']->nombre ) }}">
-                                                                <i class="material-icons">perm_identity</i>
+                                                                <i class="material-icons icon-ojo-azul"></i>
                                                             </a>
                                                         @else
                                                             <a href="javascript:void(0)">
-                                                                <i class="material-icons">perm_identity</i>
+                                                                <i class="material-icons icon-ojo-azul"></i>
                                                             </a>
                                                         @endif
                                                         <a href="javascript:void(0)" onclick="load_file( {{ $cliente->id }} ,'ine')">
-                                                            <i class="material-icons">perm_identity</i>
+                                                            <i class="material-icons icon-editar-azul"></i>
                                                         </a>
                                                     </div>
                                                 </td>
@@ -307,18 +307,18 @@
                                                     </td>
                                                 @endif
                                                 <td>
-                                                    <div class="information--text">
+                                                    <div class="option-actions">
                                                         @if ($cliente->acta_constitutiva != null)
                                                             <a target="_blank" href="{{ route('clientes.downloadclient', $documentos['acta_constitutiva']->nombre ) }}">
-                                                                <i class="material-icons">perm_identity</i>
+                                                                <i class="material-icons icon-ojo-azul"></i>
                                                             </a>
                                                         @else
                                                             <a href="javascript:void(0)">
-                                                                <i class="material-icons">perm_identity</i>
+                                                                <i class="material-icons icon-ojo-azul"></i>
                                                             </a>
                                                         @endif
                                                         <a href="javascript:void(0)" onclick="load_file( {{ $cliente->id }} ,'acta constitutiva')">
-                                                            <i class="material-icons">perm_identity</i>
+                                                            <i class="material-icons icon-editar-azul"></i>
                                                         </a>
                                                     </div>
                                                 </td>
@@ -354,19 +354,19 @@
                                                     </td>
                                                 @endif
                                                 <td>
-                                                    <div class="information--text">
+                                                    <div class="option-actions">
                                                         @if ($cliente->poder_notarial != null)
                                                             <a target="_blank" href="{{ route('clientes.downloadclient', $documentos['poder_notarial']->nombre) }}">
-                                                                <i class="material-icons">perm_identity</i>
+                                                                <i class="material-icons icon-ojo-azul"></i>
                                                             </a>
                                                         @else
 
                                                             <a href="javascript:void(0)">
-                                                                <i class="material-icons">perm_identity</i>
+                                                                <i class="material-icons icon-ojo-azul"></i>
                                                             </a>
                                                         @endif
                                                         <a href="javascript:void(0)" onclick="load_file( {{ $cliente->id }} ,'poder notarial')">
-                                                            <i class="material-icons">perm_identity</i>
+                                                            <i class="material-icons icon-editar-azul"></i>
                                                         </a>
                                                     </div>
                                                 </td>
@@ -402,18 +402,18 @@
                                                     </td>
                                                 @endif
                                                 <td>
-                                                    <div class="information--text">
+                                                    <div class="option-actions">
                                                         @if ($cliente->constancia_de_situacion_fiscal != null)
                                                             <a target="_blank" href="{{ route('clientes.downloadclient', $documentos['constancia_de_situacion_fiscal']->nombre) }}">
-                                                                <i class="material-icons">perm_identity</i>
+                                                                <i class="material-icons icon-ojo-azul"></i>
                                                             </a>
                                                         @else
                                                             <a href="javascript:void(0)">
-                                                                <i class="material-icons">perm_identity</i>
+                                                                <i class="material-icons icon-ojo-azul"></i>
                                                             </a>
                                                         @endif
                                                         <a href="javascript:void(0)" onclick="load_file( {{ $cliente->id }} ,'constancia de situacion fiscal')">
-                                                            <i class="material-icons">perm_identity</i>
+                                                            <i class="material-icons icon-editar-azul"></i>
                                                         </a>
                                                     </div>
                                                 </td>
@@ -449,19 +449,19 @@
                                                     </td>
                                                 @endif
                                                 <td>
-                                                    <div class="information--text">
+                                                    <div class="option-actions">
                                                         @if ($cliente->comprobante_de_domicilio != null)
                                                             <a target="_blank" href="{{ route('clientes.downloadclient', $documentos['comprobante_de_domicilio']->nombre) }}">
-                                                                <i class="material-icons">perm_identity</i>
+                                                                <i class="material-icons icon-ojo-azul"></i>
                                                             </a>
                                                         @else
                                                             <a href="javascript:void(0)">
-                                                                <i class="material-icons">perm_identity</i>
+                                                                <i class="material-icons icon-ojo-azul"></i>
                                                             </a>
                                                         @endif
 
                                                         <a href="javascript:void(0)" onclick="load_file( {{ $cliente->id }} ,'comprobante de domicilio')">
-                                                            <i class="material-icons">perm_identity</i>
+                                                            <i class="material-icons icon-editar-azul"></i>
                                                         </a>
 
                                                     </div>
@@ -507,27 +507,19 @@
                                                 @endif
 
                                                 <td>
-                                                    <div class="information--text">
+                                                    <div class="option-actions">
 
                                                         @if ( count($documentos['propuestas_array']) > 0 )
 
                                                             @if ( $documentos['propuestas_array'][ count($documentos['propuestas_array'])-1 ]['archivo'] !== null )
                                                                 <a target="_blank" href="{{ route('clientes.downloadclient', $documentos['propuestas_array'][ count($documentos['propuestas_array'])-1 ]['archivo'] ) }}">
-                                                                    <i class="material-icons">perm_identity</i>
-                                                                </a>
-                                                            @else
-                                                                <a href="javascript:void(0)">
-                                                                    <i class="material-icons">perm_identity</i>
+                                                                    <i class="material-icons icon-ojo-azul"></i>
                                                                 </a>
                                                             @endif
 
-                                                        @else
-                                                            <a href="javascript:void(0)">
-                                                                <i class="material-icons">perm_identity</i>
-                                                            </a>
                                                         @endif
                                                         <a href="javascript:void(0)" onclick="load_propuesta( {{ $cliente->id }} )">
-                                                            <i class="material-icons">perm_identity</i>
+                                                            <i class="material-icons icon-editar-azul"></i>
                                                         </a>
                                                     </div>
                                                 </td>
@@ -563,19 +555,19 @@
                                                     </td>
                                                 @endif
                                                 <td>
-                                                    <div class="information--text">
+                                                    <div class="option-actions">
                                                         @if ($cliente->contrato_comodato != null)
                                                             <a target="_blank" href="{{ route('clientes.downloadclient', $documentos['contrato_comodato']->nombre) }}">
-                                                                <i class="material-icons">perm_identity</i>
+                                                                <i class="material-icons icon-ojo-azul"></i>
                                                             </a>
                                                         @else
                                                             <a href="javascript:void(0)">
-                                                                <i class="material-icons">perm_identity</i>
+                                                                <i class="material-icons icon-ojo-azul"></i>
                                                             </a>
                                                         @endif
 
                                                         <a href="javascript:void(0)" onclick="load_file( {{ $cliente->id }} ,'contrato comodato')">
-                                                            <i class="material-icons">perm_identity</i>
+                                                            <i class="material-icons icon-editar-azul"></i>
                                                         </a>
 
                                                     </div>
@@ -612,20 +604,20 @@
                                                     </td>
                                                 @endif
                                                 <td>
-                                                    <div class="information--text">
+                                                    <div class="option-actions">
 
                                                         @if ($cliente->contrato_de_suministro != null)
                                                             <a target="_blank" href="{{ route('clientes.downloadclient', $documentos['contrato_de_suministro']->nombre) }}">
-                                                                <i class="material-icons">perm_identity</i>
+                                                                <i class="material-icons icon-ojo-azul"></i>
                                                             </a>
                                                         @else
                                                             <a href="javascript:void(0)">
-                                                                <i class="material-icons">perm_identity</i>
+                                                                <i class="material-icons icon-ojo-azul"></i>
                                                             </a>
                                                         @endif
 
                                                         <a href="javascript:void(0)" onclick="load_file( {{ $cliente->id }} ,'contrato de suministro')">
-                                                            <i class="material-icons">perm_identity</i>
+                                                            <i class="material-icons icon-editar-azul"></i>
                                                         </a>
                                                     </div>
                                                 </td>
@@ -661,20 +653,20 @@
                                                     </td>
                                                 @endif
                                                 <td>
-                                                    <div class="information--text">
+                                                    <div class="option-actions">
 
                                                         @if ($cliente->carta_bienvenida != null)
                                                             <a target="_blank" href="{{ route('clientes.downloadclient', $documentos['carta_bienvenida']->nombre) }}">
-                                                                <i class="material-icons">perm_identity</i>
+                                                                <i class="material-icons icon-ojo-azul"></i>
                                                             </a>
                                                         @else
                                                             <a href="javascript:void(0)">
-                                                                <i class="material-icons">perm_identity</i>
+                                                                <i class="material-icons icon-ojo-azul"></i>
                                                             </a>
                                                         @endif
 
                                                         <a href="javascript:void(0)" onclick="load_file( {{ $cliente->id }} ,'carta bienvenida')">
-                                                            <i class="material-icons">perm_identity</i>
+                                                            <i class="material-icons icon-editar-azul"></i>
                                                         </a>
 
                                                     </div>
@@ -711,20 +703,20 @@
                                                     </td>
                                                 @endif
                                                 <td>
-                                                    <div class="information--text">
+                                                    <div class="option-actions">
 
                                                         @if ($cliente->permiso_cree != null)
                                                             <a target="_blank" href="{{ route('clientes.downloadclient', $documentos['permiso_cree']->nombre) }}" >
-                                                                <i class="material-icons">perm_identity</i>
+                                                                <i class="material-icons icon-ojo-azul"></i>
                                                             </a>
                                                         @else
                                                             <a href="javascript:void(0)">
-                                                                <i class="material-icons">perm_identity</i>
+                                                                <i class="material-icons icon-ojo-azul"></i>
                                                             </a>
                                                         @endif
 
                                                         <a href="javascript:void(0)" onclick="load_file( {{ $cliente->id }} ,'permiso_cree')">
-                                                            <i class="material-icons">perm_identity</i>
+                                                            <i class="material-icons icon-editar-azul"></i>
                                                         </a>
                                                     </div>
                                                 </td>

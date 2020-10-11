@@ -15,7 +15,8 @@
                     </div>
                     <div class="card-body">
 
-                        <div class="row">
+                        <div class="row pl-5 pr-5">
+
                             <div class="col-12 text-left">
                                 @if (session('status'))
                                     <div class="alert {{ session('status_alert') }}" role="alert" id="status-alert">
@@ -23,32 +24,43 @@
                                     </div>
                                 @endif
                             </div>
+
                             <div class="col-12">
                                 <div class="menu-options">
 
                                     <div class="option">
                                         <label>
                                             <input type="radio" name="menu-option" value="prospectos" onclick="change(this)" checked>
-                                            <p>Prospectos</p>
+                                            <p>
+                                                <span class="icon-persona-add-azul"></span>
+                                                Prospectos
+                                            </p>
                                         </label>
                                     </div>
 
                                     <div class="option">
                                         <label>
                                             <input type="radio" name="menu-option" value="clientes" onclick="change(this)">
-                                            <p>Clientes</p>
+                                            <p>
+                                                <span class="icon-personas-azul"></span>
+                                                Clientes
+                                            </p>
                                         </label>
                                     </div>
 
                                     <div class="option">
                                         <label>
                                             <input type="radio" name="menu-option" value="vendedores" onclick="change(this)">
-                                            <p>Vendedores</p>
+                                            <p>
+                                                <span class="icon-vendedores-azul"></span>
+                                                Vendedores
+                                            </p>
                                         </label>
                                     </div>
 
                                 </div>
                             </div>
+
                             <div class="col-12">
                                 <div class="container">
 
@@ -137,13 +149,13 @@
                                                                 </div>
                                                             </td>
                                                             <td>
-                                                                <div class="information--text">
-                                                                    <a href="{{ route('ventas.editar_prospecto', $prospecto['id'] ) }}">
-                                                                        <i class="material-icons">perm_identity</i>
+                                                                <div class="option-actions">
+                                                                    <a href="{{ route('ventas.visualizar_prospecto', $prospecto['id'] ) }}">
+                                                                        <span class="icon-ojo-azul"></span>
                                                                     </a>
 
                                                                     <a href="{{ route('ventas.editar_prospecto', $prospecto['id'] ) }}">
-                                                                        <i class="material-icons">perm_identity</i>
+                                                                        <span class="icon-editar-azul"></span>
                                                                     </a>
                                                                 </div>
                                                             </td>
@@ -197,31 +209,31 @@
                                                                 </div>
                                                             </td>
                                                             <td>
-                                                                <div class="information--text">
+                                                                <div class="option-actions">
                                                                     <a href="{{ route('ventas.agregar_documentacion', $cliente['id'] ) }}">
-                                                                        <i class="material-icons">perm_identity</i>
+                                                                        <span class="icon-agregar-azul"></span>
                                                                     </a>
 
                                                                     <a href="{{ route('ventas.agregar_documentacion', $cliente['id'] ) }}">
-                                                                        <i class="material-icons">perm_identity</i>
+                                                                        <span class="icon-ojo-azul"></span>
                                                                     </a>
                                                                 </div>
                                                             </td>
 
                                                             <td>
-                                                                <div class="information--text">
-                                                                    <a href="{{ route('ventas.editar_cliente', $cliente['id']) }}">
-                                                                        <i class="material-icons">perm_identity</i>
+                                                                <div class="option-actions">
+
+                                                                    <a href="{{ route('ventas.visualizar_cliente', $cliente['id']) }}">
+                                                                        <span class="icon-ojo-azul"></span>
                                                                     </a>
 
                                                                     <a href="{{ route('ventas.editar_cliente', $cliente['id']) }}">
-                                                                        <i class="material-icons">perm_identity</i>
+                                                                        <span class="icon-editar-azul"></span>
                                                                     </a>
                                                                 </div>
                                                             </td>
                                                         </tr>
                                                     @endforeach
-
 
                                                 </tbody>
                                             </table>
@@ -265,9 +277,9 @@
                                                                 </div>
                                                             </td>
                                                             <td>
-                                                                <div class="information--text">
+                                                                <div class="option-actions">
                                                                     <a href="{{ route('ventas.editar_vendedor', $vendedor['id'] ) }}">
-                                                                        <i class="material-icons">perm_identity</i>
+                                                                        <span class="icon-editar-azul"></span>
                                                                     </a>
                                                                 </div>
                                                             </td>
@@ -312,7 +324,7 @@
                         <div class="row">
                             <div class="col-lg-6 col-12">
                                 <div class="content-information">
-                                    <i class="material-icons">home_work</i>
+                                    <i class="material-icons icon-edificio-gris"></i>
                                     <input type="text" placeholder="Nombre de la empresa" name="nombre_empresa" required>
                                 </div>
                             </div>
@@ -320,7 +332,7 @@
                             <div class="col-lg-6 col-12">
                                 <div class="content--center">
                                     <div class="select">
-                                        <i class="material-icons">home_work</i>
+                                        <i class="material-icons icon-udn-gris"></i>
                                         <select style="text-align-last: auto;" name="estado" required>
                                             <option selected disabled>Unidad de negocio</option>
                                             @foreach ($estados as $estado)
@@ -338,12 +350,12 @@
                     <div class="col-lg-6 col-12">
 
                         <div class="content-information">
-                            <i class="material-icons">perm_identity</i>
+                            <i class="material-icons icon-persona-add-gris"></i>
                             <input type="text" placeholder="Responsable" name="nombre_responsable" required>
                         </div>
 
                         <div class="content-information">
-                            <i class="material-icons">perm_identity</i>
+                            <i class="material-icons icon-telefono-gris"></i>
                             <input type="text" placeholder="Telefono" name="telefono_empresa" required>
                         </div>
 
@@ -353,7 +365,7 @@
 
                         <div class="content--center">
                             <div class="select">
-                                <i class="material-icons">home_work</i>
+                                <i class="material-icons icon-personas-gris"></i>
                                 <select style="text-align-last: auto;" name="id_user" required>
                                     <option selected disabled>Vendedor</option>
                                     @foreach ($data['vendedores'] as $vendedor)
@@ -364,7 +376,7 @@
                         </div>
 
                         <div class="content-information">
-                            <i class="material-icons">email</i>
+                            <i class="material-icons icon-mail-gris"></i>
                             <input type="mail" placeholder="Correo electrónico" name="correo_empresa" required>
                         </div>
 

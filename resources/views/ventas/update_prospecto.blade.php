@@ -10,7 +10,7 @@
 
                             <div class="col-12">
                                 <div class="container-title-first">
-                                    <i class="material-icons">perm_identity</i>
+                                    <i class="material-icons icon-edificio-azul"></i>
                                     <h1>Prospectos</h1>
                                 </div>
                             </div>
@@ -23,17 +23,17 @@
                                 <div class="col-lg-6 col-12">
 
                                     <div class="content-information">
-                                        <i class="material-icons">home_work</i>
+                                        <i class="material-icons icon-edificio-azul"></i>
                                         <input type="text" name="nombre" placeholder="Nombre empresa" value="{{ $prospecto->nombre }}" required>
                                     </div>
 
                                     <div class="content-information">
-                                        <i class="material-icons">perm_identity</i>
+                                        <i class="material-icons icon-vendedores-azul"></i>
                                         <input type="text" name="encargado" placeholder="Contacto" value="{{ $prospecto->encargado }}" required>
                                     </div>
 
                                     <div class="content-information">
-                                        <i class="material-icons">perm_identity</i>
+                                        <i class="material-icons icon-telefono-azul"></i>
                                         <input type="text" name="telefono" placeholder="Telefono" value="{{ $prospecto->telefono }}" required>
                                     </div>
 
@@ -41,17 +41,32 @@
 
                                 <div class="col-lg-6 col-12">
 
-                                    @if ($vendedor['vendedor'] != null)
+                                    <div class="content--center mb-2em" style="display: {{ $cambiar_vendedor }};">
+                                        <div class="select">
+                                            <i class="material-icons icon-persona-add-azul"></i>
+                                            <select style="text-align-last: auto;" name="vendedor_id">
+                                                <option selected disabled>Vendedor</option>
 
-                                        <div class="content-information">
-                                            <i class="material-icons">perm_identity</i>
-                                            <input type="text" placeholder="Vendedor" value="{{ $vendedor['vendedor']['name'] }} {{ $vendedor['vendedor']['app_name'] }} {{ $vendedor['vendedor']['apm_name'] }}">
+                                                @if ($vendedor['vendedor'] != null)
+
+                                                    <option value="{{ $vendedor['vendedor']['id'] }}" selected>
+                                                        {{ $vendedor['vendedor']['name'] }} {{ $vendedor['vendedor']['app_name'] }} {{ $vendedor['vendedor']['apm_name'] }}
+                                                    </option>
+
+                                                @endif
+
+                                                @foreach ($vendedores_potenciales as $vendedor_potencial)
+                                                    <option value="{{ $vendedor_potencial->id }}">
+                                                        {{ $vendedor_potencial->name }} {{ $vendedor_potencial->app_name }} {{ $vendedor_potencial->apm_name }}
+                                                    </option>
+                                                @endforeach
+
+                                            </select>
                                         </div>
-
-                                    @endif
+                                    </div>
 
                                     <div class="content-information">
-                                        <i class="material-icons">email</i>
+                                        <i class="material-icons icon-mail-azul"></i>
                                         <input type="text" name="email" placeholder="Correo" value="{{ $prospecto->email }}" required>
                                     </div>
 
@@ -63,7 +78,7 @@
                                             <button type="submit" class="btn-option">Editar</button>
                                             <button type="button" onclick="window.location='{{ route('ventas.agregar_cliente', $prospecto->id) }}'" class="btn-option">Cliente</button>
                                         </div>
-                                        <a href="{{ route('ventas.index') }}" class="btn-option">Cancelar</a>
+                                        <a href="{{ URL::previous() }}" class="btn-option">Cancelar</a>
                                     </div>
                                 </div>
 

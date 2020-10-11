@@ -5,7 +5,7 @@
 .menu-options .option{
     font-size: 18px;
     text-align: center;
-    width: 40%;
+    width: 100%;
 }
 
 .menu-options .option input[type=radio]{
@@ -399,4 +399,60 @@ select:focus .select{
 
 .bg-transparent{
     background-color: transparent !important;
+}
+
+.content-look-information{
+    width: 100%;
+    display: flex;
+    border: 1px solid #707070;
+    padding: 15px 15px 0;
+    border-radius: 6px;
+    margin-bottom: 1em;
+}
+
+a .content-look-information {
+    color: #000;
+}
+
+
+.content-look-information i{
+    margin-right: 10px;
+}
+
+.badge-ventas{
+    background-color: #006BA9;
+}
+
+.card-text button{
+    border: transparent;
+    background: transparent;
+    padding: 0 1em 0 0;
+}
+
+
+/*  ICONOS  */
+.option-actions{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.option-actions span{
+    font-weight: bold;
+}
+
+
+
+.menu-options .option input + p .icon-persona-add-azul{
+    font-size: 2em;
+    vertical-align: middle;
+}
+
+.menu-options .option input + p .icon-personas-azul{
+    font-size: 2em;
+    vertical-align: middle;
+}
+
+.menu-options .option input + p .icon-vendedores-azul{
+    font-size: 2em;
+    vertical-align: middle;
 }

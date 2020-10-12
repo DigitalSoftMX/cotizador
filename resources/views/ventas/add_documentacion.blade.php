@@ -787,6 +787,7 @@
                             <div class="form--content--items">
 
                                 <div class="form--notes--date">
+                                    <i class="icon-calendario-gris"></i>
                                     <input type="date" name="fecha_propuesta" id="fecha_propuesta">
                                 </div>
 

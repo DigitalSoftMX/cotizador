@@ -365,6 +365,7 @@ select:focus .select{
     border-radius: 3px;
     margin-right: 10px;
     margin-bottom: 6px;
+    height: 3.1em;
 }
 
 .form--content .form-notes:last-child{
@@ -396,12 +397,52 @@ select:focus .select{
     margin-right: 20px;
     border-radius: 3px;
     padding: 5px 5px;
-    margin-bottom: 10px;
+    margin-bottom: 6px;
+    position: relative;
+    display: flex;
+    height: 3.1em;
 }
 
-.form--notes--date input{
+.form--notes--date i{
+    line-height: 2;
+    font-size: 1em;
+    margin-right: 0.5em;
+}
+
+.form--notes--date input[type='date']{
     width: 100%;
     border: transparent;
+    display:block;
+    position:relative;
+    font-size:1rem;
+    cursor:pointer;
+  }
+
+  ::-webkit-calendar-picker-indicator {
+    position:absolute;
+    width:2.5rem;
+    height:100%;
+    top:0;
+    right:0;
+    bottom:0;
+    opacity:0;
+    cursor:pointer;
+  }
+
+.form--notes--date input[type='date']::after{
+    content: '\2304';
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0 1em;
+    cursor: pointer;
+    pointer-events: none;
+    -webkit-transition: .25s all ease;
+    -o-transition: .25s all ease;
+    transition: .25s all ease;
+    color: #006BA9;
+    background-color: #fff;
+    height: 100%;
 }
 
 .bg-transparent{

@@ -414,7 +414,7 @@ class VentasController extends Controller
 
     public function actualizar_prospecto(Request $request)
     {
-        Cliente::find( $request->post('id') )
+        Cliente::where('id', $request->post('id') )
                 ->update([
                     'nombre' => $request->post('nombre'),
                     'encargado' => $request->post('encargado'),
@@ -515,7 +515,7 @@ class VentasController extends Controller
 
         $estados = $this->estados;
 
-        Cliente::find( $id )
+        Cliente::where('id', $id )
                 ->update([
                     'estatus' => 'cliente'
                 ]);
@@ -533,7 +533,7 @@ class VentasController extends Controller
 
     public function guardar_cliente(Request $request)
     {
-        Cliente::find( $request->post('id') )
+        Cliente::where('id', $request->post('id') )
                 ->update([
                     'nombre' => $request->post('nombre'),
                     'encargado' => $request->post('encargado'),
@@ -558,7 +558,7 @@ class VentasController extends Controller
 
     public function agregar_documentacion(Request $request, $id)
     {
-        $cliente = Cliente::find($id)->first();
+        $cliente = Cliente::where('id', $id)->get()[0];
 
         $documentos = array(
             'carta_de_intencion' => json_decode($cliente->carta_de_intencion),
@@ -599,7 +599,7 @@ class VentasController extends Controller
         );
 
         // Almacenamos en BD
-        Cliente::find($cliente_id)->update([$fileType => json_encode($json_document) ]);
+        Cliente::where('id',$cliente_id)->update([$fileType => json_encode($json_document) ]);
         // Almacenamos en local
         \Storage::disk('public')->put($name_file,  \File::get($file));
 
@@ -619,12 +619,14 @@ class VentasController extends Controller
         $diesel_price = $request->post('diesel_price');
 
         /* Obtenemos las propuestas almacenadas */
-        $cliente = Cliente::find($cliente_id)->first();
+        // $cliente = Cliente::find($cliente_id)->first();
+        $cliente = Cliente::where('id', $cliente_id)->get();
 
-        if($cliente->propuestas === null)
+        if( count($cliente->propuestas) === 0)
         {
             $propuestas_array = array();
         }else{
+            $cliente = $cliente[0];
             $propuestas_array = json_decode($cliente->propuestas);
         }
 
@@ -678,7 +680,7 @@ class VentasController extends Controller
         }
 
         // Almacenamos en BD
-        Cliente::find($cliente_id)->update(['propuestas' => json_encode($propuestas_new_array) ]);
+        Cliente::where('id', $cliente_id)->update(['propuestas' => json_encode($propuestas_new_array) ]);
 
         return back()
             ->with('status', 'Propuesta almacenada correctamente')
@@ -763,7 +765,7 @@ class VentasController extends Controller
 
     public function guardar_cambios_cliente(Request $request)
     {
-        Cliente::find( $request->post('id') )
+        Cliente::where('id', $request->post('id') )
             ->update([
                 'nombre' => $request->post('nombre'),
                 'encargado' => $request->post('encargado'),

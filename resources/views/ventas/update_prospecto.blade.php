@@ -23,6 +23,11 @@
                                 <div class="col-lg-6 col-12">
 
                                     <div class="content-information">
+                                        <i class="material-icons icon-firma-azul"></i>
+                                        <input type="text" name="estacion_numero" placeholder="Número de estación" value="{{ $prospecto->estacion_numero }}" >
+                                    </div>
+
+                                    <div class="content-information">
                                         <i class="material-icons icon-edificio-azul"></i>
                                         <input type="text" name="nombre" placeholder="Nombre empresa" value="{{ $prospecto->nombre }}" required>
                                     </div>
@@ -32,14 +37,14 @@
                                         <input type="text" name="encargado" placeholder="Contacto" value="{{ $prospecto->encargado }}" required>
                                     </div>
 
+                                </div>
+
+                                <div class="col-lg-6 col-12">
+
                                     <div class="content-information">
                                         <i class="material-icons icon-telefono-azul"></i>
                                         <input type="text" name="telefono" placeholder="Telefono" value="{{ $prospecto->telefono }}" required>
                                     </div>
-
-                                </div>
-
-                                <div class="col-lg-6 col-12">
 
                                     <div class="content--center mb-2em" style="display: {{ $cambiar_vendedor }};">
                                         <div class="select">
@@ -75,7 +80,7 @@
                                 <div class="container">
                                     <div class="options--footer">
                                         <div>
-                                            <button type="submit" class="btn-option">Editar</button>
+                                            <button type="submit" class="btn-option">Guardar</button>
                                             <button type="button" onclick="window.location='{{ route('ventas.agregar_cliente', $prospecto->id) }}'" class="btn-option">Cliente</button>
                                         </div>
                                         <a href="{{ URL::previous() }}" class="btn-option">Cancelar</a>

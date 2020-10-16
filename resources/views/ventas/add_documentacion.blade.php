@@ -27,6 +27,12 @@
                             </div>
 
                             <div class="col-12">
+                                <div class="options--content">
+                                    <a href="{{ route($url) }}" type="button" class="btn-option" >Atras</a>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
 
                                 <div class="tableInformationDocuments">
                                     <table class="display" style="width:100%">
@@ -135,7 +141,7 @@
                                                 </td>
                                             </tr>
 
-                                            <tr>
+                                            <tr style="display: none;">
                                                 <td>
                                                     <div class="information--text text-left">
                                                         <p>Margen garantizado</p>
@@ -623,7 +629,7 @@
                                                 </td>
                                             </tr>
 
-                                            <tr>
+                                            <tr style="{{ $show_documentos_cliente }}">
                                                 <td>
                                                     <div class="information--text text-left">
                                                         <p>Carta de bienvenida</p>
@@ -673,7 +679,7 @@
                                                 </td>
                                             </tr>
 
-                                            <tr>
+                                            <tr style="{{ $show_documentos_cliente }}">
                                                 <td>
                                                     <div class="information--text text-left">
                                                         <p>Permiso CREE</p>
@@ -757,7 +763,7 @@
             </div>
 
             <div class="footer--options">
-                <button class="btn-option">Guadar</button>
+                <button class="btn-option">Guardar</button>
                 <button class="btn-option" data-dismiss="modal">Cancelar</button>
             </div>
         </form>
@@ -788,7 +794,7 @@
 
                                 <div class="form--notes--date">
                                     <i class="icon-calendario-gris"></i>
-                                    <input type="date" name="fecha_propuesta" id="fecha_propuesta">
+                                    <input type="date" name="fecha_propuesta" id="fecha_propuesta" required>
                                 </div>
 
                                 <div class="form-notes">
@@ -829,7 +835,7 @@
             </div>
 
             <div class="footer--options">
-                <button type="submit" class="btn-option">Guadar</button>
+                <button type="submit" class="btn-option">Guardar</button>
                 <button type="button" class="btn-option" data-dismiss="modal">Cancelar</button>
             </div>
         </form>

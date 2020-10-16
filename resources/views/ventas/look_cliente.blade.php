@@ -18,6 +18,15 @@
                             <div class="col-lg-6 col-12">
 
                                 <div class="content-look-information">
+                                    <i class="material-icons icon-dispensario-icono"></i>
+                                    @if ( $cliente->estacion_numero === null )
+                                        <p class="value-null"> S/N </p>
+                                    @else
+                                        <p>{{ $cliente->estacion_numero }}</p>
+                                    @endif
+                                </div>
+
+                                <div class="content-look-information">
                                     <i class="material-icons icon-edificio-azul"></i>
                                     <p>{{ $cliente->nombre }}</p>
                                 </div>
@@ -53,6 +62,24 @@
                                         @endif
                                     </div>
                                 </a>
+
+                                <h5>Ultima propuesta {{ $json_propuesta['fecha'] }}</h5>
+
+                                <div class="content-look-information">
+                                    <p>Nota: {{ $json_propuesta['nota'] }}</p>
+                                </div>
+
+                                <div class="content-look-information">
+                                    <p>Precio supreme: ${{ $json_propuesta['precio_supreme'] }}</p>
+                                </div>
+
+                                <div class="content-look-information">
+                                    <p>Precio regular: ${{ $json_propuesta['precio_regular'] }}</p>
+                                </div>
+
+                                <div class="content-look-information">
+                                    <p>Precio diesel: ${{ $json_propuesta['precio_diesel'] }}</p>
+                                </div>
 
                             </div>
 

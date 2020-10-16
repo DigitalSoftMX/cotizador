@@ -477,6 +477,108 @@ a .content-look-information {
     padding: 0 1em 0 0;
 }
 
+.form--textarea{
+    width: 100%;
+    border: transparent;
+    border-bottom: solid 1px #00000029;
+    margin-bottom: 1em;
+}
+
+.form--textarea:focus{
+    border-bottom: solid 2px #006BA9;
+}
+
+.checkbox--content{
+    margin-bottom: 2em;
+}
+
+.checkbox--content label {
+    display: block;
+    margin: 5px 0;
+    cursor: pointer;
+    font-size: 1.2em;
+    color: #000;
+}
+
+.checkbox--content label > input[type="checkbox"] {
+    display: none;
+}
+
+.checkbox--content input[type="checkbox"] + span:before {
+    content: "\f146";
+    display: inline-block;
+    margin-right: 5px;
+    font-family: "FontAwesome";
+    font-weight: normal;
+    width: 1em;
+    color: red;
+}
+
+/**--- Checked ---**/
+
+.checkbox--content input[type="checkbox"]:checked + span:before {
+    content: "\f14a";
+    color: #00c853;
+    /* animation: pop 180ms ease-in; */
+}
+
+.content--bitacora{
+    width: 100%;
+}
+
+.content--bitacora table{
+    width: 100%;
+}
+
+.content--bitacora table thead tr, tbody tr{
+    border-bottom: solid 2px #f6f6f6;
+}
+
+.content--bitacora table thead tr th{
+    padding: 1em 0 0.5em 1.1em;
+    width: 50%;
+}
+
+.content--bitacora table thead tr th p{
+    margin-bottom: 0;
+    font-size: 1.3em;
+    font-weight: lighter;
+}
+
+.content--bitacora table tbody tr td{
+    padding: 1em 0 1em 1.4em;
+}
+
+.content--bitacora table tbody tr td p{
+    margin-bottom: 0;
+    font-size: 1.2em;
+}
+
+.cuadrado_status{
+    height: 2em;
+    width: 2em;
+    background-color: red;
+    margin-right: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.ficha--tecnica--titulos{
+    display: flex;
+    justify-content: space-between;
+}
+
+.ficha--tecnica--titulos p{
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.ficha--tecnica--titulos #empresa_ficha{
+    font-size: 1.5em;
+}
+
+.action--options a{
+    margin-right: 0.3em;
+}
 
 /*  ICONOS  */
 .option-actions{
@@ -487,8 +589,6 @@ a .content-look-information {
 .option-actions span{
     font-weight: bold;
 }
-
-
 
 .menu-options .option input + p .icon-persona-add-azul{
     font-size: 2em;
@@ -504,3 +604,4 @@ a .content-look-information {
     font-size: 2em;
     vertical-align: middle;
 }
+

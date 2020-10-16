@@ -18,6 +18,16 @@
                             <div class="col-lg-6 col-12">
 
                                 <div class="content-look-information">
+                                    <i class="material-icons icon-firma-azul"></i>
+                                    @if ($prospecto->estacion_numero === null)
+                                        <p>Sin número</p>
+                                    @else
+                                        <p>{{ $prospecto->estacion_numero }}</p>
+                                    @endif
+
+                                </div>
+
+                                <div class="content-look-information">
                                     <i class="material-icons icon-edificio-azul"></i>
                                     <p>{{ $prospecto->nombre }}</p>
                                 </div>

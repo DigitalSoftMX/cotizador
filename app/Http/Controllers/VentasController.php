@@ -72,7 +72,7 @@ class VentasController extends Controller
 
         /* Obtendremos los prospectos */
 
-        $prospectos = Cliente::select('id', 'nombre', 'encargado', 'estado')
+        $prospectos = Cliente::select('*')
                         ->where('estatus', 'prospecto')
                         ->get();
 
@@ -85,15 +85,63 @@ class VentasController extends Controller
                                     'unidad_negocio' => null,
                                     'vendedor' => null,
                                     'posibles_vendedores' => array(),
-                                    'dias' => 0
+                                    'dias' => 0,
+                                    'estacion_numero' => null,
+                                    'datos_importantes' => array(
+                                        'numero_dispensarios' => 0,
+                                        'gasolina_verde' => null,
+                                        'gasolina_roja' => null,
+                                        'diesel' => null,
+                                        'marca' => null
+                                    ),
+                                    'ficha_tecnica' => array(
+                                        'fecha_created' => null,
+                                        'empresa' => null,
+                                        'ultimo_comentario' => null,
+                                        'fecha' => null,
+                                        'status_carta_i' => null,
+                                        'status_convenio' => null,
+                                        'status_solicitud_doc' => null,
+                                        'status_propuesta' => null,
+                                        'status_contratos' => null,
+                                        'status_carta_b' => null
+                                    )
                                 );
 
             $json_prospecto['id'] = $prospecto->id;
             $json_prospecto['empresa'] = $prospecto->nombre;
             $json_prospecto['encargado'] = $prospecto->encargado;
             $json_prospecto['unidad_negocio'] = $prospecto->estado;
+            $json_prospecto['estacion_numero'] = $prospecto->estacion_numero;
+            $json_prospecto['datos_importantes'][0]['numero_dispensarios'] = $prospecto->numero_dispensarios;
+            $json_prospecto['datos_importantes'][0]['gasolina_verde'] = $prospecto->gasolina_verde;
+            $json_prospecto['datos_importantes'][0]['gasolina_roja'] = $prospecto->gasolina_roja;
+            $json_prospecto['datos_importantes'][0]['diesel'] = $prospecto->diesel;
+            $json_prospecto['datos_importantes'][0]['marca'] = $prospecto->marca;
 
-            /* Obtenermos el vendedor actual en seguimiento */
+            $json_prospecto['ficha_tecnica'][0]['empresa'] = $prospecto->nombre;
+            $json_prospecto['ficha_tecnica'][0]['fecha_created'] = $prospecto->created_at === null ? 'sin fecha': date("d/m/Y",strtotime($prospecto->created_at));
+            $json_prospecto['ficha_tecnica'][0]['status_carta_i'] = $prospecto->carta_de_intencion !== null ? true: false;
+            $json_prospecto['ficha_tecnica'][0]['status_convenio'] = $prospecto->convenio_de_confidencialidad !== null ? true: false;
+            $json_prospecto['ficha_tecnica'][0]['status_propuesta'] = $prospecto->propuestas !== null ? true: false;
+            $json_prospecto['ficha_tecnica'][0]['status_contratos'] = ( $prospecto->contrato_comodato !== null ) && ( $prospecto->contrato_de_suministro !== null ) ? true: false;
+            $json_prospecto['ficha_tecnica'][0]['status_carta_b'] = $prospecto->carta_bienvenida !== null ? true: false;
+
+            if($prospecto->bitacora !== null)
+            {
+                $ultimo_comentario = json_decode($prospecto->bitacora, true);
+                $json_prospecto['ficha_tecnica'][0]['ultimo_comentario'] = $ultimo_comentario[count($ultimo_comentario)-1]['comentario'];
+                $json_prospecto['ficha_tecnica'][0]['fecha'] = $ultimo_comentario[count($ultimo_comentario)-1]['fecha'];
+            }
+
+            $status_documentos = ( $prospecto->solicitud_de_documentos !== null ) && ( $prospecto->ine !== null ) ? true : false;
+            $status_documentos = ( $prospecto->acta_constitutiva !== null ) && $status_documentos ? true : false;
+            $status_documentos = ( $prospecto->poder_notarial !== null ) && $status_documentos ? true : false;
+            $status_documentos = ( $prospecto->constancia_de_situacion_fiscal !== null ) && $status_documentos ? true : false;
+            $status_documentos = ( $prospecto->comprobante_de_domicilio !== null ) && $status_documentos ? true : false;
+            $json_prospecto['ficha_tecnica'][0]['status_solicitud_doc'] = $status_documentos;
+
+            /* Obtenemos el vendedor actual en seguimiento */
             $vendedor_en_seguimiento = ClienteVendedor::select('cliente_vendedor.id', 'users.name', 'users.app_name', 'users.apm_name',
                                         DB::raw('DATEDIFF(cliente_vendedor.dia_termino, CURDATE()) as dias'))
                                         ->where('cliente_vendedor.status', 'Seguimiento')
@@ -168,81 +216,137 @@ class VentasController extends Controller
                                     'rfc' => null,
                                     'vendedor' => null,
                                     'avance' => 0,
-                                    'color' => 'bg-transparent'
+                                    'color' => 'bg-transparent',
+                                    'estacion_numero' => null,
+                                    'datos_importantes' => array(
+                                        'numero_dispensarios' => 0,
+                                        'gasolina_verde' => null,
+                                        'gasolina_roja' => null,
+                                        'diesel' => null,
+                                        'marca' => null
+                                    ),
+                                    'ficha_tecnica' => array(
+                                        'fecha_created' => null,
+                                        'empresa' => null,
+                                        'ultimo_comentario' => null,
+                                        'fecha' => null,
+                                        'status_carta_i' => null,
+                                        'status_convenio' => null,
+                                        'status_solicitud_doc' => null,
+                                        'status_propuesta' => null,
+                                        'status_contratos' => null,
+                                        'status_carta_b' => null,
+                                        'status_cree' => null,
+                                    )
                                 );
 
             $json_cliente['id'] = $cliente->id;
             $json_cliente['empresa'] = $cliente->nombre;
             $json_cliente['rfc'] = $cliente->rfc;
+            $json_cliente['estacion_numero'] = $cliente->estacion_numero;
+
+            $json_cliente['datos_importantes'][0]['numero_dispensarios'] = $cliente->numero_dispensarios;
+            $json_cliente['datos_importantes'][0]['gasolina_verde'] = $cliente->gasolina_verde;
+            $json_cliente['datos_importantes'][0]['gasolina_roja'] = $cliente->gasolina_roja;
+            $json_cliente['datos_importantes'][0]['diesel'] = $cliente->diesel;
+            $json_cliente['datos_importantes'][0]['marca'] = $cliente->marca;
+
+            $json_cliente['ficha_tecnica'][0]['empresa'] = $cliente->nombre;
+            $json_cliente['ficha_tecnica'][0]['fecha_created'] = $cliente->created_at === null ? 'sin fecha': date("d/m/Y",strtotime($cliente->created_at));
+            $json_cliente['ficha_tecnica'][0]['status_carta_i'] = $cliente->carta_de_intencion !== null ? true: false;
+            $json_cliente['ficha_tecnica'][0]['status_convenio'] = $cliente->convenio_de_confidencialidad !== null ? true: false;
+            $json_cliente['ficha_tecnica'][0]['status_propuesta'] = $cliente->propuestas !== null ? true: false;
+            $json_cliente['ficha_tecnica'][0]['status_contratos'] = ( $cliente->contrato_comodato !== null ) && ( $cliente->contrato_de_suministro !== null ) ? true: false;
+            $json_cliente['ficha_tecnica'][0]['status_carta_b'] = $cliente->carta_bienvenida !== null ? true: false;
+            $json_cliente['ficha_tecnica'][0]['status_cree'] = $cliente->permiso_cree !== null ? true: false;
+
+            if($cliente->bitacora !== null)
+            {
+                $ultimo_comentario = json_decode($cliente->bitacora, true);
+                $json_cliente['ficha_tecnica'][0]['ultimo_comentario'] = $ultimo_comentario[count($ultimo_comentario)-1]['comentario'];
+                $json_cliente['ficha_tecnica'][0]['fecha'] = $ultimo_comentario[count($ultimo_comentario)-1]['fecha'];
+            }
+
+            $status_documentos = ( $cliente->solicitud_de_documentos !== null ) && ( $cliente->ine !== null ) ? true : false;
+            $status_documentos = ( $cliente->acta_constitutiva !== null ) && $status_documentos ? true : false;
+            $status_documentos = ( $cliente->poder_notarial !== null ) && $status_documentos ? true : false;
+            $status_documentos = ( $cliente->constancia_de_situacion_fiscal !== null ) && $status_documentos ? true : false;
+            $status_documentos = ( $cliente->comprobante_de_domicilio !== null ) && $status_documentos ? true : false;
+            $json_cliente['ficha_tecnica'][0]['status_solicitud_doc'] = $status_documentos;
 
             $vendedor_en_seguimiento = ClienteVendedor::select('users.name', 'users.app_name', 'users.apm_name')
-                                        ->where('cliente_vendedor.status', 'Finalizado')
-                                        ->where('cliente_vendedor.cliente_id', $cliente->id)
-                                        ->join('users', 'users.id', '=', 'cliente_vendedor.user_id')
-                                        ->first();
+            ->where('cliente_vendedor.status', 'Finalizado')
+            ->where('cliente_vendedor.cliente_id', $cliente->id)
+            ->join('users', 'users.id', '=', 'cliente_vendedor.user_id')
+            ->get();
 
-            $json_cliente['vendedor'] = $vendedor_en_seguimiento->name." ".$vendedor_en_seguimiento->app_name." ".$vendedor_en_seguimiento->apm_name;
-
-            if($cliente->carta_de_intencion != null)
-            {   $json_cliente['avance']++; }
-
-            if($cliente->convenio_de_confidencialidad != null)
-            {   $json_cliente['avance']++;  }
-
-            if($cliente->margen_garantizado != null)
-            {   $json_cliente['avance']++;  }
-
-            if($cliente->solicitud_de_documentos != null)
-            {   $json_cliente['avance']++;  }
-
-            if($cliente->ine != null)
-            {   $json_cliente['avance']++;  }
-
-            if($cliente->acta_constitutiva != null)
-            {   $json_cliente['avance']++;  }
-
-            if($cliente->poder_notarial != null)
-            {   $json_cliente['avance']++;  }
-
-            if($cliente->constancia_de_situacion_fiscal != null)
-            {   $json_cliente['avance']++;  }
-
-            if($cliente->comprobante_de_domicilio != null)
-            {   $json_cliente['avance']++;  }
-
-            if($cliente->propuestas != null)
-            {   $json_cliente['avance']++;  }
-
-            if($cliente->contrato_comodato != null)
-            {   $json_cliente['avance']++;  }
-
-            if($cliente->contrato_de_suministro != null)
-            {   $json_cliente['avance']++;  }
-
-            if($cliente->carta_bienvenida != null)
-            {   $json_cliente['avance']++;  }
-
-            if($cliente->permiso_cree != null)
-            {   $json_cliente['avance']++;  }
-
-            $total = 14;
-
-            $json_cliente['avance'] = ($json_cliente['avance'] * 100)/$total;
-
-            if( $json_cliente['avance'] != 0 )
+            if( count($vendedor_en_seguimiento) > 0)
             {
-                if($json_cliente['avance'] < 50)
-                {
-                    $json_cliente['color'] = 'bg-danger';
-                }else{
-                    if($json_cliente['avance'] >= 50  && $json_cliente['avance'] < 100 )
-                    {
-                        $json_cliente['color'] = 'bg-info';
-                    }else{
-                        $json_cliente['color'] = 'bg-success';
-                    }
-                }
+                $json_cliente['vendedor'] = $vendedor_en_seguimiento[0]->name." ".$vendedor_en_seguimiento[0]->app_name." ".$vendedor_en_seguimiento[0]->apm_name;
+            }else{
+                $json_cliente['vendedor'] = "Sin vendedor";
             }
+
+            // if($cliente->carta_de_intencion != null)
+            // {   $json_cliente['avance']++; }
+
+            // if($cliente->convenio_de_confidencialidad != null)
+            // {   $json_cliente['avance']++;  }
+
+            // if($cliente->margen_garantizado != null)
+            // {   $json_cliente['avance']++;  }
+
+            // if($cliente->solicitud_de_documentos != null)
+            // {   $json_cliente['avance']++;  }
+
+            // if($cliente->ine != null)
+            // {   $json_cliente['avance']++;  }
+
+            // if($cliente->acta_constitutiva != null)
+            // {   $json_cliente['avance']++;  }
+
+            // if($cliente->poder_notarial != null)
+            // {   $json_cliente['avance']++;  }
+
+            // if($cliente->constancia_de_situacion_fiscal != null)
+            // {   $json_cliente['avance']++;  }
+
+            // if($cliente->comprobante_de_domicilio != null)
+            // {   $json_cliente['avance']++;  }
+
+            // if($cliente->propuestas != null)
+            // {   $json_cliente['avance']++;  }
+
+            // if($cliente->contrato_comodato != null)
+            // {   $json_cliente['avance']++;  }
+
+            // if($cliente->contrato_de_suministro != null)
+            // {   $json_cliente['avance']++;  }
+
+            // if($cliente->carta_bienvenida != null)
+            // {   $json_cliente['avance']++;  }
+
+            // if($cliente->permiso_cree != null)
+            // {   $json_cliente['avance']++;  }
+
+            // $total = 13;
+
+            // $json_cliente['avance'] = ($json_cliente['avance'] * 100)/$total;
+
+            // if( $json_cliente['avance'] != 0 )
+            // {
+            //     if($json_cliente['avance'] < 50)
+            //     {
+            //         $json_cliente['color'] = 'bg-danger';
+            //     }else{
+            //         if($json_cliente['avance'] >= 50  && $json_cliente['avance'] < 100 )
+            //         {
+            //             $json_cliente['color'] = 'bg-info';
+            //         }else{
+            //             $json_cliente['color'] = 'bg-success';
+            //         }
+            //     }
+            // }
 
             array_push( $data['clientes'], $json_cliente );
 
@@ -261,6 +365,7 @@ class VentasController extends Controller
         $telefono_empresa = $request->post('telefono_empresa');
         $estado = $request->post('estado');
         $id_user = $request->post('id_user');
+        $estacion_numero = $request->post('estacion_numero');
 
         $str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
         $str = str_shuffle( str_shuffle($str) );
@@ -270,6 +375,7 @@ class VentasController extends Controller
 
         $cliente = new Cliente();
 
+        $cliente->estacion_numero = $estacion_numero;
         $cliente->nombre = $nombre_empresa;
         $cliente->encargado = $nombre_responsable;
         $cliente->telefono = $telefono_empresa;
@@ -277,20 +383,26 @@ class VentasController extends Controller
         $cliente->estatus = 'prospecto';
         $cliente->estado = $estado;
         $cliente->value_key =  $value_key;
+        // $clientes->gasolina_verde = 'FALSE';
+        // $clientes->gasolina_roja = 'FALSE';
+        // $clientes->diesel = 'FALSE';
 
         $cliente->save();
 
         // $cliente_id = Cliente::where('value_key', $value_key)->first()->id;
 
-        $cliente_vendedor = new ClienteVendedor();
+        if( $id_user !== null)
+        {
+            $cliente_vendedor = new ClienteVendedor();
 
-        $cliente_vendedor->user_id = $id_user;
-        $cliente_vendedor->cliente_id = $cliente->id;
-        $cliente_vendedor->status = 'Seguimiento';  // valores que puede tomar ['Seguimiento', 'Olvidado', 'Finalizado']
-        $cliente_vendedor->dia_termino = date("Y-m-d",strtotime($fecha_actual."+ 40 days"));
-        $cliente_vendedor->show_disponible = "no";
-        $cliente_vendedor->asignado = 'no';
-        $cliente_vendedor->save();
+            $cliente_vendedor->user_id = $id_user;
+            $cliente_vendedor->cliente_id = $cliente->id;
+            $cliente_vendedor->status = 'Seguimiento';  // valores que puede tomar ['Seguimiento', 'Olvidado', 'Finalizado']
+            $cliente_vendedor->dia_termino = date("Y-m-d",strtotime($fecha_actual."+ 40 days"));
+            $cliente_vendedor->show_disponible = "no";
+            $cliente_vendedor->asignado = 'no';
+            $cliente_vendedor->save();
+        }
 
         return back()
                 ->with('status', 'Se ha agregado el prospecto exitosamente')
@@ -419,7 +531,8 @@ class VentasController extends Controller
                     'nombre' => $request->post('nombre'),
                     'encargado' => $request->post('encargado'),
                     'telefono' => $request->post('telefono'),
-                    'email' => $request->post('email')
+                    'email' => $request->post('email'),
+                    'estacion_numero' => $request->post('estacion_numero')
                 ]);
 
         if( $request->post('vendedor_id') != null )
@@ -545,7 +658,8 @@ class VentasController extends Controller
                     'direccion' => $request->post('direccion'),
                     'tipo' => $request->post('tipo'),
                     'bandera_blanca' => $request->post('bandera_blanca'),
-                    'numero_estacion' => $request->post('numero_estacion')
+                    'numero_estacion' => $request->post('numero_estacion'),
+                    'estacion_numero' => $request->post('estacion_numero')
                 ]);
 
 
@@ -578,7 +692,10 @@ class VentasController extends Controller
             'propuestas_array' =>  $cliente->propuestas === null ?  array() :  json_decode($cliente->propuestas, true)
         );
 
-        return view('ventas.add_documentacion', compact('cliente', 'documentos'));
+        $show_documentos_cliente = $cliente->estatus !== 'prospecto' ? '' : 'display: none;';
+
+        $url = $request->user()->roles[0]['name'] === 'Vendedor' ?  'clientes.index': 'ventas.index';
+        return view('ventas.add_documentacion', compact('cliente', 'documentos', 'url', 'show_documentos_cliente'));
     }
 
     public function guardar_documento(Request $request)
@@ -620,13 +737,12 @@ class VentasController extends Controller
 
         /* Obtenemos las propuestas almacenadas */
         // $cliente = Cliente::find($cliente_id)->first();
-        $cliente = Cliente::where('id', $cliente_id)->get();
+        $cliente = Cliente::where('id', $cliente_id)->get()[0];
 
-        if( count($cliente->propuestas) === 0)
+        if( $cliente->propuestas === null)
         {
             $propuestas_array = array();
         }else{
-            $cliente = $cliente[0];
             $propuestas_array = json_decode($cliente->propuestas);
         }
 
@@ -648,6 +764,7 @@ class VentasController extends Controller
             $file = $request->file('file');
             $propuesta_name = "propuesta".$fecha_propuesta.".pdf";
             $subio_archivo = true;
+            $json_propuesta['archivo'] = $propuesta_name;
 
             // Almacenamos en local
             \Storage::disk('public')->put($propuesta_name,  \File::get($file));
@@ -777,14 +894,18 @@ class VentasController extends Controller
                 'direccion' => $request->post('direccion'),
                 'tipo' => $request->post('tipo'),
                 'bandera_blanca' => $request->post('bandera_blanca'),
-                'numero_estacion' => $request->post('numero_estacion')
+                'numero_estacion' => $request->post('numero_estacion'),
+                'estacion_numero' => $request->post('estacion_numero')
             ]);
 
-        ClienteVendedor::where('cliente_id', $request->post('id'))
-                        ->where('status', 'Finalizado')
-                        ->update([
-                            'user_id' => $request->post('vendedor_id')
-                        ]);
+        if( $request->post('vendedor_id') !== null )
+        {
+            ClienteVendedor::where('cliente_id', $request->post('id'))
+                            ->where('status', 'Finalizado')
+                            ->update([
+                                'user_id' => $request->post('vendedor_id')
+                            ]);
+        }
 
         $url = $request->user()->roles[0]['name'] === 'Vendedor' ?  'clientes.index': 'ventas.index';
 
@@ -818,8 +939,33 @@ class VentasController extends Controller
             $vendedor['vendedor'] = $json_vendedor;
         }
 
+        $propuestas = $cliente->propuestas;
+        $json_propuesta = array(
+                'precio_regular' => 0,
+                'precio_supreme' => 0,
+                'precio_diesel' => 0,
+                'archivo' => null,
+                'nota' => 'Sin nota',
+                'fecha' => null
+            );
 
-        return view('ventas.look_cliente', compact('cliente', 'vendedor'));
+        if($propuestas !== null)
+        {
+            $propuestas_array = json_decode($propuestas);
+            $ultima_propuesta = count($propuestas_array) - 1;
+
+            if($ultima_propuesta >= 0 )
+            {
+                $json_propuesta['precio_regular'] =  $propuestas_array[$ultima_propuesta]->regular;
+                $json_propuesta['precio_supreme'] =  $propuestas_array[$ultima_propuesta]->supreme;
+                $json_propuesta['precio_diesel'] = $propuestas_array[$ultima_propuesta]->diesel;
+                $json_propuesta['archivo'] = $propuestas_array[$ultima_propuesta]->archivo;
+                $json_propuesta['nota'] = $propuestas_array[$ultima_propuesta]->nota;
+                $json_propuesta['fecha'] = $propuestas_array[$ultima_propuesta]->fecha;
+            }
+        }
+
+        return view('ventas.look_cliente', compact('cliente', 'vendedor', 'json_propuesta'));
     }
 
     public function agregar_vendedor(Request $request)
@@ -931,6 +1077,111 @@ class VentasController extends Controller
         return redirect(route('ventas.index'))
             ->with('status', 'Vendedor '.$vendedor->name.' '.$vendedor->apm_name.' '.$vendedor->apm_name.' actualizado correctamente.')
             ->with('status_alert', 'alert-success');
+    }
+
+    public function agregar_comentario_bitacora(Request $request)
+    {
+        $fecha_comentario = $request->post('fecha_comentario');
+        $comentario = $request->post('comentario');
+        $cliente_id = $request->post('cliente_id');
+
+        $bitacora = Cliente::select('bitacora')
+                            ->where('id', $cliente_id)
+                            ->get()[0]->bitacora;
+
+        $bitacora_array = array();
+        $bitacora_array_nueva = array();
+
+        if($bitacora !== null)
+        {
+            $bitacora_array = json_decode($bitacora);
+        }
+
+        $actualizar = false;
+
+        $nuevo_comentario = array(
+            'fecha' => $fecha_comentario,
+            'comentario' => $comentario
+        );
+
+        foreach($bitacora_array as $index => $bitacora_)
+        {
+            if( $bitacora_->fecha === $fecha_comentario )
+            {
+                $bitacora_->comentario = $comentario;
+                $actualizar = true;
+            }
+
+            array_push($bitacora_array_nueva, $bitacora_);
+        }
+
+        if( $actualizar === false )
+        {
+            array_push($bitacora_array_nueva, $nuevo_comentario);
+        }
+
+        Cliente::where('id', $cliente_id)
+                ->update([
+                    'bitacora' => json_encode($bitacora_array_nueva)
+                ]);
+
+
+        return back()
+            ->with('status', 'Se ha almacenado el comentario en la bitácora exitosamente.')
+            ->with('status_alert', 'alert-success');
+
+    }
+
+    public function agregar_datos(Request $request)
+    {
+        $cliente_id = $request->post('cliente_id');
+        $numero_dispensarios = $request->post('numero_dispensarios');
+        $gasolina_verde = $request->post('gasolina_verde') === null ? 'FALSE': 'TRUE';
+        $gasolina_roja = $request->post('gasolina_roja') === null ? 'FALSE': 'TRUE';
+        $diesel = $request->post('diesel') === null ? 'FALSE': 'TRUE';
+        $marca = $request->post('marca');
+
+        Cliente::where('id', $cliente_id)
+                ->update([
+                    'numero_dispensarios' => $numero_dispensarios,
+                    'gasolina_verde' => $gasolina_verde,
+                    'gasolina_roja' => $gasolina_roja,
+                    'diesel' => $diesel,
+                    'marca' => $marca
+                ]);
+
+        return back()
+                ->with('status', 'Prospecto actualizado exitosamente.')
+                ->with('status_alert', 'alert-success');
+    }
+
+    public function bitacora(Request $request, $id)
+    {
+        $cliente = Cliente::where('id', $id)->select('bitacora', 'nombre')->get()[0];
+
+        $bitacora = array();
+        $nombre_empresa = $cliente->nombre;
+
+        if( $cliente->bitacora !== null)
+        {
+            $bitacora = array_reverse( json_decode($cliente->bitacora, true) );
+        }
+
+        $url = $request->user()->roles[0]['name'] === 'Vendedor' ?  'clientes.index': 'ventas.index';
+
+        return view('ventas.bitacora', compact('bitacora', 'nombre_empresa', 'url'));
+    }
+
+    public function eliminar(Request $request)
+    {
+        $cliente_id = $request->post('cliente_id');
+        /* Eliminamos la relacion Cliente-Vendedor */
+        ClienteVendedor::where('cliente_id', $cliente_id)->delete();
+        Cliente::where('id', $cliente_id)->delete();
+
+        return back()
+                ->with('status', 'Eliminado exitosamente')
+                ->with('status_alert', 'alert-success');
     }
 
     /**

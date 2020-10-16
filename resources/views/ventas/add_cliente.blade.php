@@ -23,6 +23,11 @@
                                 <div class="col-lg-6 col-12">
 
                                     <div class="content-information">
+                                        <i class="material-icons icon-firma-azul"></i>
+                                        <input type="text" name="estacion_numero" placeholder="Número de estación" value="{{ $prospecto->estacion_numero }}" >
+                                    </div>
+
+                                    <div class="content-information">
                                         <i class="material-icons icon-edificio-azul"></i>
                                         <input type="text" placeholder="Nombre empresa" name="nombre" value="{{ $prospecto->nombre }}" required>
                                     </div>
@@ -52,15 +57,14 @@
                                         <input type="text" placeholder="Telefono" name="telefono" value="{{ $prospecto->telefono }}" required>
                                     </div>
 
+                                </div>
+
+                                <div class="col-lg-6 col-12">
 
                                     <div class="content-information">
                                         <i class="material-icons icon-computadora-azul"></i>
                                         <input type="text" placeholder="Página web" name="pagina_web" value="{{ $prospecto->pagina_web }}">
                                     </div>
-
-                                </div>
-
-                                <div class="col-lg-6 col-12">
 
                                     <div class="content-information">
                                         <i class="material-icons icon-firma-azul"></i>
@@ -143,7 +147,7 @@
 
                                 <div class="container">
                                     <div class="options--footer">
-                                        <button type="submit" class="btn-option">Editar</button>
+                                        <button type="submit" class="btn-option">Guardar</button>
                                         <a href="{{ route($url) }}" class="btn-option">Cancelar</a>
                                     </div>
                                 </div>

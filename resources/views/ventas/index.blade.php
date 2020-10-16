@@ -64,6 +64,11 @@
                             <div class="col-12">
                                 <div class="container">
 
+                                    <form id="form-eliminar-cliente" method="POST"  action="{{ route('ventas.eliminar') }}">
+                                        @csrf
+                                        <input type="text" value="" name="cliente_id" id="cliente_id_eliminar" style="display: none;">
+                                    </form>
+
                                     <div id="prospectos">
 
                                         <form id="form-prospecto-asignar" method="POST"  action="{{ route('ventas.asignar_prospecto_vendedor') }}">
@@ -81,10 +86,13 @@
                                                 <thead>
                                                     <tr>
                                                         <th>Días</th>
+                                                        <th># de estación</th>
                                                         <th>Empresa</th>
                                                         <th>Vendedor</th>
                                                         <th>Contacto</th>
                                                         <th>Unidad de negocio</th>
+                                                        <th>Bitacora</th>
+                                                        <th>Documentación</th>
                                                         <th>Acciones</th>
                                                     </tr>
                                                 </thead>
@@ -111,9 +119,25 @@
 
                                                                 @endif
                                                             </td>
+
                                                             <td>
                                                                 <div class="information--text">
-                                                                    <p>{{ $prospecto['empresa'] }}</p>
+                                                                    <a href="javascript:void(0)" onclick="add_informacion('{{ $prospecto['id'] }}', '{{ json_encode($prospecto['datos_importantes'][0]) }}')">
+                                                                        @if ($prospecto['estacion_numero'] === null)
+                                                                            <p>S/N</p>
+                                                                        @else
+                                                                            <p>{{ $prospecto['estacion_numero'] }}</p>
+                                                                        @endif
+                                                                    </a>
+
+                                                                </div>
+                                                            </td>
+
+                                                            <td>
+                                                                <div class="information--text">
+                                                                    <a href="javascript:void(0)" onclick="show_ficha_tecnica('{{ json_encode( $prospecto['ficha_tecnica'][0] ) }}', false)">
+                                                                        <p>{{ $prospecto['empresa'] }}</p>
+                                                                    </a>
                                                                 </div>
                                                             </td>
 
@@ -149,8 +173,33 @@
                                                                     <p>{{ $prospecto['unidad_negocio'] }}</p>
                                                                 </div>
                                                             </td>
+
                                                             <td>
                                                                 <div class="option-actions">
+                                                                    <a href="{{ route('ventas.bitacora', $prospecto['id']) }}">
+                                                                        <span class="icon-ojo-azul"></span>
+                                                                    </a>
+
+                                                                    <a onclick="add_bitacora('{{ $prospecto['id'] }}')" href="javascript:void(0)">
+                                                                        <span class="icon-agregar-azul"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </td>
+
+                                                            <td>
+                                                                <div class="option-actions">
+                                                                    <a href="{{ route('ventas.agregar_documentacion', $prospecto['id'] ) }}">
+                                                                        <span class="icon-agregar-azul"></span>
+                                                                    </a>
+
+                                                                    <a href="{{ route('ventas.agregar_documentacion', $prospecto['id'] ) }}">
+                                                                        <span class="icon-ojo-azul"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </td>
+
+                                                            <td>
+                                                                <div class="option-actions action--options">
                                                                     <a href="{{ route('ventas.visualizar_prospecto', $prospecto['id'] ) }}">
                                                                         <span class="icon-ojo-azul"></span>
                                                                     </a>
@@ -158,6 +207,11 @@
                                                                     <a href="{{ route('ventas.editar_prospecto', $prospecto['id'] ) }}">
                                                                         <span class="icon-editar-azul"></span>
                                                                     </a>
+
+                                                                    <a href="javascript:void(0)" onclick="eliminar('{{ $prospecto['id'] }}')" style="color: red;">
+                                                                        <span class="icon-trash"></span>
+                                                                    </a>
+
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -178,7 +232,8 @@
                                             <table id="clientesTable" class="display" style="width:100%">
                                                 <thead>
                                                     <tr>
-                                                        <th>Avance</th>
+                                                        {{-- <th>Avance</th> --}}
+                                                        <th># de estación</th>
                                                         <th>Empresa</th>
                                                         <th>RFC</th>
                                                         <th>Vendedor</th>
@@ -190,18 +245,35 @@
 
                                                     @foreach ( $data['clientes'] as $cliente)
                                                         <tr>
-                                                            <td>
+                                                            {{-- <td>
                                                                 <div class="content--progress">
                                                                     <div class="progress">
                                                                         <div class="progress-bar {{ $cliente['color'] }}" style="width:{{ $cliente['avance'] }}%"></div>
                                                                     </div>
                                                                 </div>
-                                                            </td>
+                                                            </td> --}}
+
                                                             <td>
                                                                 <div class="information--text">
-                                                                    <p>{{ $cliente['empresa'] }}</p>
+                                                                    <a href="javascript:void(0)" onclick="add_informacion('{{ $cliente['id'] }}', '{{ json_encode($cliente['datos_importantes'][0]) }}')">
+                                                                        @if ($cliente['estacion_numero'] === null)
+                                                                            <p>S/N</p>
+                                                                        @else
+                                                                            <p>{{ $cliente['estacion_numero'] }}</p>
+                                                                        @endif
+                                                                    </a>
+
                                                                 </div>
                                                             </td>
+
+                                                            <td>
+                                                                <div class="information--text">
+                                                                    <a href="javascript:void(0)" onclick="show_ficha_tecnica('{{ json_encode( $cliente['ficha_tecnica'][0] ) }}', true)">
+                                                                        <p>{{ $cliente['empresa'] }}</p>
+                                                                    </a>
+                                                                </div>
+                                                            </td>
+
                                                             <td>
                                                                 <div class="information--text">
                                                                     <p>{{ $cliente['rfc'] }}</p>
@@ -212,6 +284,7 @@
                                                                     <p>{{ $cliente['vendedor'] }}</p>
                                                                 </div>
                                                             </td>
+
                                                             <td>
                                                                 <div class="option-actions">
                                                                     <a href="{{ route('ventas.agregar_documentacion', $cliente['id'] ) }}">
@@ -225,7 +298,7 @@
                                                             </td>
 
                                                             <td>
-                                                                <div class="option-actions">
+                                                                <div class="option-actions action--options">
 
                                                                     <a href="{{ route('ventas.visualizar_cliente', $cliente['id']) }}">
                                                                         <span class="icon-ojo-azul"></span>
@@ -234,6 +307,11 @@
                                                                     <a href="{{ route('ventas.editar_cliente', $cliente['id']) }}">
                                                                         <span class="icon-editar-azul"></span>
                                                                     </a>
+
+                                                                    <a href="javascript:void(0)" onclick="eliminar('{{ $cliente['id'] }}')" style="color: red;">
+                                                                        <span class="icon-trash"></span>
+                                                                    </a>
+
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -327,6 +405,7 @@
                     <div class="col-12">
 
                         <div class="row">
+
                             <div class="col-lg-6 col-12">
                                 <div class="content-information">
                                     <i class="material-icons icon-edificio-gris"></i>
@@ -386,14 +465,225 @@
                         </div>
 
                     </div>
+
+                    <div class="col-lg-6 col-12">
+                        <div class="content-information">
+                            <i class="material-icons icon-firma-gris"></i>
+                            <input type="text" placeholder="Número de estacion" name="estacion_numero">
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
             <div class="footer--options">
-                <button type="submit" class="btn-option">Guadar</button>
+                <button type="submit" class="btn-option">Guardar</button>
                 <button class="btn-option" data-dismiss="modal">Cancelar</button>
             </div>
         </form>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="add-bitacora">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+        <div class="title--content">
+            <h1 id="type-file">Bitácora</h1>
+        </div>
+        <form action="{{ route('ventas.agregar_comentario_bitacora') }}" method="POST">
+            @csrf
+            <div class="container information">
+                <div class="row">
+
+                    <input type="text" id="cliente_id_bitacora" name="cliente_id" style="display: none;">
+
+                    <div class="col-12">
+
+                        <div class="form--content">
+
+                            <div class="form--content--items">
+
+                                <div class="form--notes--date">
+                                    <i class="icon-calendario-gris"></i>
+                                    <input type="date" value="<?php echo date("Y-m-d"); ?>" name="fecha_comentario" required>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-12">
+                        <div class="form--content--items">
+                            <textarea class="form--textarea" placeholder="Comentario" name="comentario"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="footer--options">
+                <button type="submit" class="btn-option">Guardar</button>
+                <button type="button" class="btn-option" data-dismiss="modal">Cancelar</button>
+            </div>
+        </form>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="add-datos">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+        <div class="title--content">
+            <h1 id="type-file">Datos importantes</h1>
+        </div>
+        <form action="{{ route('ventas.agregar_datos') }}" method="POST">
+            @csrf
+            <div class="container information">
+                <div class="row">
+                    <input type="text" id="cliente_id_datos" name="cliente_id" style="display: none;">
+
+                    <div class="col-lg-8">
+
+                        <div class="content-information">
+                            <i class="material-icons icon-dispensario-icono"></i>
+                            <input type="text" placeholder="Número de dispensarios" name="numero_dispensarios" id="numero_dispensarios">
+                        </div>
+
+                        <div class="content-information">
+                            <i class="material-icons icon-marca-icono"></i>
+                            <input type="text" placeholder="Marca" name="marca" id="marca">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="checkbox--content">
+
+                            <label>
+                                <input type="checkbox" name="gasolina_verde" id="gasolina_verde" value="TRUE">
+                                <span>Magna</span>
+                            </label>
+
+                            <label>
+                                <input type="checkbox" name="gasolina_roja" id="gasolina_roja" value="TRUE">
+                                <span>Premium</span>
+                            </label>
+
+                            <label>
+                                <input type="checkbox" name="diesel" id="diesel" value="TRUE">
+                                <span>Diesel</span>
+                            </label>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="footer--options">
+                <button type="submit" class="btn-option">Guardar</button>
+                <button type="button" class="btn-option" data-dismiss="modal">Cancelar</button>
+            </div>
+        </form>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="show-ficha">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+        <div class="title--content">
+            <h1 id="type-file">Ficha tecnica</h1>
+        </div>
+
+        <div class="container information">
+            <div class="row">
+                <div class="col-12">
+                    <div class="ficha--tecnica--titulos">
+                        <p id="empresa_ficha">Empresa</p>
+                        <p>Fecha: <span id="fecha_created">22/01/2020</span></p>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="text-justify">
+                        <h4>Ultimo comentario: <span id="fecha_comentario"></span></h4>
+                        <p id="comentario_ficha"></p>
+                    </div>
+
+                    <div class="checkbox--content" style="display: flex;justify-content: space-around;">
+
+                        <div class="text-center">
+                            <label>
+                                <input type="checkbox" id="CI" checked disabled>
+                                <span></span>
+                            </label>
+                            <p>C.I.</p>
+                        </div>
+
+                        <div class="text-center">
+                            <label>
+                                <input type="checkbox" id="NDA" checked disabled>
+                                <span></span>
+                            </label>
+                            <p>NDA</p>
+                        </div>
+
+                        <div class="text-center">
+                            <label>
+                                <input type="checkbox" id="DOC" checked disabled>
+                                <span></span>
+                            </label>
+                            <p>DOC</p>
+                        </div>
+
+                        <div class="text-center">
+                            <label>
+                                <input type="checkbox" id="PROP" checked disabled>
+                                <span></span>
+                            </label>
+                            <p>PROP</p>
+                        </div>
+
+                        <div class="text-center">
+                            <label>
+                                <input type="checkbox" id="CONTRATOS" checked disabled>
+                                <span></span>
+                            </label>
+                            <p>CONTRATOS</p>
+                        </div>
+
+                        <div class="text-center">
+                            <label>
+                                <input type="checkbox" id="CartaB" disabled>
+                                <span></span>
+                            </label>
+                            <p>C.B.</p>
+                        </div>
+
+                        <div class="text-center" id="CREE_id">
+                            <label>
+                                <input type="checkbox" id="CREE" disabled>
+                                <span></span>
+                            </label>
+                            <p>CREE</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer--options">
+            <button type="button" class="btn-option" data-dismiss="modal">Cerrar</button>
+        </div>
 
     </div>
   </div>

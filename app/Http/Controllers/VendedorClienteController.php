@@ -35,7 +35,7 @@ class VendedorClienteController extends Controller
 
         /* Obtendremos los prospectos */
 
-        $prospectos = ClienteVendedor::select('clientes.id', 'clientes.nombre', 'clientes.encargado', 'clientes.estado',
+        $prospectos = ClienteVendedor::select('clientes.*',
                         DB::raw('cliente_vendedor.id as id_seguimiento'),
                         DB::raw('DATEDIFF(cliente_vendedor.dia_termino, CURDATE()) as dias'))
                         ->where('cliente_vendedor.status', 'Seguimiento')

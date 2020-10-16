@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?a1gg4o');
-  src:  url('fonts/icomoon.eot?a1gg4o#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?a1gg4o') format('truetype'),
-    url('fonts/icomoon.woff?a1gg4o') format('woff'),
-    url('fonts/icomoon.svg?a1gg4o#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?7ivfc3');
+  src:  url('fonts/icomoon.eot?7ivfc3#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?7ivfc3') format('truetype'),
+    url('fonts/icomoon.woff?7ivfc3') format('woff'),
+    url('fonts/icomoon.svg?7ivfc3#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -57,99 +57,108 @@
   content: "\e907";
   color: #717070;
 }
-.icon-edificio-azul:before {
+.icon-dispensario-icono:before {
   content: "\e908";
+}
+.icon-edificio-azul:before {
+  content: "\e909";
   color: #006caa;
 }
 .icon-edificio-gris:before {
-  content: "\e909";
+  content: "\e90a";
   color: #717070;
 }
 .icon-editar-azul:before {
-  content: "\e90a";
+  content: "\e90b";
   color: #006caa;
 }
 .icon-editar-gris:before {
-  content: "\e90b";
+  content: "\e90c";
   color: #717070;
 }
 .icon-firma-azul:before {
-  content: "\e90c";
+  content: "\e90d";
   color: #006caa;
 }
 .icon-firma-gris:before {
-  content: "\e90d";
+  content: "\e90e";
   color: #717070;
 }
 .icon-lista-azul:before {
-  content: "\e90e";
+  content: "\e90f";
   color: #006caa;
 }
 .icon-lista-gris:before {
-  content: "\e90f";
+  content: "\e910";
   color: #717070;
 }
 .icon-mail-azul:before {
-  content: "\e910";
+  content: "\e911";
   color: #006caa;
 }
 .icon-mail-gris:before {
-  content: "\e911";
+  content: "\e912";
   color: #717070;
+}
+.icon-marca-icono:before {
+  content: "\e913";
 }
 .icon-ojo-azul:before {
-  content: "\e912";
-  color: #006caa;
-}
-.icon-ojo-gris:before {
-  content: "\e913";
-  color: #717070;
-}
-.icon-persona-add-azul:before {
   content: "\e914";
   color: #006caa;
 }
-.icon-persona-add-gris:before {
+.icon-ojo-gris:before {
   content: "\e915";
   color: #717070;
 }
-.icon-personas-azul:before {
+.icon-persona-add-azul:before {
   content: "\e916";
   color: #006caa;
 }
-.icon-personas-gris:before {
+.icon-persona-add-gris:before {
   content: "\e917";
   color: #717070;
 }
-.icon-telefono-azul:before {
+.icon-personas-azul:before {
   content: "\e918";
   color: #006caa;
 }
-.icon-telefono-gris:before {
+.icon-personas-gris:before {
   content: "\e919";
   color: #717070;
 }
-.icon-ubicacion-azul:before {
+.icon-telefono-azul:before {
   content: "\e91a";
   color: #006caa;
 }
-.icon-ubicacion-gris:before {
+.icon-telefono-gris:before {
   content: "\e91b";
   color: #717070;
 }
-.icon-udn-azul:before {
+.icon-trash:before {
   content: "\e91c";
+}
+.icon-ubicacion-azul:before {
+  content: "\e91d";
+  color: #006caa;
+}
+.icon-ubicacion-gris:before {
+  content: "\e91e";
+  color: #717070;
+}
+.icon-udn-azul:before {
+  content: "\e91f";
   color: #006caa;
 }
 .icon-udn-gris:before {
-  content: "\e91d";
+  content: "\e920";
   color: #717070;
 }
 .icon-vendedores-azul:before {
-  content: "\e91e";
+  content: "\e921";
   color: #006caa;
 }
 .icon-vendedores-gris:before {
-  content: "\e91f";
+  content: "\e922";
   color: #717070;
 }

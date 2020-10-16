@@ -159,3 +159,59 @@
             file_name: nameTable+'.csv'
         });
     }
+
+    function add_bitacora(cliente_id)
+    {
+        $('#cliente_id_bitacora').val(cliente_id);
+        $('#add-bitacora').modal();
+    }
+
+    function add_informacion(cliente_id, informacion_json)
+    {
+        let informacion = JSON.parse(informacion_json);
+
+        $('#marca').val(informacion['marca']);
+        $('#numero_dispensarios').val(informacion['numero_dispensarios']);
+
+        informacion['gasolina_verde'] === 'TRUE' ? $( "#gasolina_verde" ).prop( "checked", true ) : $( "#gasolina_verde" ).prop( "checked", false );
+        informacion['gasolina_roja'] === 'TRUE' ? $( "#gasolina_roja" ).prop( "checked", true ) : $( "#gasolina_roja" ).prop( "checked", false );
+        informacion['diesel'] === 'TRUE' ? $( "#diesel" ).prop( "checked", true ) : $( "#diesel" ).prop( "checked", false );
+
+        $('#cliente_id_datos').val(cliente_id);
+        $('#add-datos').modal();
+    }
+
+    function show_ficha_tecnica(ficha_tecnica_json, isCliente)
+    {
+        let ficha_tecnica = JSON.parse(ficha_tecnica_json);
+
+        $('#fecha_created').text(ficha_tecnica['fecha_created']);
+        ficha_tecnica['fecha'] === undefined ? $('#fecha_comentario').text( 'dd-mm-yy' ) : $('#fecha_comentario').text( ficha_tecnica['fecha'] );
+        ficha_tecnica['ultimo_comentario'] === undefined ? $('#comentario_ficha').text( 'Sin comentarios' ) : $('#comentario_ficha').text( ficha_tecnica['ultimo_comentario'] );
+        $('#empresa_ficha').text(ficha_tecnica['empresa']);
+
+        ficha_tecnica['status_carta_i'] === true ?  $( "#CI" ).prop( "checked", true ) : $( "#CI" ).prop( "checked", false );
+        ficha_tecnica['status_convenio'] === true ?  $( "#NDA" ).prop( "checked", true ) : $( "#NDA" ).prop( "checked", false );
+        ficha_tecnica['status_solicitud_doc'] === true ?  $( "#DOC" ).prop( "checked", true ) : $( "#DOC" ).prop( "checked", false );
+        ficha_tecnica['status_propuesta'] === true ?  $( "#PROP" ).prop( "checked", true ) : $( "#PROP" ).prop( "checked", false );
+        ficha_tecnica['status_contratos'] === true ?  $( "#CONTRATOS" ).prop( "checked", true ) : $( "#CONTRATOS" ).prop( "checked", false );
+        ficha_tecnica['status_carta_b'] === true ?  $( "#CartaB" ).prop( "checked", true ) : $( "#CartaB" ).prop( "checked", false );
+
+        if(isCliente === true)
+        {
+            ficha_tecnica['status_cree'] === true ?  $( "#CREE" ).prop( "checked", true ) : $( "#CREE" ).prop( "checked", false );
+            $('#CREE_id').show();
+        }else{
+            $('#CREE_id').hide();
+        }
+
+        $('#show-ficha').modal();
+    }
+
+    function eliminar(cliente_id){
+        $('#cliente_id_eliminar').val(cliente_id);
+
+        if(confirm('¿Está seguro que quiere eliminarlo?')){
+            document.getElementById('form-eliminar-cliente').submit();
+        }
+    }

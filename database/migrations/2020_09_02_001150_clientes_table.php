@@ -16,6 +16,12 @@ class ClientesTable extends Migration
         //
         Schema::create('clientes', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('estacion_numero')->nullable();
+            $table->string('marca')->nullable();
+            $table->integer('numero_dispensarios')->nullable();
+            $table->enum('gasolina_verde', ['FALSE','TRUE']);
+            $table->enum('gasolina_roja', ['FALSE','TRUE']);
+            $table->enum('diesel', ['FALSE','TRUE']);
             $table->string('nombre');
             $table->string('encargado');
             $table->string('estado')->nullable();;
@@ -48,6 +54,8 @@ class ClientesTable extends Migration
             $table->json('contrato_de_suministro')->nullable();
             $table->json('carta_bienvenida')->nullable();
             $table->json('permiso_cree')->nullable();
+
+            $table->json('bitacora')->nullable();
 
             $table->string('value_key');
             $table->timestamps();

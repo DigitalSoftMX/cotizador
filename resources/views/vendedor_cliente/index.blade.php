@@ -76,7 +76,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th>Días</th>
-                                                        <th># de estación</th>
+                                                        <th># de Estación</th>
                                                         <th>Empresa</th>
                                                         <th>Contacto</th>
                                                         <th>Unidad de negocio</th>
@@ -181,11 +181,12 @@
                                             <table id="clientesTable" class="display" style="width:100%">
                                                 <thead>
                                                     <tr>
-                                                        <th># de estación</th>
+                                                        <th># de Estación</th>
                                                         {{-- <th>Avance</th> --}}
                                                         <th>Empresa</th>
                                                         <th>RFC</th>
                                                         <th>Documentación</th>
+                                                        <th>Bitacora</th>
                                                         <th>Acciones</th>
                                                     </tr>
                                                 </thead>
@@ -234,6 +235,18 @@
                                                                     </a>
 
                                                                     <a href="{{ route('ventas.agregar_documentacion', $cliente['id'] ) }}">
+                                                                        <span class="icon-ojo-azul"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </td>
+
+                                                            <td>
+                                                                <div class="option-actions">
+                                                                    <a onclick="add_bitacora_cliente('{{ $cliente['id'] }}')" href="javascript:void(0)">
+                                                                        <span class="icon-agregar-azul"></span>
+                                                                    </a>
+
+                                                                    <a href="{{ route('ventas.bitacora_cliente', $cliente['id'] ) }}">
                                                                         <span class="icon-ojo-azul"></span>
                                                                     </a>
                                                                 </div>
@@ -485,7 +498,10 @@
                 <div class="col-12">
                     <div class="ficha--tecnica--titulos">
                         <p id="empresa_ficha">Empresa</p>
-                        <p>Fecha: <span id="fecha_created">22/01/2020</span></p>
+                        <p>Fecha alta: <span id="fecha_created">22/01/2020</span></p>
+                    </div>
+                    <div>
+                        <p>Fecha actual: <span><?php echo date("d/m/Y"); ?></span></p>
                     </div>
                 </div>
                 <div class="col-12">
@@ -544,14 +560,6 @@
                             <p>C.B.</p>
                         </div>
 
-                        <div class="text-center" id="CREE_id">
-                            <label>
-                                <input type="checkbox" id="CREE" disabled>
-                                <span></span>
-                            </label>
-                            <p>CREE</p>
-                        </div>
-
                     </div>
                 </div>
             </div>
@@ -560,6 +568,74 @@
         <div class="footer--options">
             <button type="button" class="btn-option" data-dismiss="modal">Cerrar</button>
         </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="add-bitacora-cliente">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+        <div class="title--content">
+            <h1 id="type-file">Bitácora</h1>
+        </div>
+        <form action="{{ route('ventas.agregar_comentario_bitacora_cliente') }}" method="POST">
+            @csrf
+            <div class="container information">
+                <div class="row">
+
+                    <input type="text" id="cliente_id_bitacora-cliente" name="cliente_id" style="display: none;">
+
+                    <div class="col-12">
+
+                        <div class="form--content">
+
+                            <div class="form--content--items">
+
+                                <div class="form--notes--date">
+                                    <i class="icon-calendario-gris"></i>
+                                    <input type="date" value="<?php echo date("Y-m-d"); ?>" name="fecha_comentario" required>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="form--content">
+
+                            <div class="form-notes">
+                                <label>Regular</label>
+                                <input type="text" name="regular_price" value="0">
+                            </div>
+
+                            <div class="form-notes">
+                                <label>Supreme</label>
+                                <input type="text" name="supreme_price" value="0">
+                            </div>
+
+                            <div class="form-notes">
+                                <label>Diésel</label>
+                                <input type="text" name="diesel_price" value="0">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-12">
+                        <div class="form--content--items">
+                            <textarea class="form--textarea" placeholder="Comentario" name="comentario"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="footer--options">
+                <button type="submit" class="btn-option">Guardar</button>
+                <button type="button" class="btn-option" data-dismiss="modal">Cancelar</button>
+            </div>
+        </form>
 
     </div>
   </div>

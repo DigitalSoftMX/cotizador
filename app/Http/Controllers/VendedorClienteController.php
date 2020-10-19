@@ -102,6 +102,9 @@ class VendedorClienteController extends Controller
             $status_documentos = ( $prospecto->poder_notarial !== null ) && $status_documentos ? true : false;
             $status_documentos = ( $prospecto->constancia_de_situacion_fiscal !== null ) && $status_documentos ? true : false;
             $status_documentos = ( $prospecto->comprobante_de_domicilio !== null ) && $status_documentos ? true : false;
+            $status_documentos = ( $prospecto->permiso_cree !== null ) && $status_documentos ? true : false;
+            $status_documentos = ( $prospecto->documento_rfc !== null ) && $status_documentos ? true : false;
+
             $json_prospecto['ficha_tecnica'][0]['status_solicitud_doc'] = $status_documentos;
 
 
@@ -184,6 +187,9 @@ class VendedorClienteController extends Controller
             $status_documentos = ( $cliente->poder_notarial !== null ) && $status_documentos ? true : false;
             $status_documentos = ( $cliente->constancia_de_situacion_fiscal !== null ) && $status_documentos ? true : false;
             $status_documentos = ( $cliente->comprobante_de_domicilio !== null ) && $status_documentos ? true : false;
+            $status_documentos = ( $cliente->permiso_cree !== null ) && $status_documentos ? true : false;
+            $status_documentos = ( $cliente->documento_rfc !== null ) && $status_documentos ? true : false;
+
             $json_cliente['ficha_tecnica'][0]['status_solicitud_doc'] = $status_documentos;
 
             // if($cliente->carta_de_intencion != null)
@@ -262,8 +268,9 @@ class VendedorClienteController extends Controller
 
     public function sendMail($pdfs, $id_cliente, $contrato, $request)
     {
-        $email_cliente = Cliente::find($id_cliente)->first()->email;
+        $email_cliente = Cliente::where('id', $id_cliente)->get()[0]->email;
         $tipo_documento = strtoupper( str_replace('_',' ', $contrato) );
+
         $vendedor = strtoupper( $request->user()->name.' '.$request->user()->app_name );
 
         $subject = 'El vendedor '.$vendedor.' ha subido documentación de tu seguimiento.';

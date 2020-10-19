@@ -166,6 +166,12 @@
         $('#add-bitacora').modal();
     }
 
+    function add_bitacora_cliente(cliente_id){
+
+        $('#cliente_id_bitacora-cliente').val(cliente_id);
+        $('#add-bitacora-cliente').modal();
+    }
+
     function add_informacion(cliente_id, informacion_json)
     {
         let informacion = JSON.parse(informacion_json);
@@ -199,10 +205,16 @@
 
         if(isCliente === true)
         {
-            ficha_tecnica['status_cree'] === true ?  $( "#CREE" ).prop( "checked", true ) : $( "#CREE" ).prop( "checked", false );
-            $('#CREE_id').show();
+            ficha_tecnica['regular_price'] === undefined ?  $('#regular_price_f').text('') : $('#regular_price_f').text( 'Precio Regular: $'+ ficha_tecnica['regular_price'] );
+            ficha_tecnica['supreme_price'] === undefined ?  $('#supreme_price_f').text('') : $('#supreme_price_f').text( 'Precio Supreme: $'+ ficha_tecnica['supreme_price'] );
+            ficha_tecnica['diesel_price'] === undefined ?  $('#diesel_price_f').text('') : $('#diesel_price_f').text( 'Precio Diesel: $'+ ficha_tecnica['diesel_price'] );
+
+            $('#prices-ficha').show();
+
+            console.log(ficha_tecnica['diesel_price']);
+
         }else{
-            $('#CREE_id').hide();
+            $('#prices-ficha').hide();
         }
 
         $('#show-ficha').modal();

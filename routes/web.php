@@ -237,7 +237,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('ventas/agregar-documentacion/{id}','VentasController@agregar_documentacion')->name('ventas.agregar_documentacion');
 
     Route::post('ventas/agregar-comentario-bitacora', 'VentasController@agregar_comentario_bitacora')->name('ventas.agregar_comentario_bitacora');
+
+    Route::post('ventas/agregar-comentario-bitacora-cliente', 'VentasController@agregar_comentario_bitacora_cliente')->name('ventas.agregar_comentario_bitacora_cliente');
+
     Route::get('ventas/bitacora/{id}','VentasController@bitacora')->name('ventas.bitacora');
+    Route::get('ventas/bitacora-cliente/{id}','VentasController@bitacora_cliente')->name('ventas.bitacora_cliente');
     Route::post('ventas/agregar-datos','VentasController@agregar_datos')->name('ventas.agregar_datos');
 
     Route::post('ventas/eliminar','VentasController@eliminar')->name('ventas.eliminar');

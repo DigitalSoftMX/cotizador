@@ -44,6 +44,7 @@ class ClientesTable extends Migration
             $table->json('solicitud_de_documentos')->nullable();
             $table->json('ine')->nullable();
             $table->json('acta_constitutiva')->nullable();
+            $table->json('documento_rfc')->nullable();
             $table->json('poder_notarial')->nullable();
             $table->json('constancia_de_situacion_fiscal')->nullable();
             $table->json('comprobante_de_domicilio')->nullable();
@@ -56,6 +57,7 @@ class ClientesTable extends Migration
             $table->json('permiso_cree')->nullable();
 
             $table->json('bitacora')->nullable();
+            $table->json('bitacora_cliente')->nullable();
 
             $table->string('value_key');
             $table->timestamps();

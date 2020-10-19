@@ -13,6 +13,10 @@
                                     <i class="material-icons">home_work</i>
                                     <h1>{{ $cliente->nombre }}</h1>
                                 </div>
+                                <div>
+                                     <p>Fecha alta: <span><?php echo date( "d/m/Y",strtotime($cliente->created_at) ); ?></span></p>
+                                </div>
+
                             </div>
 
                             <div class="col-12 text-left">
@@ -381,6 +385,53 @@
                                             <tr>
                                                 <td>
                                                     <div class="information--text text-left">
+                                                        <p>RFC</p>
+                                                    </div>
+                                                </td>
+                                                @if ($cliente->documento_rfc != null)
+                                                    <td>
+                                                        <div class="information--text">
+                                                            <a href="javascript:void(0)">{{ $documentos['documento_rfc']->nombre }}</a>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="information--text">
+                                                            <p>{{ $documentos['documento_rfc']->created_at }}</p>
+                                                        </div>
+                                                    </td>
+                                                @else
+                                                    <td>
+                                                        <div class="information--text">
+                                                            <p>No hay archivo</p>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="information--text">
+                                                            <p></p>
+                                                        </div>
+                                                    </td>
+                                                @endif
+                                                <td>
+                                                    <div class="option-actions">
+                                                        @if ($cliente->documento_rfc != null)
+                                                            <a target="_blank" href="{{ route('clientes.downloadclient', $documentos['documento_rfc']->nombre) }}">
+                                                                <i class="material-icons icon-ojo-azul"></i>
+                                                            </a>
+                                                        @else
+                                                            <a href="javascript:void(0)">
+                                                                <i class="material-icons icon-ojo-azul"></i>
+                                                            </a>
+                                                        @endif
+                                                        <a href="javascript:void(0)" onclick="load_file( {{ $cliente->id }} ,'documento rfc')">
+                                                            <i class="material-icons icon-editar-azul"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <div class="information--text text-left">
                                                         <p>Constancia de situacion fiscal. (No mayor a 3 meses)</p>
                                                     </div>
                                                 </td>
@@ -477,6 +528,55 @@
                                             <tr>
                                                 <td>
                                                     <div class="information--text text-left">
+                                                        <p>Permiso CREE</p>
+                                                    </div>
+                                                </td>
+                                                @if ($cliente->permiso_cree != null)
+                                                    <td>
+                                                        <div class="information--text">
+                                                            <a href="javascript:void(0)">{{ $documentos['permiso_cree']->nombre }}</a>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="information--text">
+                                                            <p>{{ $documentos['permiso_cree']->created_at }}</p>
+                                                        </div>
+                                                    </td>
+                                                @else
+                                                    <td>
+                                                        <div class="information--text">
+                                                            <p>No hay archivo</p>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="information--text">
+                                                            <p></p>
+                                                        </div>
+                                                    </td>
+                                                @endif
+                                                <td>
+                                                    <div class="option-actions">
+
+                                                        @if ($cliente->permiso_cree != null)
+                                                            <a target="_blank" href="{{ route('clientes.downloadclient', $documentos['permiso_cree']->nombre) }}" >
+                                                                <i class="material-icons icon-ojo-azul"></i>
+                                                            </a>
+                                                        @else
+                                                            <a href="javascript:void(0)">
+                                                                <i class="material-icons icon-ojo-azul"></i>
+                                                            </a>
+                                                        @endif
+
+                                                        <a href="javascript:void(0)" onclick="load_file( {{ $cliente->id }} ,'permiso_cree')">
+                                                            <i class="material-icons icon-editar-azul"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <div class="information--text text-left">
                                                         <p>Propuesta</p>
                                                     </div>
                                                 </td>
@@ -531,7 +631,7 @@
                                                 </td>
                                             </tr>
 
-                                            <tr>
+                                            <tr style="{{ $show_documentos_cliente }}">
                                                 <td>
                                                     <div class="information--text text-left">
                                                         <p>Contrato comodato</p>
@@ -580,7 +680,7 @@
                                                 </td>
                                             </tr>
 
-                                            <tr>
+                                            <tr style="{{ $show_documentos_cliente }}">
                                                 <td>
                                                     <div class="information--text text-left">
                                                         <p>Contrato de suministro</p>
@@ -679,55 +779,6 @@
                                                 </td>
                                             </tr>
 
-                                            <tr style="{{ $show_documentos_cliente }}">
-                                                <td>
-                                                    <div class="information--text text-left">
-                                                        <p>Permiso CREE</p>
-                                                    </div>
-                                                </td>
-                                                @if ($cliente->permiso_cree != null)
-                                                    <td>
-                                                        <div class="information--text">
-                                                            <a href="javascript:void(0)">{{ $documentos['permiso_cree']->nombre }}</a>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="information--text">
-                                                            <p>{{ $documentos['permiso_cree']->created_at }}</p>
-                                                        </div>
-                                                    </td>
-                                                @else
-                                                    <td>
-                                                        <div class="information--text">
-                                                            <p>No hay archivo</p>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="information--text">
-                                                            <p></p>
-                                                        </div>
-                                                    </td>
-                                                @endif
-                                                <td>
-                                                    <div class="option-actions">
-
-                                                        @if ($cliente->permiso_cree != null)
-                                                            <a target="_blank" href="{{ route('clientes.downloadclient', $documentos['permiso_cree']->nombre) }}" >
-                                                                <i class="material-icons icon-ojo-azul"></i>
-                                                            </a>
-                                                        @else
-                                                            <a href="javascript:void(0)">
-                                                                <i class="material-icons icon-ojo-azul"></i>
-                                                            </a>
-                                                        @endif
-
-                                                        <a href="javascript:void(0)" onclick="load_file( {{ $cliente->id }} ,'permiso_cree')">
-                                                            <i class="material-icons icon-editar-azul"></i>
-                                                        </a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
                                         </tbody>
                                     </table>
                                 </div>
@@ -794,7 +845,7 @@
 
                                 <div class="form--notes--date">
                                     <i class="icon-calendario-gris"></i>
-                                    <input type="date" name="fecha_propuesta" id="fecha_propuesta" required>
+                                    <input type="date" value="<?php echo date("Y-m-d"); ?>" id="fecha_propuesta" name="fecha_propuesta" required>
                                 </div>
 
                                 <div class="form-notes">
@@ -867,6 +918,7 @@
             $('#cliente_id_propuesta').val($cliente_id);
             $('#add-propuesta').modal();
         }
+
 
         document.getElementById('fecha_propuesta').addEventListener('change', (event) => {
             $fecha_propuesta = $('#fecha_propuesta').val();

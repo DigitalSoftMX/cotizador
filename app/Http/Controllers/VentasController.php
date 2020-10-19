@@ -9,6 +9,7 @@ use App\VendedorUnidadNegocio;
 use App\Cliente;
 use App\ClienteVendedor;
 use Illuminate\Support\Facades\DB;
+use Mail;
 
 class VentasController extends Controller
 {
@@ -139,6 +140,9 @@ class VentasController extends Controller
             $status_documentos = ( $prospecto->poder_notarial !== null ) && $status_documentos ? true : false;
             $status_documentos = ( $prospecto->constancia_de_situacion_fiscal !== null ) && $status_documentos ? true : false;
             $status_documentos = ( $prospecto->comprobante_de_domicilio !== null ) && $status_documentos ? true : false;
+            $status_documentos = ( $prospecto->permiso_cree !== null ) && $status_documentos ? true : false;
+            $status_documentos = ( $prospecto->documento_rfc !== null ) && $status_documentos ? true : false;
+
             $json_prospecto['ficha_tecnica'][0]['status_solicitud_doc'] = $status_documentos;
 
             /* Obtenemos el vendedor actual en seguimiento */
@@ -236,7 +240,9 @@ class VentasController extends Controller
                                         'status_propuesta' => null,
                                         'status_contratos' => null,
                                         'status_carta_b' => null,
-                                        'status_cree' => null,
+                                        'regular_price' => null,
+                                        'supreme_price' => null,
+                                        'diesel_price' => null
                                     )
                                 );
 
@@ -258,13 +264,19 @@ class VentasController extends Controller
             $json_cliente['ficha_tecnica'][0]['status_propuesta'] = $cliente->propuestas !== null ? true: false;
             $json_cliente['ficha_tecnica'][0]['status_contratos'] = ( $cliente->contrato_comodato !== null ) && ( $cliente->contrato_de_suministro !== null ) ? true: false;
             $json_cliente['ficha_tecnica'][0]['status_carta_b'] = $cliente->carta_bienvenida !== null ? true: false;
-            $json_cliente['ficha_tecnica'][0]['status_cree'] = $cliente->permiso_cree !== null ? true: false;
 
-            if($cliente->bitacora !== null)
+
+            if($cliente->bitacora_cliente !== null)
             {
-                $ultimo_comentario = json_decode($cliente->bitacora, true);
+                $ultimo_comentario = json_decode($cliente->bitacora_cliente, true);
                 $json_cliente['ficha_tecnica'][0]['ultimo_comentario'] = $ultimo_comentario[count($ultimo_comentario)-1]['comentario'];
                 $json_cliente['ficha_tecnica'][0]['fecha'] = $ultimo_comentario[count($ultimo_comentario)-1]['fecha'];
+
+                $json_cliente['ficha_tecnica'][0]['regular_price'] = $ultimo_comentario[count($ultimo_comentario)-1]['regular_price'];
+
+                $json_cliente['ficha_tecnica'][0]['supreme_price'] = $ultimo_comentario[count($ultimo_comentario)-1]['supreme_price'];
+
+                $json_cliente['ficha_tecnica'][0]['diesel_price'] = $ultimo_comentario[count($ultimo_comentario)-1]['diesel_price'];
             }
 
             $status_documentos = ( $cliente->solicitud_de_documentos !== null ) && ( $cliente->ine !== null ) ? true : false;
@@ -272,6 +284,9 @@ class VentasController extends Controller
             $status_documentos = ( $cliente->poder_notarial !== null ) && $status_documentos ? true : false;
             $status_documentos = ( $cliente->constancia_de_situacion_fiscal !== null ) && $status_documentos ? true : false;
             $status_documentos = ( $cliente->comprobante_de_domicilio !== null ) && $status_documentos ? true : false;
+            $status_documentos = ( $cliente->permiso_cree !== null ) && $status_documentos ? true : false;
+            $status_documentos = ( $cliente->documento_rfc !== null ) && $status_documentos ? true : false;
+
             $json_cliente['ficha_tecnica'][0]['status_solicitud_doc'] = $status_documentos;
 
             $vendedor_en_seguimiento = ClienteVendedor::select('users.name', 'users.app_name', 'users.apm_name')
@@ -689,7 +704,8 @@ class VentasController extends Controller
             'contrato_de_suministro' => json_decode($cliente->contrato_de_suministro),
             'carta_bienvenida' => json_decode($cliente->carta_bienvenida),
             'permiso_cree' => json_decode($cliente->permiso_cree),
-            'propuestas_array' =>  $cliente->propuestas === null ?  array() :  json_decode($cliente->propuestas, true)
+            'propuestas_array' =>  $cliente->propuestas === null ?  array() :  json_decode($cliente->propuestas, true),
+            'documento_rfc' => json_decode($cliente->documento_rfc)
         );
 
         $show_documentos_cliente = $cliente->estatus !== 'prospecto' ? '' : 'display: none;';
@@ -798,6 +814,13 @@ class VentasController extends Controller
 
         // Almacenamos en BD
         Cliente::where('id', $cliente_id)->update(['propuestas' => json_encode($propuestas_new_array) ]);
+
+        if($propuesta_name !== null)
+        {
+            $this->sendMail( array($propuesta_name) , $cliente_id, 'Propuesta', $request);
+        }
+
+
 
         return back()
             ->with('status', 'Propuesta almacenada correctamente')
@@ -1157,10 +1180,11 @@ class VentasController extends Controller
 
     public function bitacora(Request $request, $id)
     {
-        $cliente = Cliente::where('id', $id)->select('bitacora', 'nombre')->get()[0];
+        $cliente = Cliente::where('id', $id)->select('bitacora', 'nombre', 'created_at')->get()[0];
 
         $bitacora = array();
         $nombre_empresa = $cliente->nombre;
+        $created_at = date( "d/m/Y",strtotime($cliente->created_at) );
 
         if( $cliente->bitacora !== null)
         {
@@ -1169,7 +1193,84 @@ class VentasController extends Controller
 
         $url = $request->user()->roles[0]['name'] === 'Vendedor' ?  'clientes.index': 'ventas.index';
 
-        return view('ventas.bitacora', compact('bitacora', 'nombre_empresa', 'url'));
+        return view('ventas.bitacora', compact('bitacora', 'nombre_empresa', 'url', 'created_at'));
+    }
+
+    public function agregar_comentario_bitacora_cliente(Request $request)
+    {
+        $fecha_comentario = $request->post('fecha_comentario');
+        $comentario = $request->post('comentario');
+        $cliente_id = $request->post('cliente_id');
+        $regular_price = $request->post('regular_price');
+        $supreme_price = $request->post('supreme_price');
+        $diesel_price = $request->post('diesel_price');
+
+
+        $bitacora = Cliente::select('bitacora_cliente')
+                            ->where('id', $cliente_id)
+                            ->get()[0]->bitacora_cliente;
+
+        $bitacora_array = array();
+        $bitacora_array_nueva = array();
+
+        if($bitacora !== null)
+        {
+            $bitacora_array = json_decode($bitacora);
+        }
+
+        $actualizar = false;
+
+        $nuevo_comentario = array(
+            'fecha' => $fecha_comentario,
+            'comentario' => $comentario,
+            'regular_price' => $regular_price,
+            'supreme_price' => $supreme_price,
+            'diesel_price' => $diesel_price
+        );
+
+        foreach($bitacora_array as $index => $bitacora_)
+        {
+            if( $bitacora_->fecha === $fecha_comentario )
+            {
+                $bitacora_->comentario = $comentario;
+                $actualizar = true;
+            }
+
+            array_push($bitacora_array_nueva, $bitacora_);
+        }
+
+        if( $actualizar === false )
+        {
+            array_push($bitacora_array_nueva, $nuevo_comentario);
+        }
+
+        Cliente::where('id', $cliente_id)
+                ->update([
+                    'bitacora_cliente' => json_encode($bitacora_array_nueva)
+                ]);
+
+
+        return back()
+            ->with('status', 'Se ha almacenado el comentario en la bitácora exitosamente.')
+            ->with('status_alert', 'alert-success');
+    }
+
+    public function bitacora_cliente(Request $request, $id)
+    {
+        $cliente = Cliente::where('id', $id)->select('bitacora_cliente', 'nombre', 'created_at')->get()[0];
+
+        $bitacora = array();
+        $nombre_empresa = $cliente->nombre;
+        $created_at = date( "d/m/Y",strtotime($cliente->created_at) );
+
+        if( $cliente->bitacora_cliente !== null)
+        {
+            $bitacora = array_reverse( json_decode($cliente->bitacora_cliente, true) );
+        }
+
+        $url = $request->user()->roles[0]['name'] === 'Vendedor' ?  'clientes.index': 'ventas.index';
+
+        return view('ventas.bitacora_cliente', compact('bitacora', 'nombre_empresa', 'url', 'created_at'));
     }
 
     public function eliminar(Request $request)
@@ -1193,6 +1294,32 @@ class VentasController extends Controller
         return back()
                 ->with('status', 'Eliminado exitosamente')
                 ->with('status_alert', 'alert-success');
+    }
+
+    public function sendMail($pdfs, $id_cliente, $contrato, $request)
+    {
+        $email_cliente = Cliente::where('id', $id_cliente)->get()[0]->email;
+        $tipo_documento = strtoupper( str_replace('_',' ', $contrato) );
+
+        // $vendedor = strtoupper( $request->user()->name.' '.$request->user()->app_name );
+
+        $subject = 'Se ha subido documentación de tu seguimiento.';
+
+        $data = array(
+            'email' => $email_cliente,
+            'subject' => $subject,
+            'pdfs' => $pdfs,
+            'tipo_documento' => $tipo_documento,
+            'vendedor' => $vendedor
+        );
+
+        Mail::send('mail.notificacion_docs', $data, function ($message) use ($data) {
+
+            $message->from('ventas@impulsaenergia.mx', 'Impulsa: notificación vendedor');
+            $message->to($data['email']);
+            $message->subject($data['subject']);
+
+        });
     }
 
     /**

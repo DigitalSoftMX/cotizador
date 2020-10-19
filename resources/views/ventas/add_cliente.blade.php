@@ -11,7 +11,7 @@
                             <div class="col-12">
                                 <div class="container-title-first">
                                     <i class="material-icons icon-edificio-azul"></i>
-                                    <h1>Agregar clientes</h1>
+                                    <h1>Agregar cliente</h1>
                                 </div>
                             </div>
 

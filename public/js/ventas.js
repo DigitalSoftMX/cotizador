@@ -215,3 +215,12 @@
             document.getElementById('form-eliminar-cliente').submit();
         }
     }
+
+    function eliminar_vendedor(vendedor_id)
+    {
+        $('#vendedor_id_eliminar').val(vendedor_id);
+
+        if(confirm('¿Está seguro que quiere eliminarlo?')){
+            document.getElementById('form-eliminar-vendedor').submit();
+        }
+    }

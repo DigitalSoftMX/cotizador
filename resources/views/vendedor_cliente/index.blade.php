@@ -76,9 +76,12 @@
                                                 <thead>
                                                     <tr>
                                                         <th>Días</th>
+                                                        <th># de estación</th>
                                                         <th>Empresa</th>
                                                         <th>Contacto</th>
                                                         <th>Unidad de negocio</th>
+                                                        <th>Bitacora</th>
+                                                        <th>Documentación</th>
                                                         <th>Acciones</th>
                                                     </tr>
                                                 </thead>
@@ -90,11 +93,28 @@
                                                                     <p>{{ $prospecto['dias'] }}</p>
                                                                 </div>
                                                             </td>
+
                                                             <td>
                                                                 <div class="information--text">
-                                                                    <p>{{ $prospecto['empresa'] }}</p>
+                                                                    <a href="javascript:void(0)" onclick="add_informacion('{{ $prospecto['id'] }}', '{{ json_encode($prospecto['datos_importantes'][0]) }}')">
+                                                                        @if ($prospecto['estacion_numero'] === null)
+                                                                            <p>S/N</p>
+                                                                        @else
+                                                                            <p>{{ $prospecto['estacion_numero'] }}</p>
+                                                                        @endif
+                                                                    </a>
+
                                                                 </div>
                                                             </td>
+
+                                                            <td>
+                                                                <div class="information--text">
+                                                                    <a href="javascript:void(0)" onclick="show_ficha_tecnica('{{ json_encode( $prospecto['ficha_tecnica'][0] ) }}', false)">
+                                                                        <p>{{ $prospecto['empresa'] }}</p>
+                                                                    </a>
+                                                                </div>
+                                                            </td>
+
                                                             <td>
                                                                 <div class="information--text">
                                                                     <p>{{ $prospecto['encargado'] }}</p>
@@ -106,6 +126,31 @@
                                                                     <p>{{ $prospecto['unidad_negocio'] }}</p>
                                                                 </div>
                                                             </td>
+
+                                                            <td>
+                                                                <div class="option-actions">
+                                                                    <a href="{{ route('ventas.bitacora', $prospecto['id']) }}">
+                                                                        <span class="icon-ojo-azul"></span>
+                                                                    </a>
+
+                                                                    <a onclick="add_bitacora('{{ $prospecto['id'] }}')" href="javascript:void(0)">
+                                                                        <span class="icon-agregar-azul"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </td>
+
+                                                            <td>
+                                                                <div class="option-actions">
+                                                                    <a href="{{ route('ventas.agregar_documentacion', $prospecto['id'] ) }}">
+                                                                        <span class="icon-agregar-azul"></span>
+                                                                    </a>
+
+                                                                    <a href="{{ route('ventas.agregar_documentacion', $prospecto['id'] ) }}">
+                                                                        <span class="icon-ojo-azul"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </td>
+
                                                             <td>
                                                                 <div class="option-actions">
                                                                     <a href="{{ route('ventas.visualizar_prospecto', $prospecto['id'] ) }}">
@@ -136,7 +181,8 @@
                                             <table id="clientesTable" class="display" style="width:100%">
                                                 <thead>
                                                     <tr>
-                                                        <th>Avance</th>
+                                                        <th># de estación</th>
+                                                        {{-- <th>Avance</th> --}}
                                                         <th>Empresa</th>
                                                         <th>RFC</th>
                                                         <th>Documentación</th>
@@ -147,18 +193,35 @@
 
                                                     @foreach ( $data['clientes'] as $cliente)
                                                         <tr>
-                                                            <td>
+                                                            {{-- <td>
                                                                 <div class="content--progress">
                                                                     <div class="progress">
                                                                         <div class="progress-bar {{ $cliente['color'] }}" style="width:{{ $cliente['avance'] }}%"></div>
                                                                     </div>
                                                                 </div>
-                                                            </td>
+                                                            </td> --}}
+
                                                             <td>
                                                                 <div class="information--text">
-                                                                    <p>{{ $cliente['empresa'] }}</p>
+                                                                    <a href="javascript:void(0)" onclick="add_informacion('{{ $cliente['id'] }}', '{{ json_encode($cliente['datos_importantes'][0]) }}')">
+                                                                        @if ($cliente['estacion_numero'] === null)
+                                                                            <p>S/N</p>
+                                                                        @else
+                                                                            <p>{{ $cliente['estacion_numero'] }}</p>
+                                                                        @endif
+                                                                    </a>
+
                                                                 </div>
                                                             </td>
+
+                                                            <td>
+                                                                <div class="information--text">
+                                                                    <a href="javascript:void(0)" onclick="show_ficha_tecnica('{{ json_encode( $cliente['ficha_tecnica'][0] ) }}', true)">
+                                                                        <p>{{ $cliente['empresa'] }}</p>
+                                                                    </a>
+                                                                </div>
+                                                            </td>
+
                                                             <td>
                                                                 <div class="information--text">
                                                                     <p>{{ $cliente['rfc'] }}</p>

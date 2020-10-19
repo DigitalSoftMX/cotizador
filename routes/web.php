@@ -242,6 +242,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('ventas/eliminar','VentasController@eliminar')->name('ventas.eliminar');
 
+    Route::post('ventas/eliminar-vendedor','VentasController@eliminar_vendedor')->name('ventas.eliminar_vendedor');
+
 });
 
 // Vendedores Controller

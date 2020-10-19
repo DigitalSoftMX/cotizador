@@ -11,7 +11,7 @@
                             <div class="col-12">
                                 <div class="container-title-first">
                                     <i class="material-icons icon-edificio-azul"></i>
-                                    <h1>Prospectos</h1>
+                                    <h1>Prospecto</h1>
                                 </div>
                             </div>
 

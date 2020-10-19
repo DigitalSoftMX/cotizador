@@ -69,6 +69,11 @@
                                         <input type="text" value="" name="cliente_id" id="cliente_id_eliminar" style="display: none;">
                                     </form>
 
+                                    <form id="form-eliminar-vendedor" method="POST"  action="{{ route('ventas.eliminar_vendedor') }}">
+                                        @csrf
+                                        <input type="text" value="" name="user_id" id="vendedor_id_eliminar" style="display: none;">
+                                    </form>
+
                                     <div id="prospectos">
 
                                         <form id="form-prospecto-asignar" method="POST"  action="{{ route('ventas.asignar_prospecto_vendedor') }}">
@@ -363,6 +368,10 @@
                                                                 <div class="option-actions">
                                                                     <a href="{{ route('ventas.editar_vendedor', $vendedor['id'] ) }}">
                                                                         <span class="icon-editar-azul"></span>
+                                                                    </a>
+
+                                                                    <a href="javascript:void(0)" onclick="eliminar_vendedor('{{ $vendedo['id'] }}')" style="color: red;">
+                                                                        <span class="icon-trash"></span>
                                                                     </a>
                                                                 </div>
                                                             </td>

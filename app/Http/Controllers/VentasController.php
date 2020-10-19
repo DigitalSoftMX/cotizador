@@ -1184,6 +1184,17 @@ class VentasController extends Controller
                 ->with('status_alert', 'alert-success');
     }
 
+    public function eliminar_vendedor(Request $request)
+    {
+        $usuario_id = $request->post('user_id');
+        User::where('id', $usuario_id)->delete();
+        VendedorUnidadNegocio::where('user_id', $usuario_id)->delete();
+
+        return back()
+                ->with('status', 'Eliminado exitosamente')
+                ->with('status_alert', 'alert-success');
+    }
+
     /**
      * Display the specified resource.
      *

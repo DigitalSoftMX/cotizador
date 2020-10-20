@@ -154,7 +154,9 @@ class VendedorClienteController extends Controller
                                         'status_propuesta' => null,
                                         'status_contratos' => null,
                                         'status_carta_b' => null,
-                                        'status_cree' => null,
+                                        'regular_price' => null,
+                                        'supreme_price' => null,
+                                        'diesel_price' => null
                                     )
                                 );
 
@@ -173,13 +175,18 @@ class VendedorClienteController extends Controller
             $json_cliente['ficha_tecnica'][0]['status_propuesta'] = $cliente->propuestas !== null ? true: false;
             $json_cliente['ficha_tecnica'][0]['status_contratos'] = ( $cliente->contrato_comodato !== null ) && ( $cliente->contrato_de_suministro !== null ) ? true: false;
             $json_cliente['ficha_tecnica'][0]['status_carta_b'] = $cliente->carta_bienvenida !== null ? true: false;
-            $json_cliente['ficha_tecnica'][0]['status_cree'] = $cliente->permiso_cree !== null ? true: false;
 
-            if($cliente->bitacora !== null)
+            if($cliente->bitacora_cliente !== null)
             {
-                $ultimo_comentario = json_decode($cliente->bitacora, true);
+                $ultimo_comentario = json_decode($cliente->bitacora_cliente, true);
                 $json_cliente['ficha_tecnica'][0]['ultimo_comentario'] = $ultimo_comentario[count($ultimo_comentario)-1]['comentario'];
                 $json_cliente['ficha_tecnica'][0]['fecha'] = $ultimo_comentario[count($ultimo_comentario)-1]['fecha'];
+
+                $json_cliente['ficha_tecnica'][0]['regular_price'] = $ultimo_comentario[count($ultimo_comentario)-1]['regular_price'];
+
+                $json_cliente['ficha_tecnica'][0]['supreme_price'] = $ultimo_comentario[count($ultimo_comentario)-1]['supreme_price'];
+
+                $json_cliente['ficha_tecnica'][0]['diesel_price'] = $ultimo_comentario[count($ultimo_comentario)-1]['diesel_price'];
             }
 
             $status_documentos = ( $cliente->solicitud_de_documentos !== null ) && ( $cliente->ine !== null ) ? true : false;

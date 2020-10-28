@@ -1310,7 +1310,7 @@ class VentasController extends Controller
             'subject' => $subject,
             'pdfs' => $pdfs,
             'tipo_documento' => $tipo_documento,
-            'vendedor' => $vendedor
+            'vendedor' => ' '
         );
 
         Mail::send('mail.notificacion_docs', $data, function ($message) use ($data) {

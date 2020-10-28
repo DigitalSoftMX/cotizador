@@ -54,6 +54,20 @@
             $terminals = $terminal::all();
             $terminales = array();
 
+            /* Precios Multioil */
+            $precios_aar_multioil = array();
+
+            $meses_espaniol = array();
+            $mes = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
+            for($i=1; $i<=$month; $i++)
+            {
+                $monthNumber = date("m", mktime(0, 0, 0, $i, 1, 2000));
+                array_push($meses_espaniol, array(
+                    'numerMonth' => $monthNumber,
+                    'nameMonth' => $mes[$i-1]
+                ));
+            }
+
             foreach ($terminals as $terminal) {
                 $datos = array();
                 array_push($datos, $terminal->razon_social);
@@ -98,8 +112,11 @@
                 $precios_energo_premium = array();
                 $precios_energo_diesel = array();
 
-                foreach ($terminal->valeros()->orderBy('created_at')->get() as $valero) {
+                $precios_aar_regular = array();
+                $precios_aar_premium = array();
+                $precios_aar_diesel = array();
 
+                foreach ($terminal->valeros()->orderBy('created_at')->get() as $valero) {
                     if($valero->created_at >= $primer_dia)
                     {
                         array_push($fechas1, $valero->created_at->format('j - m'));
@@ -119,8 +136,16 @@
                             array_push($precios_pemex_regular, $price->precio_regular);
                             array_push($precios_pemex_premium, $price->precio_premium);
                             array_push($precios_pemex_diesel, $price->precio_disel);
+
+                            /* Obtenemos los precios de AAR */
+                            array_push($precios_aar_regular, floatval( $price->precio_regular ) - 0.90 );
+                            array_push($precios_aar_premium, floatval( $price->precio_premium ) - 0.90 );
+                            array_push($precios_aar_diesel, floatval( $price->precio_disel ) - 1.70 );
                         }
                     }
+
+                    array_push($precios_aar_multioil, $precios_aar_regular, $precios_aar_premium, $precios_aar_diesel);
+
                 }
 
                 foreach ($terminal->policons()->orderBy('created_at')->get() as $policons) {
@@ -227,6 +252,7 @@
                                 $precio_descuesto_diesel = floatval($price5->precio_disel) - floatval(0.80);
                             }
 
+
                             array_push($fechas7, $price5->created_at->format('j - m'));
                             array_push($precios_energo_regular, $precio_descuesto_regular);
                             array_push($precios_energo_premium, $precio_descuesto_premium);
@@ -250,7 +276,9 @@
                 if ($contador1 >= $contador2 & $contador1 >= $contador3 & $contador1 >= $contador4 & $contador1 >= $contador5 & $contador1 >= $contador6 & $contador1 >= $contador7) {
                     foreach ($terminal->valeros()->orderBy('created_at')->get() as $valero) {
                         if($valero->created_at >= $primer_dia) {
-                            array_push($fechas, $valero->created_at->format('j - m'));
+
+                            $number_mont = $valero->created_at->format('m');
+                            array_push($fechas, $valero->created_at->format('j')." - ".substr( $mes[ $number_mont - 1 ], 0, 3 ) );
                         }
                     }
                 } elseif ($contador2 >= $contador1 & $contador2 >= $contador3 & $contador2 >= $contador4 & $contador2 >= $contador5 & $contador2 >= $contador6 & $contador2 >= $contador7) {
@@ -258,7 +286,8 @@
                     foreach ($terminal->competitions()->orderBy('created_at')->get() as $competition) {
                         foreach ($competition->prices()->orderBy('created_at')->get() as $price) {
                             if($price->created_at >= $primer_dia) {
-                                array_push($fechas, $price->created_at->format('j - m'));
+                                $number_mont = $price->created_at->format('m');
+                                array_push($fechas, $price->created_at->format('j')." - ".substr( $mes[ $number_mont - 1 ], 0, 3 ) );
                             }
                         }
                     }
@@ -267,7 +296,8 @@
                     foreach ($terminal->policons()->orderBy('created_at')->get() as $policons) {
                         foreach ($policons->price_policon()->orderBy('created_at')->get() as $price1) {
                             if($price1->created_at >= $primer_dia) {
-                                array_push($fechas, $price1->created_at->format('j - m'));
+                                $number_mont = $price1->created_at->format('m');
+                                array_push($fechas, $price1->created_at->format('j')." - ".substr( $mes[ $number_mont - 1 ], 0, 3 ) );
                             }
                         }
                     }
@@ -276,7 +306,8 @@
                     foreach ($terminal->impulsas()->orderBy('created_at')->get() as $impulsas) {
                         foreach ($impulsas->price_impulsa()->orderBy('created_at')->get() as $price2) {
                             if($price2->created_at >= $primer_dia) {
-                                array_push($fechas, $price2->created_at->format('j - m'));
+                                $number_mont = $price2->created_at->format('m');
+                                array_push($fechas, $price2->created_at->format('j')." - ".substr( $mes[ $number_mont - 1 ], 0, 3 ) );
                             }
                         }
                     }
@@ -286,7 +317,8 @@
                     foreach ($terminal->hamses()->orderBy('created_at')->get() as $hamses) {
                         foreach ($hamses->price_hamse()->orderBy('created_at')->get() as $price3) {
                             if($price3->created_at >= $primer_dia) {
-                                array_push($fechas, $price3->created_at->format('j - m'));
+                                $number_mont = $price3->created_at->format('m');
+                                array_push($fechas, $price3->created_at->format('j')." - ".substr( $mes[ $number_mont - 1 ], 0, 3 ) );
                             }
                         }
                     }
@@ -294,8 +326,9 @@
 
                     foreach ($terminal->potestas()->orderBy('created_at')->get() as $potestas) {
                         foreach ($potestas->price_potesta()->orderBy('created_at')->get() as $price4) {
-                            if($price3->created_at >= $primer_dia) {
-                                array_push($fechas, $price4->created_at->format('j - m'));
+                            if($price4->created_at >= $primer_dia) {
+                                $number_mont = $price4->created_at->format('m');
+                                array_push($fechas, $price4->created_at->format('j')." - ".substr( $mes[ $number_mont - 1 ], 0, 3 ) );
                             }
                         }
                     }
@@ -303,8 +336,9 @@
 
                     foreach ($terminal->energos()->orderBy('created_at')->get() as $energos) {
                         foreach ($energos->price_energo()->orderBy('created_at')->get() as $price5) {
-                            if($price3->created_at >= $primer_dia) {
-                                array_push($fechas, $price5->created_at->format('j - m'));
+                            if($price5->created_at >= $primer_dia) {
+                                $number_mont = $price5->created_at->format('m');
+                                array_push($fechas, $price5->created_at->format('j')." - ".substr( $mes[ $number_mont - 1 ], 0, 3 ) );
                             }
                         }
                     }
@@ -341,9 +375,11 @@
 
             }
 
+            // dd($precios_aar_multioil);
+
             // dd($terminales);
             //var_dump($terminales[2][1]);
-            return view('dashboard', compact('fechas', 'terminales'));
+            return view('dashboard', compact('fechas', 'terminales', 'precios_aar_multioil', 'meses_espaniol'));
         }
 
 public function fechas(Request $request, Terminal $terminal)
@@ -364,109 +400,104 @@ $precios_impulsa = array();
 $precios_hamse = array();
 $precios_potesta = array();
 $precios_energo = array();
+$precios_aar = array();
 
 
 $combustible = "";
 
+$mes = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
 
 foreach ($terminal_uni->valeros()->where('terminal_id', $request->id_terminal)->where('created_at','LIKE','%'.$fech.'%')->orderBy('created_at')->get() as $valero) {
 
-array_push($fechas, $valero->created_at->format('j - m'));
 
-if($request->combustible == 'Regular'){
-array_push($precios_valero, $valero->precio_regular - $terminal_uni->fits[count($terminal_uni->fits)-1]->regular_fit);
+    $number_mont = $valero->created_at->format('m');
+    array_push($fechas, $valero->created_at->format('j')." - ".substr( $mes[ $number_mont - 1 ], 0, 3 ) );
 
-} elseif ($request->combustible == 'Supreme 93') {
-array_push($precios_valero, $valero->precio_premium - $terminal_uni->fits[count($terminal_uni->fits)-1]->disel_fit);
+    if($request->combustible == 'Regular'){
+        array_push($precios_valero, $valero->precio_regular - $terminal_uni->fits[count($terminal_uni->fits)-1]->regular_fit);
 
-} else {
-array_push($precios_valero, $valero->precio_disel - $terminal_uni->fits[count($terminal_uni->fits)-1]->regular_fit);
-}
+    } elseif ($request->combustible == 'Supreme 93') {
+        array_push($precios_valero, $valero->precio_premium - $terminal_uni->fits[count($terminal_uni->fits)-1]->disel_fit);
+
+    } else {
+        array_push($precios_valero, $valero->precio_disel - $terminal_uni->fits[count($terminal_uni->fits)-1]->regular_fit);
+    }
 
 }
 
 foreach ($terminal_uni->competitions as $competition) {
-foreach ($competition->prices()->where('created_at','LIKE','%'.$fech.'%')->orderBy('created_at')->get() as $price) {
-if($request->combustible == 'Regular'){
-array_push($precios_pemex, $price->precio_regular);
-
-} elseif ($request->combustible == 'Supreme 93') {
-array_push($precios_pemex, $price->precio_premium);
-
-} else {
-array_push($precios_pemex, $price->precio_disel);
-}
-}
+    foreach ($competition->prices()->where('created_at','LIKE','%'.$fech.'%')->orderBy('created_at')->get() as $price) {
+        if($request->combustible == 'Regular'){
+            array_push($precios_pemex, $price->precio_regular);
+            array_push($precios_aar, floatval( $price->precio_regular ) - 0.90 );
+        } elseif ($request->combustible == 'Supreme 93') {
+            array_push($precios_pemex, $price->precio_premium);
+            array_push($precios_aar, floatval( $price->precio_premium ) - 0.90 );
+        } else {
+            array_push($precios_pemex, $price->precio_disel);
+            array_push($precios_aar, floatval( $price->precio_disel ) - 1.70 );
+        }
+    }
 }
 
 foreach ($terminal_uni->policons as $policons) {
-foreach ($policons->price_policon()->where('created_at','LIKE','%'.$fech.'%')->orderBy('created_at')->get() as $price_poli) {
-if($request->combustible == 'Regular'){
-array_push($precios_policon, $price_poli->precio_regular);
-
-} elseif ($request->combustible == 'Supreme 93') {
-array_push($precios_policon, $price_poli->precio_premium);
-
-} else {
-array_push($precios_policon, $price_poli->precio_disel);
-}
-}
+    foreach ($policons->price_policon()->where('created_at','LIKE','%'.$fech.'%')->orderBy('created_at')->get() as $price_poli) {
+        if($request->combustible == 'Regular'){
+            array_push($precios_policon, $price_poli->precio_regular);
+        } elseif ($request->combustible == 'Supreme 93') {
+            array_push($precios_policon, $price_poli->precio_premium);
+        } else {
+            array_push($precios_policon, $price_poli->precio_disel);
+        }
+    }
 }
 
 foreach ($terminal_uni->impulsas as $impulsas) {
-foreach ($impulsas->price_impulsa()->where('created_at','LIKE','%'.$fech.'%')->orderBy('created_at')->get() as $price_impu) {
-if($request->combustible == 'Regular'){
-array_push($precios_impulsa, $price_impu->precio_regular);
-
-} elseif ($request->combustible == 'Supreme 93') {
-array_push($precios_impulsa, $price_impu->precio_premium);
-
-} else {
-array_push($precios_impulsa, $price_impu->precio_disel);
-}
-}
+    foreach ($impulsas->price_impulsa()->where('created_at','LIKE','%'.$fech.'%')->orderBy('created_at')->get() as $price_impu) {
+        if($request->combustible == 'Regular'){
+            array_push($precios_impulsa, $price_impu->precio_regular);
+        } elseif ($request->combustible == 'Supreme 93') {
+            array_push($precios_impulsa, $price_impu->precio_premium);
+        } else {
+            array_push($precios_impulsa, $price_impu->precio_disel);
+        }
+    }
 }
 
 foreach ($terminal_uni->hamses as $hamses) {
-foreach ($hamses->price_hamse()->where('created_at','LIKE','%'.$fech.'%')->orderBy('created_at')->get() as $price_ham) {
-if($request->combustible == 'Regular'){
-array_push($precios_hamse, $price_ham->precio_regular);
-
-} elseif ($request->combustible == 'Supreme 93') {
-array_push($precios_hamse, $price_ham->precio_premium);
-
-} else {
-array_push($precios_hamse, $price_ham->precio_disel);
-}
-}
+    foreach ($hamses->price_hamse()->where('created_at','LIKE','%'.$fech.'%')->orderBy('created_at')->get() as $price_ham) {
+        if($request->combustible == 'Regular'){
+            array_push($precios_hamse, $price_ham->precio_regular);
+        } elseif ($request->combustible == 'Supreme 93') {
+            array_push($precios_hamse, $price_ham->precio_premium);
+        } else {
+            array_push($precios_hamse, $price_ham->precio_disel);
+        }
+    }
 }
 
 foreach ($terminal_uni->potestas as $potestas) {
-foreach ($potestas->price_potesta()->where('created_at','LIKE','%'.$fech.'%')->orderBy('created_at')->get() as $price_impu) {
-if($request->combustible == 'Regular'){
-array_push($precios_potesta, $price_impu->precio_regular);
-
-} elseif ($request->combustible == 'Supreme 93') {
-array_push($precios_potesta, $price_impu->precio_premium);
-
-} else {
-array_push($precios_potesta, $price_impu->precio_disel);
-}
-}
+    foreach ($potestas->price_potesta()->where('created_at','LIKE','%'.$fech.'%')->orderBy('created_at')->get() as $price_impu) {
+        if($request->combustible == 'Regular'){
+            array_push($precios_potesta, $price_impu->precio_regular);
+        } elseif ($request->combustible == 'Supreme 93') {
+            array_push($precios_potesta, $price_impu->precio_premium);
+        } else {
+            array_push($precios_potesta, $price_impu->precio_disel);
+        }
+    }
 }
 
 foreach ($terminal_uni->energos as $energos) {
-foreach ($energos->price_energo()->where('created_at','LIKE','%'.$fech.'%')->orderBy('created_at')->get() as $price_ener) {
-if($request->combustible == 'Regular'){
-array_push($precios_potesta, $price_impu->precio_regular);
-
-} elseif ($request->combustible == 'Supreme 93') {
-array_push($precios_potesta, $price_impu->precio_premium);
-
-} else {
-array_push($precios_potesta, $price_impu->precio_disel);
-}
-}
+    foreach ($energos->price_energo()->where('created_at','LIKE','%'.$fech.'%')->orderBy('created_at')->get() as $price_ener) {
+        if($request->combustible == 'Regular'){
+            array_push($precios_potesta, $price_impu->precio_regular);
+        } elseif ($request->combustible == 'Supreme 93') {
+            array_push($precios_potesta, $price_impu->precio_premium);
+        } else {
+            array_push($precios_potesta, $price_impu->precio_disel);
+        }
+    }
 }
 
 
@@ -480,7 +511,8 @@ $selecion = array(
 'precios_impulsa' => $precios_impulsa,
 'precios_hamse' => $precios_hamse,
 'precios_potesta' => $precios_potesta,
-'precios_energo' => $precios_energo
+'precios_energo' => $precios_energo,
+'precios_aar' => $precios_aar
 );
 return json_encode($selecion);
 }

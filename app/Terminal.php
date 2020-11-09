@@ -36,6 +36,21 @@ class Terminal extends Model
     {
         return $this->hasMany('App\Valero');
     }
+
+    public function hamses()
+    {
+        return $this->hasMany('App\Hamse');
+    }
+
+    public function potestas()
+    {
+        return $this->hasMany('App\Potesta');
+    }
+
+    public function energos()
+    {
+        return $this->hasMany('App\Energo');
+    }
     protected $fillable = [
         'id', 'razon_social', 'rfc', 'nombre_terminal', 'status', 'codigo_postal', 'tipo_de_vialidad', 'nombre_de_vialidad', 'n_exterior', 'n_interior',
     ];

@@ -121,6 +121,42 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('impulsa/calendario_edit_impulsa', 'ImpulsaController@calendario_edit_impulsa');
 });
 
+// rutas de hamse
+Route::group(['middleware' => 'auth'], function () {
+	Route::resource('hamse','HamseController');
+	Route::post('hamse/create','HamseController@create');
+	Route::get('hamse/edit/{id}','HamseController@edit')->name('hamse.edit');
+	Route::post('hamse/update/{id}','HamseController@update')->name('hamse.update');
+	Route::post('hamse/store','HamseController@store');
+	Route::post('hamse/edit', 'HamseController@edit');
+	Route::post('hamse/hamse_selec', 'HamseController@hamse_selec');
+	Route::post('hamse/calendario_edit_hamse', 'HamseController@calendario_edit_hamse');
+});
+
+// rutas de potesta
+Route::group(['middleware' => 'auth'], function () {
+	Route::resource('potesta','PotestaController');
+	Route::post('potesta/create','PotestaController@create');
+	Route::get('potesta/edit/{id}','PotestaController@edit')->name('potesta.edit');
+	Route::post('potesta/update/{id}','PotestaController@update')->name('potesta.update');
+	Route::post('potesta/store','PotestaController@store');
+	Route::post('potesta/edit', 'PotestaController@edit');
+	Route::post('potesta/potesta_selec', 'PotestaController@potesta_selec');
+	Route::post('potesta/calendario_edit_potesta', 'PotestaController@calendario_edit_potesta');
+});
+
+// rutas de energo
+Route::group(['middleware' => 'auth'], function () {
+	Route::resource('energo','EnergoController');
+	Route::post('energo/create','EnergoController@create');
+	Route::get('energo/edit/{id}','EnergoController@edit')->name('energo.edit');
+	Route::post('energo/update/{id}','EnergoController@update')->name('energo.update');
+	Route::post('energo/store','EnergoController@store');
+	Route::post('energo/edit', 'EnergoController@edit');
+	Route::post('energo/energo_selec', 'EnergoController@energo_selec');
+	Route::post('energo/calendario_edit_energo', 'EnergoController@calendario_edit_energo');
+});
+
 
 // rutas de estaciones
 Route::group(['middleware' => 'auth'], function () {
@@ -172,6 +208,54 @@ Route::group(['middleware' => 'auth'], function () {
 Route::group(['middleware' => 'auth'], function () {
 	Route::any('flete', 'QuoteController@flete');
 });
+
+// Ventas Controller
+Route::group(['middleware' => 'auth'], function () {
+
+    /* Nuevas Rutas */
+    Route::get('ventas','VentasController@index')->name('ventas.index');
+    Route::get('ventas/agregar-prospecto','VentasController@agregar_prospecto')->name('ventas.agregar_prospecto');
+    Route::post('ventas/guardar-prospecto','VentasController@guardar_prospecto')->name('ventas.guardarProspecto');
+    Route::post('ventas/asignar-prospecto-vendedor','VentasController@asignar_prospecto_vendedor')->name('ventas.asignar_prospecto_vendedor');
+    Route::post('ventas/agregar-dias-prospecto','VentasController@agregar_dias_prospecto')->name('ventas.agregar_dias_prospecto');
+    Route::get('ventas/editar-prospecto/{id}','VentasController@editar_prospecto')->name('ventas.editar_prospecto');
+    Route::get('ventas/visualizar-prospecto/{id}','VentasController@visualizar_prospecto')->name('ventas.visualizar_prospecto');
+    Route::post('ventas/actualizar-prospecto','VentasController@actualizar_prospecto')->name('ventas.actualizar_prospecto');
+    Route::get('ventas/agregar-cliente/{id}','VentasController@agregar_cliente')->name('ventas.agregar_cliente');
+    Route::post('ventas/guardar-cliente','VentasController@guardar_cliente')->name('ventas.guardar_cliente');
+    Route::post('ventas/guardar-documento','VentasController@guardar_documento')->name('ventas.guardar_documento');
+    Route::post('ventas/guardar-propuesta', 'VentasController@guardar_propuesta')->name('ventas.guardar_propuesta');
+    Route::get('ventas/editar-cliente/{id}','VentasController@editar_cliente')->name('ventas.editar_cliente');
+    Route::post('ventas/guardar-cambios-cliente','VentasController@guardar_cambios_cliente')->name('ventas.guardar_cambios_cliente');
+    Route::get('ventas/visualizar-cliente/{id}','VentasController@visualizar_cliente')->name('ventas.visualizar_cliente');
+    Route::get('ventas/agregar-vendedor','VentasController@agregar_vendedor')->name('ventas.agregar_vendedor');
+    Route::post('ventas/guardar-vendedor-nuevo','VentasController@guardar_vendedor_nuevo')->name('ventas.guardar_vendedor_nuevo');
+    Route::post('ventas/actualizar-vendedor','VentasController@actualizar_vendedor')->name('ventas.actualizar_vendedor');
+
+    Route::get('ventas/editar-vendedor/{id}','VentasController@editar_vendedor')->name('ventas.editar_vendedor');
+
+    Route::get('ventas/agregar-documentacion/{id}','VentasController@agregar_documentacion')->name('ventas.agregar_documentacion');
+
+    Route::post('ventas/agregar-comentario-bitacora', 'VentasController@agregar_comentario_bitacora')->name('ventas.agregar_comentario_bitacora');
+
+    Route::post('ventas/agregar-comentario-bitacora-cliente', 'VentasController@agregar_comentario_bitacora_cliente')->name('ventas.agregar_comentario_bitacora_cliente');
+
+    Route::get('ventas/bitacora/{id}','VentasController@bitacora')->name('ventas.bitacora');
+    Route::get('ventas/bitacora-cliente/{id}','VentasController@bitacora_cliente')->name('ventas.bitacora_cliente');
+    Route::post('ventas/agregar-datos','VentasController@agregar_datos')->name('ventas.agregar_datos');
+
+    Route::post('ventas/eliminar','VentasController@eliminar')->name('ventas.eliminar');
+
+    Route::post('ventas/eliminar-vendedor','VentasController@eliminar_vendedor')->name('ventas.eliminar_vendedor');
+
+});
+
+// Vendedores Controller
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('clientes','VendedorClienteController@index')->name('clientes.index');
+});
+
+Route::get('clientes/download/{name_file}','VendedorClienteController@download_client')->name('clientes.downloadclient');
 
 
 //Route::get('estaciones', ['as' => 'estaciones.index', 'uses' => 'EstacionController@index']);

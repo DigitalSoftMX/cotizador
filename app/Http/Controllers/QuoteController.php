@@ -117,7 +117,7 @@ class QuoteController extends Controller
 
     public function flete(Request $request)
     {
-        $request->user()->authorizeRoles(['Administrador','Invitado']);
+        $request->user()->authorizeRoles(['Administrador','Invitado','Vendedor','Ventas']);
         $rol_user = $request->user()->roles[0]->name;
         $display = "block";
         if($rol_user == 'Invitado'){

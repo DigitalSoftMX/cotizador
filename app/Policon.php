@@ -13,7 +13,7 @@ class Policon extends Model
 
     public function terminals()
     {
-        return $this->belongsTo('App\Terminal', 'id');
+        return $this->belongsTo('App\Terminal', 'terminal_id');
     }
 
     protected $fillable = [

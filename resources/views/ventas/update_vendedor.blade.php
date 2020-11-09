@@ -84,7 +84,7 @@
 
                                 <div class="container">
                                     <div class="options--footer">
-                                        <button type="submit" class="btn-option">Guadar</button>
+                                        <button type="submit" class="btn-option">Guardar</button>
                                         <a href="{{ route('ventas.index') }}" class="btn-option">Cancelar</a>
                                     </div>
                                 </div>

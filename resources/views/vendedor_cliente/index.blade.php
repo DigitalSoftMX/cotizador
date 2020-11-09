@@ -366,7 +366,7 @@
             </div>
 
             <div class="footer--options">
-                <button type="submit" class="btn-option">Guadar</button>
+                <button type="submit" class="btn-option">Guardar</button>
                 <button class="btn-option" data-dismiss="modal">Cancelar</button>
             </div>
         </form>

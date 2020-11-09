@@ -717,7 +717,6 @@ class VentasController extends Controller
     public function guardar_documento(Request $request)
     {
         $fileType = $request->post('fileType');
-        $file = $request->file('file');
         $cliente_id = $request->post('cliente_id');
 
         $fileType = str_replace(" ","_", $fileType);
@@ -731,14 +730,25 @@ class VentasController extends Controller
             'created_at' => $fecha_actual
         );
 
-        // Almacenamos en BD
-        Cliente::where('id',$cliente_id)->update([$fileType => json_encode($json_document) ]);
-        // Almacenamos en local
-        \Storage::disk('public')->put($name_file,  \File::get($file));
+        if( $request->file('file') !== null )
+        {
+            $file = $request->file('file');
+            // Almacenamos en BD
+            Cliente::where('id',$cliente_id)->update([$fileType => json_encode($json_document) ]);
+            // Almacenamos en local
+            \Storage::disk('public')->put($name_file,  \File::get($file));
 
-        return back()
-            ->with('status', 'Archivo '.str_replace('_',' ', $fileType).' subido correctamente')
-            ->with('status_alert', 'alert-success');
+            return back()
+                ->with('status', 'Archivo '.str_replace('_',' ', $fileType).' subido correctamente')
+                ->with('status_alert', 'alert-success');
+
+        }else{
+
+            return back()
+                ->with('status', 'Ha surgido un error y el archivo no se pudo subir, vuelve a intentarlo')
+                ->with('status_alert', 'alert-danger');
+
+        }
     }
 
     public function guardar_propuesta(Request $request)

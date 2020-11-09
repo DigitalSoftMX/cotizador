@@ -24,6 +24,10 @@
     <!-- Dropify CSS -->
     <link href="{{ asset('dropify/css/dropify.min.css') }}" rel="stylesheet" />
 
+    <link href="{{ asset('css/ventas.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/ventas-icons/style.css') }}" rel="stylesheet">
+
+
     </head>
     <body class="{{ $class ?? '' }}">
         @auth()
@@ -165,6 +169,7 @@
         <script src="{{ asset('table-plugin/jquery.dataTables.min.js') }}"></script>
         <!-- Dropify JS -->
         <script src="{{ asset('dropify/js/dropify.min.js') }}"></script>
+
         @stack('js')
     </body>
 </html>

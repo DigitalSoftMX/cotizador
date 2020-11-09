@@ -14,6 +14,6 @@ class ClienteVendedor extends Model
     protected $table = 'cliente_vendedor';
 
     protected $fillable = [
-        'id', 'user_id', 'cliente_id', 'dia_termino', 'status', 'show_disponible'
+        'id', 'user_id', 'cliente_id', 'dia_termino', 'status', 'show_disponible', 'asignado'
     ];
 }

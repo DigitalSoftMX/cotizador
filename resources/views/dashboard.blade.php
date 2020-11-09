@@ -13,14 +13,10 @@
                             <div class="col">
                                 <select class="selectpicker float-right" data-style="btn-primary" id="fecha">
                                     <option disabled selected>Elige un Mes</option>
-                                    <option value="01">Enero</option>
-                                    <option value="02">Febrero</option>
-                                    <option value="03">Marzo</option>
-                                    <option value="04">Abril</option>
-                                    <option value="05">Mayo</option>
-                                    <option value="06">Junio</option>
-                                    <option value="07">Julio</option>
-                                    <option value="08">Agosto</option>
+                                    @foreach ( $meses_espaniol as $mes_espaniol)
+                                        <option value="{{ $mes_espaniol['numerMonth'] }}">{{ $mes_espaniol['nameMonth'] }}</option>
+                                    @endforeach
+
                                 </select>
                             </div>
                         </div>
@@ -94,7 +90,8 @@
                                                     'precio_hamse'=>$terminales[0][6],
                                                     'precio_potesta'=>$terminales[0][7],
                                                     'precio_energo'=>$terminales[0][8],
-                                                    'id_terminal'=>'1' ])
+                                                    'id_terminal'=>'1',
+                                                    'precios_aar' => $precios_aar_multioil[0] ])
                                                 </div>
                                                 <div class="carousel-item">
                                                     @include('Graphics.graphics',
@@ -110,7 +107,8 @@
                                                     'precio_hamse'=>$terminales[0][13],
                                                     'precio_potesta'=>$terminales[0][14],
                                                     'precio_energo'=>$terminales[0][15],
-                                                    'id_terminal'=>'1'  ])
+                                                    'id_terminal'=>'1',
+                                                    'precios_aar' => $precios_aar_multioil[2]  ])
                                                 </div>
                                                 <a class="carousel-control-prev mr-5" href="#carouselExampleIndicators0" role="button" data-slide="prev">
                                                     <span class="text-dark" aria-hidden="true">
@@ -168,7 +166,8 @@
                                                     'precio_hamse'=>$terminales[2][6],
                                                     'precio_potesta'=>$terminales[2][7],
                                                     'precio_energo'=>$terminales[2][8],
-                                                    'id_terminal'=>'3' ])
+                                                    'id_terminal'=>'3',
+                                                    'precios_aar' => $precios_aar_multioil[6] ])
                                                 </div>
                                                 <div class="carousel-item">
                                                     @include('Graphics.graphics',
@@ -184,7 +183,8 @@
                                                     'precio_hamse'=>$terminales[2][13],
                                                     'precio_potesta'=>$terminales[2][14],
                                                     'precio_energo'=>$terminales[2][15],
-                                                    'id_terminal'=>'3'  ])
+                                                    'id_terminal'=>'3',
+                                                    'precios_aar' => $precios_aar_multioil[7]  ])
                                                 </div>
                                                 <div class="carousel-item">
                                                     @include('Graphics.graphics',
@@ -200,7 +200,8 @@
                                                     'precio_hamse'=>$terminales[2][20],
                                                     'precio_potesta'=>$terminales[2][21],
                                                     'precio_energo'=>$terminales[2][22],
-                                                    'id_terminal'=>'3'  ])
+                                                    'id_terminal'=>'3',
+                                                    'precios_aar' => $precios_aar_multioil[8]  ])
                                                 </div>
                                                 <a class="carousel-control-prev mr-5" href="#carouselExampleIndicators1" role="button" data-slide="prev">
                                                     <span class="text-dark" aria-hidden="true">
@@ -236,7 +237,8 @@
                                                     'precio_hamse'=>$terminales[3][6],
                                                     'precio_potesta'=>$terminales[3][7],
                                                     'precio_energo'=>$terminales[3][8],
-                                                    'id_terminal'=>'4' ])
+                                                    'id_terminal'=>'4',
+                                                    'precios_aar' => $precios_aar_multioil[9] ])
                                                 </div>
                                                 <div class="carousel-item">
                                                     @include('Graphics.graphics',
@@ -252,7 +254,8 @@
                                                     'precio_hamse'=>$terminales[3][13],
                                                     'precio_potesta'=>$terminales[3][14],
                                                     'precio_energo'=>$terminales[3][15],
-                                                    'id_terminal'=>'4' ])
+                                                    'id_terminal'=>'4',
+                                                    'precios_aar' => $precios_aar_multioil[10] ])
                                                 </div>
                                                 <div class="carousel-item">
                                                     @include('Graphics.graphics',
@@ -268,7 +271,8 @@
                                                     'precio_hamse'=>$terminales[3][20],
                                                     'precio_potesta'=>$terminales[3][21],
                                                     'precio_energo'=>$terminales[3][22],
-                                                    'id_terminal'=>'4' ])
+                                                    'id_terminal'=>'4',
+                                                    'precios_aar' => $precios_aar_multioil[11] ])
                                                 </div>
                                                 <a class="carousel-control-prev mr-5" href="#carouselExampleIndicators2" role="button" data-slide="prev">
                                                     <span class="text-dark" aria-hidden="true">
@@ -308,7 +312,8 @@
                                                    'precio_hamse'=>$terminales[5][6],
                                                    'precio_potesta'=>$terminales[5][7],
                                                    'precio_energo'=>$terminales[5][8],
-                                                   'id_terminal'=>'6' ])
+                                                   'id_terminal'=>'6',
+                                                   'precios_aar' => $precios_aar_multioil[15] ])
                                                  </div>
                                                 <div class="carousel-item">
                                                     @include('Graphics.graphics',
@@ -324,7 +329,8 @@
                                                     'precio_hamse'=>$terminales[5][13],
                                                     'precio_potesta'=>$terminales[5][14],
                                                     'precio_energo'=>$terminales[5][15],
-                                                    'id_terminal'=>'6' ])
+                                                    'id_terminal'=>'6',
+                                                    'precios_aar' => $precios_aar_multioil[16] ])
                                                 </div>
                                                 <div class="carousel-item">
                                                     @include('Graphics.graphics',
@@ -340,7 +346,8 @@
                                                     'precio_hamse'=>$terminales[5][20],
                                                     'precio_potesta'=>$terminales[5][21],
                                                     'precio_energo'=>$terminales[5][22],
-                                                    'id_terminal'=>'6' ])
+                                                    'id_terminal'=>'6',
+                                                    'precios_aar' => $precios_aar_multioil[17] ])
                                                 </div>
                                                 <a class="carousel-control-prev mr-5" href="#carouselExampleIndicators4" role="button" data-slide="prev">
                                                     <span class="text-dark" aria-hidden="true">
@@ -372,7 +379,8 @@
                                                    'precio_hamse'=>$terminales[6][6],
                                                    'precio_potesta'=>$terminales[6][7],
                                                    'precio_energo'=>$terminales[6][8],
-                                                   'id_terminal'=>'7' ])
+                                                   'id_terminal'=>'7',
+                                                   'precios_aar' => $precios_aar_multioil[18] ])
                                                  </div>
                                                 <div class="carousel-item">
                                                     @include('Graphics.graphics',
@@ -388,7 +396,8 @@
                                                     'precio_hamse'=>$terminales[6][13],
                                                     'precio_potesta'=>$terminales[6][14],
                                                     'precio_energo'=>$terminales[6][15],
-                                                    'id_terminal'=>'7' ])
+                                                    'id_terminal'=>'7',
+                                                    'precios_aar' => $precios_aar_multioil[19] ])
                                                 </div>
                                                 <div class="carousel-item">
                                                     @include('Graphics.graphics',
@@ -404,7 +413,8 @@
                                                     'precio_hamse'=>$terminales[6][20],
                                                     'precio_potesta'=>$terminales[6][21],
                                                     'precio_energo'=>$terminales[6][22],
-                                                    'id_terminal'=>'7' ])
+                                                    'id_terminal'=>'7',
+                                                    'precios_aar' => $precios_aar_multioil[20] ])
                                                 </div>
                                                 <a class="carousel-control-prev mr-5" href="#carouselExampleIndicators5" role="button" data-slide="prev">
                                                     <span class="text-dark" aria-hidden="true">

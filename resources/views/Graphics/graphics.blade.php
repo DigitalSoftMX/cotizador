@@ -64,29 +64,81 @@
         ?>
         <div class="row text-center">
             @foreach($precios as $key => $value)
+                @if( auth()->user()->roles[0]->id == 1 )
+                    <div class="col-3 mx-auto d-block">
+                        <div class="card">
+                          <div class="card-body">
+                            <h6 class="card-title">
+                                Precio del ultimo día registrado para: {{$key}}
+                                <br>
 
-            <div class="col-3 mx-auto d-block">
-                <div class="card">
-                  <div class="card-body">
-                    <h6 class="card-title">
-                        Precio del ultimo día registrado para: {{$key}}
-                        <br>
+                                @php
+                                    $ultima_fecha = $fechas[ $posicion_ultima_fecha[$key] ]."-".date("Y");
+                                    $ultima_fecha = str_replace(' ', '', $ultima_fecha);
+                                @endphp
 
-                        @php
-                            $ultima_fecha = $fechas[ $posicion_ultima_fecha[$key] ]."-".date("Y");
-                            $ultima_fecha = str_replace(' ', '', $ultima_fecha);
-                        @endphp
+                                {{ $ultima_fecha }}
 
-                        {{ $ultima_fecha }}
+                            </h6>
+                            <h5 class="card-title">$
+                                {{ $value }}
+                            </h5>
+                          </div>
+                        </div>
+                    </div>
+                @else
 
-                    </h6>
-                    <h5 class="card-title">$
-                        {{ $value }}
-                    </h5>
-                  </div>
-                </div>
-            </div>
+                    @if($key==='Impulsa' || $key === 'Pemex')
+                        <div class="col-3 mx-auto d-block">
+                            <div class="card">
+                              <div class="card-body">
+                                <h6 class="card-title">
+                                    Precio del ultimo día registrado para: {{$key}}
+                                    <br>
+
+                                    @php
+                                        $ultima_fecha = $fechas[ $posicion_ultima_fecha[$key] ]."-".date("Y");
+                                        $ultima_fecha = str_replace(' ', '', $ultima_fecha);
+                                    @endphp
+
+                                    {{ $ultima_fecha }}
+
+                                </h6>
+                                <h5 class="card-title">$
+                                    {{ $value }}
+                                </h5>
+                              </div>
+                            </div>
+                        </div>
+                    @endif
+
+                @endif
             @endforeach
+
+            @if ( count($precios_aar) > 0 && ( auth()->user()->roles[0]->id !== 3 && auth()->user()->roles[0]->id !== 2 ) )
+                <div class="col-3 mx-auto d-block">
+                    <div class="card">
+                        <div class="card-body">
+                        <h6 class="card-title">
+                            Precio del ultimo día registrado para: Multioil
+                            <br>
+
+                            @php
+                                $ultima_fecha = $fechas[ count( $precios_aar ) - 1 ]."-".date("Y");
+                                $ultima_fecha = str_replace(' ', '', $ultima_fecha);
+                            @endphp
+
+                            {{ $ultima_fecha }}
+
+                        </h6>
+                        <h5 class="card-title">$
+                            {{ $precios_aar[ count($precios_aar) - 1 ] }}
+                        </h5>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
         </div>
 
     </div>
@@ -166,6 +218,16 @@
                         data: @json($precio_energo),
                         backgroundColor: ['rgb(255, 255, 255, 0)'],
                         borderColor: ['rgb(0, 196, 196)'],
+                        borderWidth: 3
+                    },
+                    @endif
+                    @if(auth()->user()->roles[0]->id !== 3 && auth()->user()->roles[0]->id !== 2)
+                    {
+                        // Informacion de Multioil
+                        label: 'Multioil',
+                        data: @json($precios_aar),
+                        backgroundColor: ['rgb( 178, 234, 40,0)'],
+                        borderColor: ['rgb( 178, 234, 40 )'],
                         borderWidth: 3
                     },
                     @endif
@@ -265,7 +327,17 @@
                                     backgroundColor: ['rgb(255, 255, 255, 0)'],
                                     borderColor: ['rgb(0, 196, 196)'],
                                     borderWidth: 3
-                                }
+                                },
+                                @endif
+                                @if(auth()->user()->roles[0]->id !== 3 && auth()->user()->roles[0]->id !== 2)
+                                {
+                                    // Informacion de Multioil
+                                    label: 'Multioil',
+                                    data: datos.precios_aar,
+                                    backgroundColor: ['rgb( 178, 234, 40,0)'],
+                                    borderColor: ['rgb( 178, 234, 40 )'],
+                                    borderWidth: 3
+                                },
                                 @endif
                             ]
                         },

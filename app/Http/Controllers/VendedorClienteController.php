@@ -12,235 +12,272 @@ use App\Mail\NotificacionDocs;
 
 class VendedorClienteController extends Controller
 {
-    //
+    /* Aqui viene lo chido */
+
+    private $estados;
+
+    public function __construct()
+    {
+        $this->estados = array("Aguascalientes","Baja California Norte", "Baja California Sur", "Campeche", "Coahuila", "Colima",
+        "Chiapas", "Chihuahua", "Ciudad de México", "Durango", "Guanajuato", "Guerrero", "Hidalgo", "Jalisco",
+        "México", "Michoacán", "Morelos", "Nayarit", "Nuevo León", "Oaxaca", "Puebla", "Querétaro", "Quintana Roo",
+        "San Luis Potosí", "Sinaloa", "Sonora", "Tabasco", "Tamaulipas", "Tlaxcala", "Veracruz", "Yucatán", "Zacatecas");
+    }
+
     public function index(Request $request){
-        $request->user()->authorizeRoles(['Vendedor']);
-
         $user_id = $request->user()->id;
+        $estados = $this->estados;
 
-        /* Obtenemos los clientes del vendedor */
-        $mis_clientes_q = Cliente::select('clientes.nombre','clientes.email', 'clientes.direccion', 'clientes.tipo', 'clientes.bandera_blanca', 'clientes.numero_estacion',
-                                          'clientes.estado', 'clientes.telefono', 'clientes.id', 'cliente_vendedor.status', DB::raw('DATEDIFF(cliente_vendedor.dia_termino, CURDATE()) as dias'))
-                ->where('cliente_vendedor.status', '!=' , 'Olvidado')
-                ->where('cliente_vendedor.user_id', $user_id)
-                ->join('cliente_vendedor', 'cliente_vendedor.cliente_id','=','clientes.id')
-                ->get();
+        $data = [
+            'prospectos' => array(),
+            'clientes' => array()
+        ];
 
-        $mis_clientes = array();
+        /* Obtendremos los prospectos */
 
-        /* Verificamos que si le haya dado seguimiento */
-        foreach($mis_clientes_q as $cliente){
+        $prospectos = ClienteVendedor::select('clientes.*',
+                        DB::raw('cliente_vendedor.id as id_seguimiento'),
+                        DB::raw('DATEDIFF(cliente_vendedor.dia_termino, CURDATE()) as dias'))
+                        ->where('cliente_vendedor.status', 'Seguimiento')
+                        ->where('clientes.estatus', 'prospecto')
+                        ->where('cliente_vendedor.user_id', $user_id)
+                        ->join('clientes', 'clientes.id', "=", 'cliente_vendedor.cliente_id')
+                        ->get();
 
-            /* Si el status del cliente esta en Seguimiento
-               pero el tiempo ha finalizado entonces se marca como Olvidado
-            */
-            if($cliente->dias <= 0 && $cliente->status != 'Finalizado'){
-
-                ClienteVendedor::where('cliente_id', $cliente->id)
-                ->where('user_id', $user_id)
-                ->update(['status' => 'Olvidado', 'show_disponible' => 'si']);
-
-            }else{
-                array_push($mis_clientes, $cliente);
-            }
-        }
-
-        // dd($mis_clientes);
-
-        $data = array($mis_clientes);
-
-        return view('vendedor_cliente.index', compact('data'));
-    }
-
-    public function agregar_cliente(Request $request){
-        $request->user()->authorizeRoles(['Vendedor']);
-
-        $user_id = $request->user()->id;
-        $estados_q = VendedorUnidadNegocio::select('unidades_negocio')->where('user_id', $user_id)->get()[0];
-
-        if($estados_q->unidades_negocio == null){
-            $estados = array();
-        }else{
-            $estados = json_decode($estados_q->unidades_negocio,true);
-        }
-        return view('vendedor_cliente.agregar_cliente')->with('estados', $estados);
-    }
-
-    public function guardar_cliente(Request $request){
-
-        $request->user()->authorizeRoles(['Vendedor']);
-
-        $user_id = $request->user()->id;
-
-        $str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
-        $str = str_shuffle( str_shuffle($str) );
-        $value_key = $user_id.substr( $str , 0, 7);
-
-
-        $fecha_actual = date("Y-m-d");
-
-        $cliente = new Cliente();
-        $cliente->nombre = $request->post('nombre');
-        $cliente->direccion = $request->post('direccion');
-        $cliente->telefono = $request->post('telefono');
-        $cliente->email = $request->post('email');
-        $tipo = $request->post('tipo');
-        $cliente->tipo = $tipo;
-        $cliente->estado = $request->post('estado');
-
-
-        if( strcmp ( $cliente->tipo, "Estación" )  == 0){
-            $cliente->bandera_blanca = $request->post('bandera_blanca');
-            $cliente->numero_estacion = $request->post('numero_estacion');
-        }
-
-        $cliente->value_key = $value_key;
-
-        $cliente->save();
-
-        $cliente_id = Cliente::where('value_key', $value_key)->first()->id;
-
-        $cliente_vendedor = new ClienteVendedor();
-
-        $cliente_vendedor->user_id = $user_id;
-        $cliente_vendedor->cliente_id = $cliente_id;
-        $cliente_vendedor->show_disponible = "no";
-        $cliente_vendedor->status = 'Seguimiento';  // valores que puede tomar ['Seguimiento', 'Olvidado', 'Finalizado']
-        $cliente_vendedor->dia_termino = date("Y-m-d",strtotime($fecha_actual."+ 40 days"));
-        $cliente_vendedor->save();
-
-        return back()
-            ->with('status', 'Cliente agregado exitosamente')
-            ->with('status_alert', 'alert-success');
-    }
-
-    public function documentacion(Request $request, $id){
-        $request->user()->authorizeRoles(['Vendedor']);
-        $data = array();
-
-        $documentos = Cliente::find($id);
-
-        $data['id'] = $id;
-        $data['documentos'] =  $documentos;
-
-        // dd($data['documentos']);
-
-        return view('vendedor_cliente.documentacion', compact('data'));
-    }
-
-    public function subir(Request $request){
-        $id_cliente = $request->post('id_cliente');
-        $contrato = $request->post('contrato');
-
-        $file = $request->file('file');
-
-        $name = $contrato.$id_cliente.".pdf";
-
-        // Almacenamos en BD
-        Cliente::find($id_cliente)->update([$contrato => $name]);
-        // Almacenamos en local
-        \Storage::disk('public')->put($name,  \File::get($file));
-
-        $this->se_ha_finalizado( $request, $id_cliente);
-
-        $this->sendMail( array($name), $id_cliente, $contrato, $request);
-
-        return back()
-            ->with('status', 'Archivo '.str_replace('_',' ', $contrato).' subido correctamente')
-            ->with('status_alert', 'alert-success');
-    }
-
-    public function solicitud_documentos(Request $request){
-
-        $id_cliente = $request->post('id_cliente');
-        $documentos_cliente = Cliente::find($id_cliente);
-
-
-        if($documentos_cliente->solicitud_documentacion === NULL){
-
-            $documentos = array(
-                'solicitud_documento' => " ",
-                'ine'=> " ",
-                'acta_constitutiva' => " ",
-                'poder_notarial' => " ",
-                'rfc' => " ",
-                'constancia_situacion_fiscal' => " ",
-                'comprobante_domicilio'=> " "
-            );
-
-        }else{
-            $documentos = json_decode($documentos_cliente->solicitud_documentacion, true);
-        }
-
-        $pdfs = array();
-        $i = 0;
-        while( $request->has('documento'.$i) )
+        foreach($prospectos as $prospecto)
         {
-            $tipo_documento = $request->post('documento'.$i);
-            $name = $tipo_documento.$id_cliente.".pdf";
+            $json_prospecto =  array(
+                                    'id' => $prospecto->id,
+                                    'id_seguimiento' => $prospecto->id_seguimiento,
+                                    'empresa' => $prospecto->nombre,
+                                    'encargado' => $prospecto->encargado,
+                                    'unidad_negocio' => $prospecto->estado,
+                                    'dias' => $prospecto->dias,
+                                    'estacion_numero' => null,
+                                    'datos_importantes' => array(
+                                        'numero_dispensarios' => 0,
+                                        'gasolina_verde' => null,
+                                        'gasolina_roja' => null,
+                                        'diesel' => null,
+                                        'marca' => null
+                                    ),
+                                    'ficha_tecnica' => array(
+                                        'fecha_created' => null,
+                                        'empresa' => null,
+                                        'ultimo_comentario' => null,
+                                        'fecha' => null,
+                                        'status_carta_i' => null,
+                                        'status_convenio' => null,
+                                        'status_solicitud_doc' => null,
+                                        'status_propuesta' => null,
+                                        'status_contratos' => null,
+                                        'status_carta_b' => null
+                                    )
+                                );
 
-            array_push($pdfs, $name);
+            $json_prospecto['estacion_numero'] = $prospecto->estacion_numero;
+            $json_prospecto['datos_importantes'][0]['numero_dispensarios'] = $prospecto->numero_dispensarios;
+            $json_prospecto['datos_importantes'][0]['gasolina_verde'] = $prospecto->gasolina_verde;
+            $json_prospecto['datos_importantes'][0]['gasolina_roja'] = $prospecto->gasolina_roja;
+            $json_prospecto['datos_importantes'][0]['diesel'] = $prospecto->diesel;
+            $json_prospecto['datos_importantes'][0]['marca'] = $prospecto->marca;
 
-            $file = $request->file('file'.$i);
-            // Almacenamos en local
-            \Storage::disk('public')->put($name,  \File::get($file));
+            $json_prospecto['ficha_tecnica'][0]['empresa'] = $prospecto->nombre;
+            $json_prospecto['ficha_tecnica'][0]['fecha_created'] = $prospecto->created_at === null ? 'sin fecha': date("d/m/Y",strtotime($prospecto->created_at));
+            $json_prospecto['ficha_tecnica'][0]['status_carta_i'] = $prospecto->carta_de_intencion !== null ? true: false;
+            $json_prospecto['ficha_tecnica'][0]['status_convenio'] = $prospecto->convenio_de_confidencialidad !== null ? true: false;
+            $json_prospecto['ficha_tecnica'][0]['status_propuesta'] = $prospecto->propuestas !== null ? true: false;
+            $json_prospecto['ficha_tecnica'][0]['status_contratos'] = ( $prospecto->contrato_comodato !== null ) && ( $prospecto->contrato_de_suministro !== null ) ? true: false;
+            $json_prospecto['ficha_tecnica'][0]['status_carta_b'] = $prospecto->carta_bienvenida !== null ? true: false;
 
-            $documentos[$tipo_documento] = $name;
-            $i++;
+            if($prospecto->bitacora !== null)
+            {
+                $ultimo_comentario = json_decode($prospecto->bitacora, true);
+                $json_prospecto['ficha_tecnica'][0]['ultimo_comentario'] = $ultimo_comentario[count($ultimo_comentario)-1]['comentario'];
+                $json_prospecto['ficha_tecnica'][0]['fecha'] = $ultimo_comentario[count($ultimo_comentario)-1]['fecha'];
+            }
+
+            $status_documentos = ( $prospecto->solicitud_de_documentos !== null ) && ( $prospecto->ine !== null ) ? true : false;
+            $status_documentos = ( $prospecto->acta_constitutiva !== null ) && $status_documentos ? true : false;
+            $status_documentos = ( $prospecto->poder_notarial !== null ) && $status_documentos ? true : false;
+            $status_documentos = ( $prospecto->constancia_de_situacion_fiscal !== null ) && $status_documentos ? true : false;
+            $status_documentos = ( $prospecto->comprobante_de_domicilio !== null ) && $status_documentos ? true : false;
+            $status_documentos = ( $prospecto->permiso_cree !== null ) && $status_documentos ? true : false;
+            $status_documentos = ( $prospecto->documento_rfc !== null ) && $status_documentos ? true : false;
+
+            $json_prospecto['ficha_tecnica'][0]['status_solicitud_doc'] = $status_documentos;
+
+
+            if($json_prospecto['dias'] > 0)
+            {
+                array_push($data['prospectos'], $json_prospecto);
+            }else{
+                /* Se le acabo el tiempo */
+                ClienteVendedor::where('id', $json_prospecto['id_seguimiento'])
+                                ->update(['status' => 'Olvidado', 'show_disponible' => 'si', 'asignado' => 'no']);
+            }
+
         }
-        // Almacenamos en BD
-        Cliente::find($id_cliente)->update(['solicitud_documentacion' => json_encode($documentos)]);
 
-        $this->sendMail($pdfs, $id_cliente, $tipo_documento, $request);
+        /* Obtendremos los clientes */
+        $clientes = ClienteVendedor::select('clientes.*')
+                        ->where('cliente_vendedor.status', 'Finalizado')
+                        ->where('estatus', 'cliente')
+                        ->where('cliente_vendedor.user_id', $user_id)
+                        ->join('clientes', 'clientes.id', "=", 'cliente_vendedor.cliente_id')
+                        ->get();
 
-        $this->se_ha_finalizado( $request, $id_cliente);
+        foreach($clientes as $cliente)
+        {
+            $json_cliente =  array(
+                                    'id' => $cliente->id,
+                                    'empresa' => $cliente->nombre,
+                                    'rfc' => $cliente->rfc,
+                                    'avance' => 0,
+                                    'color' => 'bg-transparent',
+                                    'estacion_numero' => null,
+                                    'datos_importantes' => array(
+                                        'numero_dispensarios' => 0,
+                                        'gasolina_verde' => null,
+                                        'gasolina_roja' => null,
+                                        'diesel' => null,
+                                        'marca' => null
+                                    ),
+                                    'ficha_tecnica' => array(
+                                        'fecha_created' => null,
+                                        'empresa' => null,
+                                        'ultimo_comentario' => null,
+                                        'fecha' => null,
+                                        'status_carta_i' => null,
+                                        'status_convenio' => null,
+                                        'status_solicitud_doc' => null,
+                                        'status_propuesta' => null,
+                                        'status_contratos' => null,
+                                        'status_carta_b' => null,
+                                        'regular_price' => null,
+                                        'supreme_price' => null,
+                                        'diesel_price' => null
+                                    )
+                                );
 
-        return back()
-            ->with('status', 'Archivos subido correctamente')
-            ->with('status_alert', 'alert-success');
+            $json_cliente['estacion_numero'] = $cliente->estacion_numero;
 
+            $json_cliente['datos_importantes'][0]['numero_dispensarios'] = $cliente->numero_dispensarios;
+            $json_cliente['datos_importantes'][0]['gasolina_verde'] = $cliente->gasolina_verde;
+            $json_cliente['datos_importantes'][0]['gasolina_roja'] = $cliente->gasolina_roja;
+            $json_cliente['datos_importantes'][0]['diesel'] = $cliente->diesel;
+            $json_cliente['datos_importantes'][0]['marca'] = $cliente->marca;
+
+            $json_cliente['ficha_tecnica'][0]['empresa'] = $cliente->nombre;
+            $json_cliente['ficha_tecnica'][0]['fecha_created'] = $cliente->created_at === null ? 'sin fecha': date("d/m/Y",strtotime($cliente->created_at));
+            $json_cliente['ficha_tecnica'][0]['status_carta_i'] = $cliente->carta_de_intencion !== null ? true: false;
+            $json_cliente['ficha_tecnica'][0]['status_convenio'] = $cliente->convenio_de_confidencialidad !== null ? true: false;
+            $json_cliente['ficha_tecnica'][0]['status_propuesta'] = $cliente->propuestas !== null ? true: false;
+            $json_cliente['ficha_tecnica'][0]['status_contratos'] = ( $cliente->contrato_comodato !== null ) && ( $cliente->contrato_de_suministro !== null ) ? true: false;
+            $json_cliente['ficha_tecnica'][0]['status_carta_b'] = $cliente->carta_bienvenida !== null ? true: false;
+
+            if($cliente->bitacora_cliente !== null)
+            {
+                $ultimo_comentario = json_decode($cliente->bitacora_cliente, true);
+                $json_cliente['ficha_tecnica'][0]['ultimo_comentario'] = $ultimo_comentario[count($ultimo_comentario)-1]['comentario'];
+                $json_cliente['ficha_tecnica'][0]['fecha'] = $ultimo_comentario[count($ultimo_comentario)-1]['fecha'];
+
+                $json_cliente['ficha_tecnica'][0]['regular_price'] = $ultimo_comentario[count($ultimo_comentario)-1]['regular_price'];
+
+                $json_cliente['ficha_tecnica'][0]['supreme_price'] = $ultimo_comentario[count($ultimo_comentario)-1]['supreme_price'];
+
+                $json_cliente['ficha_tecnica'][0]['diesel_price'] = $ultimo_comentario[count($ultimo_comentario)-1]['diesel_price'];
+            }
+
+            $status_documentos = ( $cliente->solicitud_de_documentos !== null ) && ( $cliente->ine !== null ) ? true : false;
+            $status_documentos = ( $cliente->acta_constitutiva !== null ) && $status_documentos ? true : false;
+            $status_documentos = ( $cliente->poder_notarial !== null ) && $status_documentos ? true : false;
+            $status_documentos = ( $cliente->constancia_de_situacion_fiscal !== null ) && $status_documentos ? true : false;
+            $status_documentos = ( $cliente->comprobante_de_domicilio !== null ) && $status_documentos ? true : false;
+            $status_documentos = ( $cliente->permiso_cree !== null ) && $status_documentos ? true : false;
+            $status_documentos = ( $cliente->documento_rfc !== null ) && $status_documentos ? true : false;
+
+            $json_cliente['ficha_tecnica'][0]['status_solicitud_doc'] = $status_documentos;
+
+            // if($cliente->carta_de_intencion != null)
+            // {   $json_cliente['avance']++; }
+
+            // if($cliente->convenio_de_confidencialidad != null)
+            // {   $json_cliente['avance']++;  }
+
+            // if($cliente->margen_garantizado != null)
+            // {   $json_cliente['avance']++;  }
+
+            // if($cliente->solicitud_de_documentos != null)
+            // {   $json_cliente['avance']++;  }
+
+            // if($cliente->ine != null)
+            // {   $json_cliente['avance']++;  }
+
+            // if($cliente->acta_constitutiva != null)
+            // {   $json_cliente['avance']++;  }
+
+            // if($cliente->poder_notarial != null)
+            // {   $json_cliente['avance']++;  }
+
+            // if($cliente->constancia_de_situacion_fiscal != null)
+            // {   $json_cliente['avance']++;  }
+
+            // if($cliente->comprobante_de_domicilio != null)
+            // {   $json_cliente['avance']++;  }
+
+            // if($cliente->propuestas != null)
+            // {   $json_cliente['avance']++;  }
+
+            // if($cliente->contrato_comodato != null)
+            // {   $json_cliente['avance']++;  }
+
+            // if($cliente->contrato_de_suministro != null)
+            // {   $json_cliente['avance']++;  }
+
+            // if($cliente->carta_bienvenida != null)
+            // {   $json_cliente['avance']++;  }
+
+            // if($cliente->permiso_cree != null)
+            // {   $json_cliente['avance']++;  }
+
+            // $total = 13;
+
+            // $json_cliente['avance'] = ($json_cliente['avance'] * 100)/$total;
+
+            // if( $json_cliente['avance'] != 0 )
+            // {
+            //     if($json_cliente['avance'] < 50)
+            //     {
+            //         $json_cliente['color'] = 'bg-danger';
+            //     }else{
+            //         if($json_cliente['avance'] >= 50  && $json_cliente['avance'] < 100 )
+            //         {
+            //             $json_cliente['color'] = 'bg-info';
+            //         }else{
+            //             $json_cliente['color'] = 'bg-success';
+            //         }
+            //     }
+            // }
+
+            array_push( $data['clientes'], $json_cliente );
+        }
+
+
+        return view('vendedor_cliente.index',compact('estados', 'user_id', 'data'));
     }
 
-    public function propuestas(Request $request){
-
-        $id_cliente = $request->post('id_cliente');
-        $propuestas_cliente = Cliente::find($id_cliente);
-
-        if($propuestas_cliente->propuestas === NULL){
-            $propuesta = array();
-            $num_propuesta = 0;
-        }else{
-            $propuesta = json_decode($propuestas_cliente->propuestas, true);
-            $num_propuesta = count($propuesta);
-        }
-
-        $name = "propuesta".$id_cliente."#".$num_propuesta.".pdf";
-        $file = $request->file('file');
-        array_push($propuesta, $name);
-
-        $pdfs = array();
-        array_push($pdfs, $name);
-
-        // Almacenamos en BD
-        Cliente::find($id_cliente)->update(['propuestas' => json_encode($propuesta)]);
-
-        // Almacenamos en local
-        \Storage::disk('public')->put($name,  \File::get($file));
-
-        $this->sendMail($pdfs, $id_cliente, "propuesta", $request);
-
-        $this->se_ha_finalizado( $request, $id_cliente);
-
-        return back()
-            ->with('status', 'Su propuesta se ha subido correctamente')
-            ->with('status_alert', 'alert-success');
-
+    /* Para que un cliente descarge un archivo */
+    public function download_client($name_file)
+    {
+        return \Storage::response("public/$name_file");
     }
 
     public function sendMail($pdfs, $id_cliente, $contrato, $request)
     {
-        $email_cliente = Cliente::find($id_cliente)->first()->email;
+        $email_cliente = Cliente::where('id', $id_cliente)->get()[0]->email;
         $tipo_documento = strtoupper( str_replace('_',' ', $contrato) );
+
         $vendedor = strtoupper( $request->user()->name.' '.$request->user()->app_name );
 
         $subject = 'El vendedor '.$vendedor.' ha subido documentación de tu seguimiento.';
@@ -260,133 +297,6 @@ class VendedorClienteController extends Controller
             $message->subject($data['subject']);
 
         });
-    }
-
-    public function se_ha_finalizado( $request, $cliente_id){
-
-        $user_id = $request->user()->id;
-        $cliente = Cliente::find($cliente_id)->first();
-        $finalizado = TRUE;
-
-        $contratos = array('carta_intencion', 'convenio_confidencialidad',
-                            'margen_garantizado', 'solicitud_documentacion',
-                            'propuestas', 'contrato_comodato',
-                            'contrato_suministro', 'carta_bienvenida');
-
-        $solicitud_documentacion = array('solicitud_documento', 'ine', 'acta_constitutiva',
-                                        'poder_notarial', 'rfc', 'constancia_situacion_fiscal', 'comprobante_domicilio');
-
-        foreach($contratos as $contrato)
-        {
-
-            if($contrato != 'solicitud_documentacion')
-            {
-
-                if( $cliente[$contrato] === null )
-                {
-                    $finalizado = FALSE;
-                }
-
-            }else{
-
-                if( $cliente[$contrato] != null )
-                {
-
-                    $documentos_cliente = json_decode( $cliente[$contrato] , true);
-                    foreach($solicitud_documentacion as $documento)
-                    {
-                        if( strcmp($documentos_cliente[$documento], " ") === 0 )
-                        {
-                            $finalizado = FALSE;
-                        }
-                    }
-
-                }else{
-                    $finalizado = FALSE;
-                }
-            }
-        }
-
-        if($finalizado === TRUE){
-
-            ClienteVendedor::where('cliente_id',$cliente_id)
-            ->where('user_id',$user_id)
-            ->update(['status' => 'Finalizado']);
-
-        }
-    }
-
-    public function avance(Request $request, $id)
-    {
-        $request->user()->authorizeRoles(['Vendedor','Administrador']);
-
-        $cliente = Cliente::find($id);
-
-        $data['archivos-subidos'] = array();
-        $data['archivos-restantes'] = array();
-        $data['archivos_descarga'] = array();
-
-        $contratos = array('carta_intencion', 'convenio_confidencialidad',
-                            'margen_garantizado', 'solicitud_documentacion',
-                            'propuestas', 'contrato_comodato',
-                            'contrato_suministro', 'carta_bienvenida');
-
-        $solicitud_documentacion = array('solicitud_documento', 'ine', 'acta_constitutiva',
-                                        'poder_notarial', 'rfc', 'constancia_situacion_fiscal', 'comprobante_domicilio');
-
-
-        foreach($contratos as $contrato)
-        {
-
-            if($contrato != 'solicitud_documentacion')
-            {
-
-                if( $cliente[$contrato] != null )
-                {
-                    array_push($data['archivos-subidos'], $contrato);
-                    if($contrato == 'propuestas')
-                    {
-                        $num = count(json_decode($cliente[$contrato], true)) - 1;
-                        array_push( $data['archivos_descarga'] , $contrato.$id."#".$num.".pdf");
-                    }else{
-                        array_push( $data['archivos_descarga'] , $contrato.$id.".pdf");
-                    }
-
-                }else{
-                    array_push($data['archivos-restantes'], $contrato);
-                }
-
-            }else{
-
-                if( $cliente[$contrato] != null )
-                {
-
-                    $documentos_cliente = json_decode( $cliente[$contrato] , true);
-                    foreach($solicitud_documentacion as $documento)
-                    {
-                        if( strcmp($documentos_cliente[$documento], " ") != 0 )
-                        {
-                            array_push($data['archivos-subidos'], $documento);
-                            array_push( $data['archivos_descarga'] , $documento.$id.".pdf");
-                        }else{
-                            array_push($data['archivos-restantes'], $documento);
-                        }
-                    }
-
-                }else{
-                    array_push($data['archivos-restantes'], $contrato);
-                }
-            }
-        }
-
-        return view('vendedor_cliente.avance', compact('data'));
-
-    }
-
-    /* Para que un cliente descarge un archivo */
-    public function download_client($name_file)
-    {
-        return \Storage::response("public/$name_file");
     }
 
 }

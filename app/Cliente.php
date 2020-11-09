@@ -14,10 +14,12 @@ class Cliente extends Model
     protected $table = 'clientes';
 
     protected $fillable = [
-        'id', 'nombre', 'direccion', 'telefono', 'email', 'tipo', 'estado', 'bandera_blanca', 'numero_estacion',
-        'carta_intencion', 'convenio_confidencialidad', 'margen_garantizado',
-        'contrato_comodato', 'contrato_suministro', 'carta_bienvenida', 'solicitud_documentacion', 'propuestas',
-        'value_key'
+        'id', 'estacion_numero', 'marca', 'numero_dispensarios', 'gasolina_verde', 'gasolina_roja', 'diesel', 'nombre', 'encargado', 'estado', 'telefono', 'pagina_web', 'rfc', 'direccion',
+        'tipo', 'email', 'estatus', 'bandera_blanca', 'numero_estacion', 'carta_de_intencion',
+        'convenio_de_confidencialidad', 'margen_garantizado', 'solicitud_de_documentos',
+        'ine', 'acta_constitutiva', 'documento_rfc', 'poder_notarial', 'constancia_de_situacion_fiscal',
+        'comprobante_de_domicilio', 'propuestas', 'contrato_comodato', 'contrato_de_suministro',
+        'carta_bienvenida', 'permiso_cree', 'bitacora', 'bitacora_cliente', 'value_key'
     ];
 
 }

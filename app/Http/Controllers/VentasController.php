@@ -751,6 +751,21 @@ class VentasController extends Controller
         }
     }
 
+    public function eliminar_documento(Request $request)
+    {
+        $fileType = $request->post('fileType');
+        $cliente_id = $request->post('cliente_id');
+
+        $fileType = str_replace(" ","_", $fileType);
+
+        // Almacenamos en BD
+        Cliente::where('id',$cliente_id)->update([$fileType => null ]);
+
+        return back()
+                ->with('status', 'Archivo '.str_replace('_',' ', $fileType).' eliminado.')
+                ->with('status_alert', 'alert-success');
+    }
+
     public function guardar_propuesta(Request $request)
     {
         $cliente_id = $request->post('cliente_id');
@@ -830,12 +845,36 @@ class VentasController extends Controller
             $this->sendMail( array($propuesta_name) , $cliente_id, 'Propuesta', $request);
         }
 
-
-
         return back()
             ->with('status', 'Propuesta almacenada correctamente')
             ->with('status_alert', 'alert-success');
 
+    }
+
+    public function eliminar_propuesta(Request $request)
+    {
+        $cliente_id = $request->post('cliente_id');
+        $cliente = Cliente::where('id', $cliente_id)->get()[0];
+
+        if( $cliente->propuestas === null)
+        {
+            $propuestas_array = array();
+        }else{
+            $propuestas_array = json_decode($cliente->propuestas);
+
+            $propuestas_new_array = array();
+
+            for( $i=0 ; $i < count($propuestas_array)-1; $i++ )
+            {
+                array_push($propuestas_new_array, $propuestas_array[$i]);
+            }
+            // Almacenamos en BD
+            Cliente::where('id', $cliente_id)->update(['propuestas' => json_encode($propuestas_new_array) ]);
+        }
+
+        return back()
+            ->with('status', 'Propuesta eliminada.')
+            ->with('status_alert', 'alert-success');
     }
 
     public function download(Request $request, $file){

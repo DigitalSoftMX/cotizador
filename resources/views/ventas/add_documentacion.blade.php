@@ -94,6 +94,10 @@
                                                         <a href="javascript:void(0)" onclick="load_file( {{ $cliente->id }} ,'carta de intencion')">
                                                             <i class="material-icons icon-editar-azul"></i>
                                                         </a>
+
+                                                        <a href="javascript:void(0)" onclick="eliminar_archivo( '{{ $cliente->id }}', 'carta de intencion' )" style="color: red;">
+                                                            <span class="icon-trash"></span>
+                                                        </a>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -140,6 +144,10 @@
                                                         @endif
                                                         <a href="javascript:void(0)" onclick="load_file( {{ $cliente->id }} ,'convenio de confidencialidad')">
                                                             <i class="material-icons icon-editar-azul"></i>
+                                                        </a>
+
+                                                        <a href="javascript:void(0)" onclick="eliminar_archivo( '{{ $cliente->id }}', 'convenio de confidencialidad' )" style="color: red;">
+                                                            <span class="icon-trash"></span>
                                                         </a>
                                                     </div>
                                                 </td>
@@ -189,6 +197,10 @@
                                                         <a href="javascript:void(0)" onclick="load_file( {{ $cliente->id }} ,'margen garantizado')">
                                                             <i class="material-icons icon-editar-azul"></i>
                                                         </a>
+
+                                                        <a href="javascript:void(0)" onclick="eliminar_archivo( '{{ $cliente->id }}', 'margen garantizado' )" style="color: red;">
+                                                            <span class="icon-trash"></span>
+                                                        </a>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -235,6 +247,10 @@
                                                         @endif
                                                         <a href="javascript:void(0)" onclick="load_file( {{ $cliente->id }} ,'solicitud de documentos')">
                                                             <i class="material-icons icon-editar-azul"></i>
+                                                        </a>
+
+                                                        <a href="javascript:void(0)" onclick="eliminar_archivo( '{{ $cliente->id }}', 'solicitud de documentos' )" style="color: red;">
+                                                            <span class="icon-trash"></span>
                                                         </a>
                                                     </div>
                                                 </td>
@@ -283,6 +299,10 @@
                                                         <a href="javascript:void(0)" onclick="load_file( {{ $cliente->id }} ,'ine')">
                                                             <i class="material-icons icon-editar-azul"></i>
                                                         </a>
+
+                                                        <a href="javascript:void(0)" onclick="eliminar_archivo( '{{ $cliente->id }}', 'ine' )" style="color: red;">
+                                                            <span class="icon-trash"></span>
+                                                        </a>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -329,6 +349,10 @@
                                                         @endif
                                                         <a href="javascript:void(0)" onclick="load_file( {{ $cliente->id }} ,'acta constitutiva')">
                                                             <i class="material-icons icon-editar-azul"></i>
+                                                        </a>
+
+                                                        <a href="javascript:void(0)" onclick="eliminar_archivo( '{{ $cliente->id }}', 'acta constitutiva' )" style="color: red;">
+                                                            <span class="icon-trash"></span>
                                                         </a>
                                                     </div>
                                                 </td>
@@ -378,6 +402,10 @@
                                                         <a href="javascript:void(0)" onclick="load_file( {{ $cliente->id }} ,'poder notarial')">
                                                             <i class="material-icons icon-editar-azul"></i>
                                                         </a>
+
+                                                        <a href="javascript:void(0)" onclick="eliminar_archivo( '{{ $cliente->id }}', 'poder notarial' )" style="color: red;">
+                                                            <span class="icon-trash"></span>
+                                                        </a>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -425,6 +453,10 @@
                                                         <a href="javascript:void(0)" onclick="load_file( {{ $cliente->id }} ,'documento rfc')">
                                                             <i class="material-icons icon-editar-azul"></i>
                                                         </a>
+
+                                                        <a href="javascript:void(0)" onclick="eliminar_archivo( '{{ $cliente->id }}', 'documento rfc' )" style="color: red;">
+                                                            <span class="icon-trash"></span>
+                                                        </a>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -471,6 +503,10 @@
                                                         @endif
                                                         <a href="javascript:void(0)" onclick="load_file( {{ $cliente->id }} ,'constancia de situacion fiscal')">
                                                             <i class="material-icons icon-editar-azul"></i>
+                                                        </a>
+
+                                                        <a href="javascript:void(0)" onclick="eliminar_archivo( '{{ $cliente->id }}', 'constancia de situacion fiscal' )" style="color: red;">
+                                                            <span class="icon-trash"></span>
                                                         </a>
                                                     </div>
                                                 </td>
@@ -521,6 +557,10 @@
                                                             <i class="material-icons icon-editar-azul"></i>
                                                         </a>
 
+                                                        <a href="javascript:void(0)" onclick="eliminar_archivo( '{{ $cliente->id }}', 'comprobante de domicilio' )" style="color: red;">
+                                                            <span class="icon-trash"></span>
+                                                        </a>
+
                                                     </div>
                                                 </td>
                                             </tr>
@@ -569,6 +609,10 @@
 
                                                         <a href="javascript:void(0)" onclick="load_file( {{ $cliente->id }} ,'permiso_cree')">
                                                             <i class="material-icons icon-editar-azul"></i>
+                                                        </a>
+
+                                                        <a href="javascript:void(0)" onclick="eliminar_archivo( '{{ $cliente->id }}', 'permiso_cree' )" style="color: red;">
+                                                            <span class="icon-trash"></span>
                                                         </a>
                                                     </div>
                                                 </td>
@@ -627,6 +671,12 @@
                                                         <a href="javascript:void(0)" onclick="load_propuesta( {{ $cliente->id }} )">
                                                             <i class="material-icons icon-editar-azul"></i>
                                                         </a>
+
+                                                        <a href="javascript:void(0)" onclick="eliminar_propuesta( '{{ $cliente->id }}' )" style="color: red;">
+                                                            <span class="icon-trash"></span>
+                                                        </a>
+
+
                                                     </div>
                                                 </td>
                                             </tr>
@@ -674,6 +724,10 @@
 
                                                         <a href="javascript:void(0)" onclick="load_file( {{ $cliente->id }} ,'contrato comodato')">
                                                             <i class="material-icons icon-editar-azul"></i>
+                                                        </a>
+
+                                                        <a href="javascript:void(0)" onclick="eliminar_archivo( '{{ $cliente->id }}', 'contrato comodato' )" style="color: red;">
+                                                            <span class="icon-trash"></span>
                                                         </a>
 
                                                     </div>
@@ -725,6 +779,10 @@
                                                         <a href="javascript:void(0)" onclick="load_file( {{ $cliente->id }} ,'contrato de suministro')">
                                                             <i class="material-icons icon-editar-azul"></i>
                                                         </a>
+
+                                                        <a href="javascript:void(0)" onclick="eliminar_archivo( '{{ $cliente->id }}', 'contrato de suministro' )" style="color: red;">
+                                                            <span class="icon-trash"></span>
+                                                        </a>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -775,6 +833,10 @@
                                                             <i class="material-icons icon-editar-azul"></i>
                                                         </a>
 
+                                                        <a href="javascript:void(0)" onclick="eliminar_archivo( '{{ $cliente->id }}', 'carta bienvenida' )" style="color: red;">
+                                                            <span class="icon-trash"></span>
+                                                        </a>
+
                                                     </div>
                                                 </td>
                                             </tr>
@@ -792,6 +854,17 @@
         </div>
     </div>
 </div>
+
+<form style="display: none;" id="formEliminarArchivo" action="{{ route('ventas.eliminar_documento') }}" method="POST" >
+    @csrf
+    <input type="text" id="user_id_eliminar" name="cliente_id" >
+    <input type="text" id="fileType_eliminar" name="fileType" >
+</form>
+
+<form id="formEliminarPropuesta" style="display: none;" action="{{ route('ventas.eliminar_propuesta') }}" method="POST">
+    @csrf
+    <input type="text" id="user_id_eliminar_p" name="cliente_id">
+</form>
 
 <div class="modal" id="add-documento">
   <div class="modal-dialog">
@@ -919,6 +992,18 @@
             $('#add-propuesta').modal();
         }
 
+        function eliminar_archivo( cliente_id , type_file )
+        {
+            $('#fileType_eliminar').val(type_file);
+            $('#user_id_eliminar').val(cliente_id);
+            $('#formEliminarArchivo').submit();
+        }
+
+        function eliminar_propuesta( cliente_id )
+        {
+            $('#user_id_eliminar_p').val(cliente_id);
+            $('#formEliminarPropuesta').submit();
+        }
 
         document.getElementById('fecha_propuesta').addEventListener('change', (event) => {
             $fecha_propuesta = $('#fecha_propuesta').val();

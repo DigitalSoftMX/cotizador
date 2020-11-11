@@ -71,51 +71,53 @@
                                 </thead>
                                 <tbody>
                                     @foreach($terminals as $terminal)
-                                    <tr>
-                                        <td>
-                                            {{ $terminal->razon_social }}
-                                        </td>                                      
-                                        <td>
-                                            {{ $terminal->fits[(count($terminal->fits)) - 1]->policom }}
-                                        </td>
-                                        <td>
-                                            {{ $terminal->fits[(count($terminal->fits)) - 1]->impulsa }}
-                                        </td>
-                                        <td>
-                                            {{ $terminal->fits[(count($terminal->fits)) - 1]->comision }}
-                                        </td>
-                                        <td>
-                                            {{ $terminal->fits[(count($terminal->fits)) - 1]->regular_fit }}
-                                        </td>
-                                        <td>
-                                            {{ $terminal->fits[(count($terminal->fits)) - 1]->premium_fit }}
-                                        </td>
-                                        <td>
-                                            {{ $terminal->fits[(count($terminal->fits)) - 1]->disel_fit }}
-                                        </td>
-                                        <td>
-                                            {{ $terminal->fits[(count($terminal->fits)) - 1]->created_at }}
-                                        </td>
-                                        <!--td class="td-actions text-right">
-                                            <!--form action="{{ route('fits.destroy', $terminal->fits[0]->id) }}" method="post"-->
-                                                <!--@csrf
-                                                @method('delete')>
-                                                <a class="btn btn-success btn-link" data-original-title="" href="{{ route('fits.edit', $terminal) }}" rel="tooltip" title="">
-                                                    <i class="material-icons">
-                                                        edit
-                                                    </i>
-                                                    <div class="ripple-container">
-                                                    </div>
-                                                </a>
-                                                <!--button type="button" class="btn btn-danger btn-link" data-original-title="" title="" onclick="confirm('{{ __("¿Estás seguro de que deseas eliminar a esta Terminal?") }}') ? this.parentElement.submit() : ''">
-                                                    <i class="material-icons">close</i>
-                                                    <div class="ripple-container"></div>
-                                                </button>
-                                            </form>
-                                        </td-->
-                                    </tr>
+                                    @if( $terminal->razon_social !== 'Laredo' && $terminal->razon_social !== 'Chihuahua' && $terminal->razon_social !== 'Guadalajara' )
+                                        <tr>
+                                            <td>
+                                                {{ $terminal->razon_social }}
+                                            </td>
+                                            <td>
+                                                {{ $terminal->fits[(count($terminal->fits)) - 1]->policom }}
+                                            </td>
+                                            <td>
+                                                {{ $terminal->fits[(count($terminal->fits)) - 1]->impulsa }}
+                                            </td>
+                                            <td>
+                                                {{ $terminal->fits[(count($terminal->fits)) - 1]->comision }}
+                                            </td>
+                                            <td>
+                                                {{ $terminal->fits[(count($terminal->fits)) - 1]->regular_fit }}
+                                            </td>
+                                            <td>
+                                                {{ $terminal->fits[(count($terminal->fits)) - 1]->premium_fit }}
+                                            </td>
+                                            <td>
+                                                {{ $terminal->fits[(count($terminal->fits)) - 1]->disel_fit }}
+                                            </td>
+                                            <td>
+                                                {{ $terminal->fits[(count($terminal->fits)) - 1]->created_at }}
+                                            </td>
+                                            <!--td class="td-actions text-right">
+                                                <!--form action="{{ route('fits.destroy', $terminal->fits[0]->id) }}" method="post"-->
+                                                    <!--@csrf
+                                                    @method('delete')>
+                                                    <a class="btn btn-success btn-link" data-original-title="" href="{{ route('fits.edit', $terminal) }}" rel="tooltip" title="">
+                                                        <i class="material-icons">
+                                                            edit
+                                                        </i>
+                                                        <div class="ripple-container">
+                                                        </div>
+                                                    </a>
+                                                    <!--button type="button" class="btn btn-danger btn-link" data-original-title="" title="" onclick="confirm('{{ __("¿Estás seguro de que deseas eliminar a esta Terminal?") }}') ? this.parentElement.submit() : ''">
+                                                        <i class="material-icons">close</i>
+                                                        <div class="ripple-container"></div>
+                                                    </button>
+                                                </form>
+                                            </td-->
+                                        </tr>
+                                    @endif
                                     @endforeach
-                                    
+
                                 </tbody>
                             </table>
                         </div>

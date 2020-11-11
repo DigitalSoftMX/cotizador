@@ -36,14 +36,16 @@
                                 </label>
                                 <select class="custom-select custom-select-sm" id="cotizador" name="terminal_id">
                                     @foreach($terminals as $terminal)
-                                        @if($terminal->id == 3)
-                                            <option value=" {{$terminal->id}}" selected>
-                                                {{$terminal->razon_social}}
-                                            </option>
-                                        @else
-                                            <option value=" {{$terminal->id}}">
-                                                {{$terminal->razon_social}}
-                                            </option>
+                                        @if( $terminal->razon_social !== 'Laredo' && $terminal->razon_social !== 'Chihuahua' && $terminal->razon_social !== 'Guadalajara'  )
+                                            @if($terminal->id == 3)
+                                                <option value=" {{$terminal->id}}" selected>
+                                                    {{$terminal->razon_social}}
+                                                </option>
+                                            @else
+                                                <option value=" {{$terminal->id}}">
+                                                    {{$terminal->razon_social}}
+                                                </option>
+                                            @endif
                                         @endif
                                     @endforeach
                                 </select>
@@ -83,7 +85,7 @@
                             </div>
                             <div class="form-group col">
                                 <label for="disel_sin">
-                                    Diesel
+                                    Diésel
                                 </label>
                                 <input class="form-control" name="precio_disel" id="disel_sin" placeholder="0" type="number" min="0.00" step="0.01" value="">
                                 </input>
@@ -113,7 +115,7 @@
                             </div>
                             <div class="form-group col">
                                 <label for="disel_con">
-                                    Diesel
+                                    Diésel
                                 </label>
                                 <input class="form-control" disabled="" id="disel_con" placeholder="0" type="text">
                                 </input>

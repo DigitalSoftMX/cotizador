@@ -168,7 +168,8 @@
                     showNotification('top','right', 'warning', ''+res.color+'', ''+res.mensaje+'');
                 },
                 error: function(xhr){
-                    alert("An error occured: " + xhr.status + " " + xhr.statusText);
+                    // alert("An error occured: " + xhr.status + " " + xhr.statusText);
+                    alert('No hay precio registrado ese día');
                 }
             });
         });

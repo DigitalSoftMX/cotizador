@@ -60,46 +60,48 @@
                                 </thead>
                                 <tbody>
                                     @foreach($terminals as $terminal)
-                                    <tr>
-                                        <td>
-                                            {{ $terminal->id }}
-                                        </td>
-                                        <td>
-                                            {{ $terminal->razon_social }}
-                                        </td>
-                                        <td>
-                                            @if($terminal->status == 1)
-                                            Activa
-                                            @else
-                                            Inactiva
-                                            @endif
-                                        </td>
-                                        <td>
-                                            {{ $terminal->created_at }}
-                                        </td>
-                                        <td class="td-actions text-right">
-                                            <form action="{{ route('terminales.destroy', $terminal->id) }}"
-                                                method="post">
-                                                @csrf
-                                                @method('delete')
-                                                <a class="btn btn-success btn-link" data-original-title=""
-                                                    href="{{ route('terminales.edit', $terminal) }}" rel="tooltip"
-                                                    title="">
-                                                    <i class="material-icons">
-                                                        edit
-                                                    </i>
-                                                    <div class="ripple-container">
-                                                    </div>
-                                                </a>
-                                                <button type="button" class="btn btn-danger btn-link"
-                                                    data-original-title="" title=""
-                                                    onclick="confirm('{{ __("¿Estás seguro de que deseas eliminar a esta Terminal?") }}') ? this.parentElement.submit() : ''">
-                                                    <i class="material-icons">close</i>
-                                                    <div class="ripple-container"></div>
-                                                </button>
-                                            </form>
-                                        </td>
-                                    </tr>
+                                        @if( $terminal->razon_social !== 'Laredo' && $terminal->razon_social !== 'Chihuahua' && $terminal->razon_social !== 'Guadalajara' )
+                                            <tr>
+                                                <td>
+                                                    {{ $terminal->id }}
+                                                </td>
+                                                <td>
+                                                    {{ $terminal->razon_social }}
+                                                </td>
+                                                <td>
+                                                    @if($terminal->status == 1)
+                                                    Activa
+                                                    @else
+                                                    Inactiva
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    {{ $terminal->created_at }}
+                                                </td>
+                                                <td class="td-actions text-right">
+                                                    <form action="{{ route('terminales.destroy', $terminal->id) }}"
+                                                        method="post">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <a class="btn btn-success btn-link" data-original-title=""
+                                                            href="{{ route('terminales.edit', $terminal) }}" rel="tooltip"
+                                                            title="">
+                                                            <i class="material-icons">
+                                                                edit
+                                                            </i>
+                                                            <div class="ripple-container">
+                                                            </div>
+                                                        </a>
+                                                        <button type="button" class="btn btn-danger btn-link"
+                                                            data-original-title="" title=""
+                                                            onclick="confirm('{{ __("¿Estás seguro de que deseas eliminar a esta Terminal?") }}') ? this.parentElement.submit() : ''">
+                                                            <i class="material-icons">close</i>
+                                                            <div class="ripple-container"></div>
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endif
                                     @endforeach
                                 </tbody>
                             </table>

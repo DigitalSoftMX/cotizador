@@ -63,40 +63,44 @@
                                 </thead>
                                 <tbody>
                                     @foreach($competicions as $competicion)
-                                    @if($competicion->id != '2')
-                                    <tr>
-                                        <td>
-                                            {{ $competicion->nombre }} {{ $competicion->terminals->razon_social }}
-                                        </td>
-                                        <td>
-                                            {{$competicion->prices[(count($competicion->prices)) - 1]->precio_regular}}
-                                        </td>
-                                        <td>
-                                            {{$competicion->prices[(count($competicion->prices)) - 1]->precio_premium}}
-                                        </td>
-                                        <td>
-                                            {{$competicion->prices[(count($competicion->prices)) - 1]->precio_disel}}
-                                        </td>
-                                        <td>
-                                            {{ $competicion->prices[(count($competicion->prices)) - 1]->created_at }}
-                                        </td>
-                                        <!--td class="td-actions text-right">
-                                            <form action="" method="post">
-                                                @csrf
-                                                @method('delete')
-                                                <a class="btn btn-success btn-link" data-original-title=""
-                                                    href="{{ route('competencia.edit', $competicion) }}" rel="tooltip"
-                                                    title="">
-                                                    <i class="material-icons">
-                                                        edit
-                                                    </i>
-                                                    <div class="ripple-container">
-                                                    </div>
-                                                </a>
-                                            </form>
-                                        </td-->
-                                    </tr>
+
+                                    @if(  $competicion->terminals->razon_social !== 'Laredo' && $competicion->terminals->razon_social !== 'Chihuahua' && $competicion->terminals->razon_social !== 'Guadalajara' )
+                                        @if($competicion->id != '2')
+                                        <tr>
+                                            <td>
+                                                {{ $competicion->nombre }} {{ $competicion->terminals->razon_social }}
+                                            </td>
+                                            <td>
+                                                {{$competicion->prices[(count($competicion->prices)) - 1]->precio_regular}}
+                                            </td>
+                                            <td>
+                                                {{$competicion->prices[(count($competicion->prices)) - 1]->precio_premium}}
+                                            </td>
+                                            <td>
+                                                {{$competicion->prices[(count($competicion->prices)) - 1]->precio_disel}}
+                                            </td>
+                                            <td>
+                                                {{ $competicion->prices[(count($competicion->prices)) - 1]->created_at }}
+                                            </td>
+                                            <!--td class="td-actions text-right">
+                                                <form action="" method="post">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <a class="btn btn-success btn-link" data-original-title=""
+                                                        href="{{ route('competencia.edit', $competicion) }}" rel="tooltip"
+                                                        title="">
+                                                        <i class="material-icons">
+                                                            edit
+                                                        </i>
+                                                        <div class="ripple-container">
+                                                        </div>
+                                                    </a>
+                                                </form>
+                                            </td-->
+                                        </tr>
+                                        @endif
                                     @endif
+
                                     @endforeach
                                 </tbody>
                             </table>

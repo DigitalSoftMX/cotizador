@@ -223,7 +223,7 @@
                     },
                     */
                     @endif
-                    @if(auth()->user()->roles[0]->id !== 3 && auth()->user()->roles[0]->id !== 2)
+                    @if(auth()->user()->roles[0]->id !== 3 && auth()->user()->roles[0]->id !== 2 && auth()->user()->roles[0]->id !== 4 )
                     {
                         // Informacion de Multioil
                         label: 'Multioil',
@@ -333,7 +333,7 @@
                                 },
                                 */
                                 @endif
-                                @if(auth()->user()->roles[0]->id !== 3 && auth()->user()->roles[0]->id !== 2)
+                                @if(auth()->user()->roles[0]->id !== 3 && auth()->user()->roles[0]->id !== 2 && auth()->user()->roles[0]->id !== 4)
                                 {
                                     // Informacion de Multioil
                                     label: 'Multioil',

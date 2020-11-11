@@ -212,6 +212,7 @@
                         borderColor: ['rgb(191, 0, 150)'],
                         borderWidth: 3
                     },
+                    /*
                     {
                         // Informacion del competidor Potesta
                         label: 'Energo',
@@ -220,6 +221,7 @@
                         borderColor: ['rgb(0, 196, 196)'],
                         borderWidth: 3
                     },
+                    */
                     @endif
                     @if(auth()->user()->roles[0]->id !== 3 && auth()->user()->roles[0]->id !== 2)
                     {
@@ -321,6 +323,7 @@
                                     borderColor: ['rgb(191, 0, 150)'],
                                     borderWidth: 3
                                 },
+                                /*
                                 {
                                     label: 'Energo',
                                     data: datos.precios_energo,
@@ -328,6 +331,7 @@
                                     borderColor: ['rgb(0, 196, 196)'],
                                     borderWidth: 3
                                 },
+                                */
                                 @endif
                                 @if(auth()->user()->roles[0]->id !== 3 && auth()->user()->roles[0]->id !== 2)
                                 {

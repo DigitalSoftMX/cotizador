@@ -25,9 +25,11 @@
                                     </label>
                                     <select class="custom-select custom-select-sm" id="cotizador" name="potesta_id">
                                         @foreach($competicions as $competicion)
-                                        <option value="{{$competicion->id}}">
-                                            {{$competicion->nombre}} {{$competicion->terminals->razon_social}}
-                                        </option>
+                                            @if( $competicion->terminals->razon_social !== 'Laredo' && $competicion->terminals->razon_social !== 'Chihuahua' && $competicion->terminals->razon_social !== 'Guadalajara' )
+                                                <option value="{{$competicion->id}}">
+                                                    {{$competicion->nombre}} {{$competicion->terminals->razon_social}}
+                                                </option>
+                                            @endif
                                         @endforeach
                                     </select>
                                 </div>
@@ -101,7 +103,7 @@
 
 
         $( "#calendar_first" ).blur(function() {
-            
+
             id = $('#cotizador').val();
             fecha = $('#calendar_first').val();
 
@@ -114,8 +116,8 @@
                   'id' : $('#cotizador').val(),
                   'fecha': $('#calendar_first').val(),
                 },
-                headers:{ 
-                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') 
+                headers:{
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(response){
                     var datos =  response;
@@ -123,7 +125,7 @@
 
                         $("#regular_sin").val(datos.precios[0].precio_regular);
                         $("#premium_sin").val(datos.precios[0].precio_premium);
-                        $("#disel_sin").val(datos.precios[0].precio_disel);  
+                        $("#disel_sin").val(datos.precios[0].precio_disel);
 
                     }else{
 
@@ -131,10 +133,10 @@
 
                         $("#regular_sin").val(0);
                         $("#premium_sin").val(0);
-                        $("#disel_sin").val(0);    
+                        $("#disel_sin").val(0);
 
                     }
-                    
+
                 },
                 error: function(xhr){
                      alert("An error occured: " + xhr.status + " " + xhr.statusText);
@@ -142,7 +144,7 @@
             });
         });
 
-        $("#editar").click(function(){ 
+        $("#editar").click(function(){
             $.ajax({
                 url: 'calendario_edit_potesta',
                 type: 'POST',
@@ -154,8 +156,8 @@
                     precio_p:$('#premium_sin').val(),
                     precio_d:$('#disel_sin').val()
                 },
-                headers:{ 
-                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') 
+                headers:{
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(res){
                     $("#regular_sin").val(0);

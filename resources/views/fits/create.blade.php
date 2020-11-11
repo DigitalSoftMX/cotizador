@@ -24,9 +24,11 @@
                                 </label>
                                 <select class="custom-select custom-select-sm" id="cotizador" name="terminal_id">
                                     @foreach($terminals as $terminal)
-                                    <option value="{{$terminal->id}}">
-                                        {{$terminal->razon_social}}
-                                    </option>
+                                        @if( $terminal->razon_social !== 'Laredo' && $terminal->razon_social !== 'Chihuahua' && $terminal->razon_social !== 'Guadalajara' )
+                                            <option value="{{$terminal->id}}">
+                                                {{$terminal->razon_social}}
+                                            </option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>

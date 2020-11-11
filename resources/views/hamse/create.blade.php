@@ -25,9 +25,11 @@
                                     </label>
                                     <select class="custom-select custom-select-sm" id="cotizador" name="hamse_id">
                                         @foreach($competicions as $competicion)
-                                        <option value="{{$competicion->id}}">
-                                            {{$competicion->nombre}} {{$competicion->terminals->razon_social}}
-                                        </option>
+                                            @if( $competicion->terminals->razon_social !== 'Laredo' && $competicion->terminals->razon_social !== 'Chihuahua' && $competicion->terminals->razon_social !== 'Guadalajara' )
+                                                <option value="{{$competicion->id}}">
+                                                    {{$competicion->nombre}} {{$competicion->terminals->razon_social}}
+                                                </option>
+                                            @endif
                                         @endforeach
                                     </select>
                                 </div>

@@ -63,40 +63,42 @@
                                 </thead>
                                 <tbody>
                                     @foreach($competicions as $competicion)
-                                    @if($competicion->id != '2')
-                                    <tr>
-                                        <td>
-                                            {{ $competicion->nombre }} {{ $competicion->terminals->razon_social }}
-                                        </td>
-                                        <td>
-                                            {{$competicion->price_policon[(count($competicion->price_policon)) - 1]->precio_regular}}
-                                        </td>
-                                        <td>
-                                            {{$competicion->price_policon[(count($competicion->price_policon)) - 1]->precio_premium}}
-                                        </td>
-                                        <td>
-                                            {{$competicion->price_policon[(count($competicion->price_policon)) - 1]->precio_disel}}
-                                        </td>
-                                        <td>
-                                            {{ $competicion->price_policon[(count($competicion->price_policon)) - 1]->created_at->format('d/m/Y') }}
-                                        </td>
-                                        <!--td class="td-actions text-right">
-                                            <form action="" method="post">
-                                                @csrf
-                                                @method('delete')
-                                                <a class="btn btn-success btn-link" data-original-title=""
-                                                    href="{{ route('policon.edit', $competicion) }}" rel="tooltip"
-                                                    title="">
-                                                    <i class="material-icons">
-                                                        edit
-                                                    </i>
-                                                    <div class="ripple-container">
-                                                    </div>
-                                                </a>
-                                            </form>
-                                        </td-->
-                                    </tr>
-                                    @endif
+                                        @if( $competicion->terminals->razon_social !== 'Laredo' && $competicion->terminals->razon_social !== 'Chihuahua' && $competicion->terminals->razon_social !== 'Guadalajara' )
+                                            @if($competicion->id != '2')
+                                            <tr>
+                                                <td>
+                                                    {{ $competicion->nombre }} {{ $competicion->terminals->razon_social }}
+                                                </td>
+                                                <td>
+                                                    {{$competicion->price_policon[(count($competicion->price_policon)) - 1]->precio_regular}}
+                                                </td>
+                                                <td>
+                                                    {{$competicion->price_policon[(count($competicion->price_policon)) - 1]->precio_premium}}
+                                                </td>
+                                                <td>
+                                                    {{$competicion->price_policon[(count($competicion->price_policon)) - 1]->precio_disel}}
+                                                </td>
+                                                <td>
+                                                    {{ $competicion->price_policon[(count($competicion->price_policon)) - 1]->created_at->format('d/m/Y') }}
+                                                </td>
+                                                <!--td class="td-actions text-right">
+                                                    <form action="" method="post">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <a class="btn btn-success btn-link" data-original-title=""
+                                                            href="{{ route('policon.edit', $competicion) }}" rel="tooltip"
+                                                            title="">
+                                                            <i class="material-icons">
+                                                                edit
+                                                            </i>
+                                                            <div class="ripple-container">
+                                                            </div>
+                                                        </a>
+                                                    </form>
+                                                </td-->
+                                            </tr>
+                                            @endif
+                                        @endif
                                     @endforeach
                                 </tbody>
                             </table>

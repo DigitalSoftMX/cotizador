@@ -20,7 +20,7 @@ class UserController extends Controller
     public function index(User $model, Request $request)
     {
         $request->user()->authorizeRoles(['Administrador']);
-        return view('users.index', ['users' => $model->paginate(15)]);
+        return view('users.index', ['users' => $model->all()]);
     }
 
     /**

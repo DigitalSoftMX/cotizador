@@ -2,8 +2,9 @@
 
     <div class="card-body text-center mt-3 mb-3">
         @if($gasolina != 'Diésel')
-        <h6 class="card-title">Con aditivo sumar $0.14 centavos.</h6>
         @endif
+
+        <h6 class="card-title">Con aditivo sumar $0.14 centavos.</h6>
     </div>
 
     <div class="card-body" width="100%" height=50px>
@@ -115,7 +116,7 @@
                 @endif
             @endforeach
 
-            @if ( count($precios_aar) > 0 && ( auth()->user()->roles[0]->id !== 3 && auth()->user()->roles[0]->id !== 2 ) )
+            @if ( count($precios_aar) > 0 && ( auth()->user()->roles[0]->id !== 3 && auth()->user()->roles[0]->id !== 2 && auth()->user()->roles[0]->id !== 4 ) )
                 <div class="col-3 mx-auto d-block">
                     <div class="card">
                         <div class="card-body">

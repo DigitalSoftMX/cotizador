@@ -170,7 +170,7 @@
                 },
                 error: function(xhr){
                     // alert("An error occured: " + xhr.status + " " + xhr.statusText);
-                    alert('No hay precio registrado ese día');
+                    // alert('No hay precio registrado ese día');
                 }
             });
         });
